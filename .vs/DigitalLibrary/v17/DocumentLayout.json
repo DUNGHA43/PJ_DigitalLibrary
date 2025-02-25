@@ -1,0 +1,181 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project\\digitallibrary\\digitallibrary.server\\controllers\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\controllers\\documentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project\\digitallibrary\\digitallibrary.server\\controllers\\authorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\controllers\\authorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project\\digitallibrary\\digitallibrary.server\\model\\documents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\model\\documents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project\\digitallibrary\\digitallibrary.server\\data\\unitofwork\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\data\\unitofwork\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project\\digitallibrary\\digitallibrary.server\\services\\interface\\idocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\services\\interface\\idocumentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project\\digitallibrary\\digitallibrary.server\\data\\repositorise\\repository\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\data\\repositorise\\repository\\documentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project\\digitallibrary\\digitallibrary.server\\services\\service\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\services\\service\\documentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project\\digitallibrary\\digitallibrary.server\\services\\interface\\iuploadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\services\\interface\\iuploadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project\\digitallibrary\\digitallibrary.server\\services\\service\\uploadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\services\\service\\uploadservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project\\digitallibrary\\digitallibrary.server\\data\\unitofwork\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{992E5E5C-7CDB-4F6A-B0D1-DE92C97E2042}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\data\\unitofwork\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Documents.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Model\\Documents.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Model\\Documents.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Model\\Documents.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Model\\Documents.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T08:11:10.927Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthorController.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Controllers\\AuthorController.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Controllers\\AuthorController.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Controllers\\AuthorController.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Controllers\\AuthorController.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAAAAsAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T07:56:30.611Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DocumentController.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Controllers\\DocumentController.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Controllers\\DocumentController.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Controllers\\DocumentController.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Controllers\\DocumentController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAYwBwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T07:56:26.629Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UploadService.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Services\\Service\\UploadService.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Services\\Service\\UploadService.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Services\\Service\\UploadService.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Services\\Service\\UploadService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T07:15:23.412Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IUploadService.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Services\\Interface\\IUploadService.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Services\\Interface\\IUploadService.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Services\\Interface\\IUploadService.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Services\\Interface\\IUploadService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T07:13:42.683Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DocumentService.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Services\\Service\\DocumentService.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Services\\Service\\DocumentService.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Services\\Service\\DocumentService.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Services\\Service\\DocumentService.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAYwDQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T03:14:17.851Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IDocumentService.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Services\\Interface\\IDocumentService.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Services\\Interface\\IDocumentService.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Services\\Interface\\IDocumentService.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Services\\Interface\\IDocumentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T03:13:12.166Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DocumentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Data\\Repositorise\\Repository\\DocumentRepository.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Data\\Repositorise\\Repository\\DocumentRepository.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Data\\Repositorise\\Repository\\DocumentRepository.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Data\\Repositorise\\Repository\\DocumentRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T03:03:41.843Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Data\\UnitOfWork\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Data\\UnitOfWork\\UnitOfWork.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Data\\UnitOfWork\\UnitOfWork.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Data\\UnitOfWork\\UnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T02:49:50.273Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Data\\UnitOfWork\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Data\\UnitOfWork\\IUnitOfWork.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\Data\\UnitOfWork\\IUnitOfWork.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Data\\UnitOfWork\\IUnitOfWork.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvw4AAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T02:48:36.831Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

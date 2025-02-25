@@ -1,0 +1,50 @@
+﻿@page "/"
+@inherits LayoutComponentBase
+
+@inject NavigationManager NavigationManager
+
+<div class="home-page">
+    <!-- Header Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Chào mừng đến với Thư viện số</h1>
+            <p>Khám phá kho tài nguyên học tập trực tuyến phong phú và tiện ích.</p>
+            <button class="cta-btn" @onclick="GoToBrowseBooks">Khám Phá Ngay</button>
+        </div>
+    </section>
+
+    <!-- Feature Section -->
+    <section class="features">
+        <div class="feature-item">
+            <h2>Kho Sách Đa Dạng</h2>
+            <p>Cung cấp hàng nghìn sách điện tử trong các lĩnh vực khác nhau.</p>
+        </div>
+        <div class="feature-item">
+            <h2>Hỗ Trợ Đọc Mọi Lúc, Mọi Nơi</h2>
+            <p>Truy cập thư viện bất cứ lúc nào từ bất kỳ thiết bị nào.</p>
+        </div>
+        <div class="feature-item">
+            <h2>Tiện Lợi & Dễ Dàng</h2>
+            <p>Tìm kiếm và đọc sách một cách nhanh chóng, dễ dàng và tiện lợi.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <h2>Liên Hệ với chúng tôi</h2>
+        <p>Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với chúng tôi!</p>
+        <button class="cta-btn" @onclick="GoToContactPage">Liên hệ</button>
+    </section>
+</div>
+
+@code {
+    private void GoToBrowseBooks()
+    {
+        NavigationManager.NavigateTo("/books");
+    }
+
+    private void GoToContactPage()
+    {
+        NavigationManager.NavigateTo("/contact");
+    }
+}
