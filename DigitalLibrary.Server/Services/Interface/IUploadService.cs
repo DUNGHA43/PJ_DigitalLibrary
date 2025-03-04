@@ -6,6 +6,6 @@ namespace DigitalLibrary.Server.Services.Interface
     {
         Task<FileUpload> UploadFileDataAsync(IFormFile file);
         Task<FileUpload> UploadFileImageAsync(IFormFile file);
-        Task DeleteFileAsync(string filePath);
+        Task<bool> DeleteFileAsync(string filePath);
     }
 }

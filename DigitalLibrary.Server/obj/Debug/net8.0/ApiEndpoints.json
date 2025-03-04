@@ -197,6 +197,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentController",
+    "Method": "DeleteDocumentAsync",
+    "RelativePath": "api/Document/deletedocument",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DigitalLibrary.Server.Controllers.ReviewsController",
     "Method": "AddReviewAsync",
     "RelativePath": "api/Reviews/addreview",

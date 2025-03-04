@@ -42,5 +42,12 @@ namespace DigitalLibrary.Server.Controllers
 
             return Ok(new {data = document, message = "Add success!" });
         }
+
+        [HttpDelete("deletedocument")]
+        public async Task<IActionResult> DeleteDocumentAsync(int id)
+        {
+            await _service.DeleteDocumentAsync(id);
+            return Ok(new { message = "Delete success!" });
+        }
     }
 }

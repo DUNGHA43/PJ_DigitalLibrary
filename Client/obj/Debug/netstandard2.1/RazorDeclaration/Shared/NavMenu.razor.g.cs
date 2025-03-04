@@ -77,6 +77,25 @@ using DigitalLibrary.Client.Shared
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 31 "C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Client\Shared\NavMenu.razor"
+       
+    private bool isLoginFormVisible = false;
+
+    private void ShowLoginForm()
+    {
+        isLoginFormVisible = true;
+    }
+
+    private void CloseLoginForm()
+    {
+        isLoginFormVisible = false;
+    }
+
+#line default
+#line hidden
+#nullable disable
+
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private 
 #nullable restore
 #line 1 "C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Client\Shared\NavMenu.razor"

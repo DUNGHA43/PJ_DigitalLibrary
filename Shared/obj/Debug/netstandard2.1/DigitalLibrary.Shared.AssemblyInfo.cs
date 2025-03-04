@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DigitalLibrary.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+558e6b70e802d13034db8d5f75db8c17448b7466")]
 [assembly: System.Reflection.AssemblyProductAttribute("DigitalLibrary.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DigitalLibrary.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

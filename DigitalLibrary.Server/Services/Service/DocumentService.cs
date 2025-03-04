@@ -43,6 +43,9 @@ namespace DigitalLibrary.Server.Services.Service
         {
             var document = await FindDocumentByIdAsync(id);
 
+            await _uploadService.DeleteFileAsync(document.fileurl!);
+            await _uploadService.DeleteFileAsync(document.imageurl!);
+
             _unitOfWork.Documents.DeleteAsync(document.id);
             await _unitOfWork.SaveChangeAsync();
         }

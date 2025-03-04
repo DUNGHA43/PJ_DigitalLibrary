@@ -12,7 +12,7 @@ namespace DigitalLibrary.Server.Services.Service
             _env = env;
         }
 
-        public async Task DeleteFileAsync(string filePath)
+        public async Task<bool> DeleteFileAsync(string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
             {
@@ -24,7 +24,9 @@ namespace DigitalLibrary.Server.Services.Service
             if (File.Exists(fullPath))
             {
                 File.Delete(fullPath);
+                return true;
             }
+            return false;
         }
 
         public async Task<FileUpload> UploadFileDataAsync(IFormFile file)
