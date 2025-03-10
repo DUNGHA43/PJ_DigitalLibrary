@@ -1,0 +1,65 @@
+﻿@using DigitalLibrary.Client.Services
+@inject NavigationManager Navigation
+@inject UserServices UserService
+@using Microsoft.AspNetCore.Components.Routing
+
+<style>
+    .navbar ul {
+        display: flex;
+        gap: 0; /* Khoảng cách giữa các mục */
+        padding: 0;
+    }
+
+        .navbar ul:last-child {
+            margin-left: auto; /* Đẩy phần tử cuối (nút đăng nhập) sang phải */
+        }
+</style>
+
+<nav class="navbar d-flex justify-content-between align-items-center">
+    <ul class="d-flex list-unstyled mb-0">
+        <li><NavLink href="/" Match="NavLinkMatch.All">🏠 Trang chủ</NavLink></li>
+        <li><NavLink href="/about">📒 Giới thiệu</NavLink></li>
+    </ul>
+    <ul class="list-unstyled mb-0">
+        @if (isLoggedIn)
+        {
+            <li @onclick="Logout"><NavLink href="#">🚪 Đăng xuất</NavLink></li>
+        }
+        else
+        {
+            <li @onclick="ShowLoginForm"><NavLink href="#">🔑 Đăng nhập</NavLink></li>
+        }
+    </ul>
+</nav>
+
+@if (isLoginFormVisible)
+{
+    <DigitalLibrary.Client.Pages.LoginForm OnClose="CloseLoginForm" />
+}
+
+@code {
+    private bool isLoggedIn = false;
+    private bool isLoginFormVisible = false;
+
+    private void ShowLoginForm()
+    {
+        isLoginFormVisible = true;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoggedIn = await UserService.IsLoggedIn();
+    }
+
+    private void CloseLoginForm()
+    {
+        isLoginFormVisible = false;
+    }
+
+    private async Task Logout()
+    {
+        await UserService.LogoutAsync(); // Gọi hàm logout trong UserServices
+        isLoggedIn = false;
+        Navigation.NavigateTo("/", forceLoad: true); // Load lại trang để cập nhật giao diện
+    }
+}

@@ -1,0 +1,25 @@
+﻿@using DigitalLibrary.Client.Services
+@inject UserServices UserService
+@inject NavigationManager Navigation
+
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        @if (routeData.PageType.BaseType == typeof(AdminLayout))
+        {
+            <AuthorizeAdmin>
+                <RouteView RouteData="@routeData" DefaultLayout="@typeof(AdminLayout)" />
+            </AuthorizeAdmin>
+        }
+        else
+        {
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        }
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found!</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p role="alert">Xin lỗi, không tìm thấy trang này.</p>
+        </LayoutView>
+    </NotFound>
+</Router>

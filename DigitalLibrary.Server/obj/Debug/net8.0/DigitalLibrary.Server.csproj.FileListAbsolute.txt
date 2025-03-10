@@ -67,8 +67,8 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\DigitalLibrary.Shared.dll
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\DigitalLibrary.Shared.pdb
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\Shared.dll
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\Shared.pdb
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\DigitalLibrary.Server.csproj.AssemblyReference.cache
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\DigitalLibrary.Server.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\DigitalLibrary.Server.AssemblyInfoInputs.cache
@@ -76,7 +76,6 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\DigitalLibrary.Server.csproj.CoreCompileInputs.cache
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\DigitalLibrary.Server.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\DigitalLibrary.Server.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\DigitalLibrary.Server.sourcelink.json
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\scopedcss\bundle\DigitalLibrary.Server.styles.css
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\staticwebassets.development.json

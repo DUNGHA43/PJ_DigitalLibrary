@@ -1,0 +1,38 @@
+﻿@using DigitalLibrary.Client.Services
+@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+@inject UserServices UserService
+<style>
+    .admin-content {
+        margin-left: 250px;
+        padding: 20px;
+    }
+</style>
+
+@code{
+    private bool isAuthorized = false;
+
+    protected override async Task OnInitializedAsync(){
+        var role = await UserService.GetUserRole();
+        if (role != "admin")
+        {
+            Navigation.NavigateTo("/loginadmin", forceLoad: true);
+        }
+        else
+        {
+            isAuthorized = true;
+        }
+    }
+}
+
+@if (isAuthorized)
+{
+    <div class="admin-nav">
+        <AdminNavMenu />
+    </div>
+
+    <div class="admin-content">
+        @Body
+    </div>
+}
+

@@ -7,7 +7,7 @@
         "Action": "Start"
       },
       {
-        "Path": "Client\\DigitalLibrary.Client.csproj",
+        "Path": "DigitalLibrary.Client\\DigitalLibrary.Client.csproj",
         "Action": "Start"
       }
     ]

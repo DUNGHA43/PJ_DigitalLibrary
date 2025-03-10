@@ -1,0 +1,95 @@
+﻿@page "/loginadmin"
+@using DigitalLibrary.Client.Services
+@layout EmptyLayout
+@inject NavigationManager Navigation
+@inject UserServices UserService
+
+@code {
+    private string username = string.Empty;
+    private string password = string.Empty;
+    private bool showPassword = false;
+    private string errorMessage = string.Empty;
+
+    private void TogglePasswordVisibility()
+    {
+        showPassword = !showPassword;
+    }
+
+    private async Task HandleLogin()
+    {
+        // Gọi API xử lý đăng nhập (bạn tự triển khai)
+    }
+
+    private void GoBackToIndex()
+    {
+        Navigation.NavigateTo("/", forceLoad: true);
+    }
+}
+
+<div class="login-container">
+    <div class="login-box">
+        <img src="/image-app/DUNGHA_LIBRARY_LOGO-removebg.png" alt="Admin Icon" class="icon">
+        <h3 class="text-center">TRANG QUẢN TRỊ ADMIN</h3>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger">@errorMessage</div>
+        }
+
+        <div class="mb-3">
+            <label class="form-label">Tên đăng nhập</label>
+            <input type="text" class="form-control" @bind-value="username" placeholder="Nhập email của bạn">
+        </div>
+
+        <div class="mb-3 position-relative">
+            <label class="form-label">Mật khẩu</label>
+            <div class="input-group">
+                <input type="@(!showPassword ? "password" : "text")" class="form-control" @bind-value="password" placeholder="Nhập mật khẩu">
+                <button class="btn btn-outline-secondary" type="button" @onclick="TogglePasswordVisibility">
+                    <i class="fas @(showPassword ? "fa-eye-slash" : "fa-eye")"></i>
+                </button>
+            </div>
+        </div>
+
+        <button class="btn btn-primary w-100" @onclick="HandleLogin">Đăng nhập</button>
+
+        <!-- Nút quay lại trang chủ -->
+        <button class="btn btn-outline-danger w-100 mt-2" @onclick="GoBackToIndex">Quay lại Trang Chủ</button>
+    </div>
+</div>
+
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .login-box {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        width: 450px;
+    }
+
+    h3{
+        margin-top: 0 !important;
+        margin-bottom: 20px !important;
+    }
+
+    .btn-outline-secondary {
+        border-radius: 0 5px 5px 0;
+    }
+
+    .icon {
+        display: block;
+        margin: 0 auto 0px; /* Căn giữa và tạo khoảng cách dưới */
+        width: 200px; /* Kích thước phù hợp */
+        height: auto;
+        filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2)); /* Hiệu ứng bóng */
+    }
+
+</style>

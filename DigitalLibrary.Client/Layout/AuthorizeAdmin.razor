@@ -1,0 +1,29 @@
+﻿@using DigitalLibrary.Client.Services
+@inject UserServices UserService
+@inject NavigationManager Navigation
+
+@code {
+    private bool isAuthorized = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var role = await UserService.GetUserRole();
+        if (role != "admin")
+        {
+            Navigation.NavigateTo("/loginadmin", forceLoad: true);
+        }
+        else
+        {
+            isAuthorized = true;
+        }
+    }
+}
+
+@if (isAuthorized)
+{
+    @ChildContent
+}
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; } = default!;
+}

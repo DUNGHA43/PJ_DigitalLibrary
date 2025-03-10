@@ -1,0 +1,108 @@
+﻿@using DigitalLibrary.Client.Services
+@inject NavigationManager Navigation
+@inject UserServices UserService
+
+<aside class="admin-sidebar">
+    <div class="admin-title">
+        <img src="/image-app/DUNGHA_LIBRARY_LOGO-removebg.png" alt="Admin Icon" class="icon">
+        <span>QUẢN TRỊ THƯ VIỆN SỐ DUNGHA</span>
+    </div>
+    <ul>
+        <li><NavLink href="/admin" Match="NavLinkMatch.All">🏠 Trang chủ Admin</NavLink></li>
+        <li><NavLink href="/admin/users">👫 Quản lý người dùng</NavLink></li>
+        <li><NavLink href="/admin/books">📚 Quản lý tài liệu</NavLink></li>
+        <li><NavLink href="/admin/orders">📦 Quản lý đơn hàng</NavLink></li>
+        <li @onclick="Logout"><NavLink href="#">🚪 Đăng xuất</NavLink></li>
+    </ul>
+    <div class="sidebar-footer">
+        <p>© 2025 By HaTienDung</p>
+        <p>📱 +84383366423</p>
+        <p>📧 dunghasonlla@outlook.com</p>
+    </div>
+</aside>
+
+
+@code {
+    private async Task Logout()
+    {
+        await UserService.LogoutAsync(); // Gọi hàm logout trong UserServices
+        Navigation.NavigateTo("/", forceLoad: true);
+    }
+}
+
+<style>
+    .admin-sidebar {
+        width: 250px;
+        height: 100vh;
+        background: #2c3e50;
+        color: white;
+        padding: 15px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+        .admin-sidebar h2 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .admin-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .admin-sidebar li {
+            margin: 15px 0;
+        }
+
+        .admin-sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+            .admin-sidebar a:hover {
+                background: #f39c12;
+            }
+
+    .admin-title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+        .admin-title span {
+            font-size: 20px; /* Tăng kích thước chữ */
+            font-weight: bold;
+        }
+
+        .admin-title .icon {
+            width: 128px; /* Điều chỉnh kích thước icon */
+            height: 128px;
+        }
+
+    .menu {
+        flex-grow: 1; /* Chiếm toàn bộ không gian còn lại */
+    }
+
+    .sidebar-footer {
+        padding: 5px;
+        text-align: center;
+        font-size: 14px;
+        background-color: rgba(255, 255, 255, 0.1); /* Làm mờ nền footer */
+    }
+
+        .sidebar-footer p {
+            margin-bottom: 5px;
+        }
+</style>
