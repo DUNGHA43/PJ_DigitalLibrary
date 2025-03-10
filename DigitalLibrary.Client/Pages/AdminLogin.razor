@@ -1,23 +1,47 @@
 ﻿@page "/loginadmin"
 @using DigitalLibrary.Client.Services
-@layout EmptyLayout
-@inject NavigationManager Navigation
+@using Microsoft.AspNetCore.Components
+@inject IJSRuntime JS
 @inject UserServices UserService
+@inject NavigationManager Navigation
 
 @code {
     private string username = string.Empty;
     private string password = string.Empty;
     private bool showPassword = false;
     private string errorMessage = string.Empty;
+    private bool isLoggingIn = false;
+    private string userRole = "";
 
     private void TogglePasswordVisibility()
     {
         showPassword = !showPassword;
     }
 
-    private async Task HandleLogin()
+    private async Task OnLogin()
     {
-        // Gọi API xử lý đăng nhập (bạn tự triển khai)
+        isLoggingIn = true;
+        errorMessage = "";
+
+        var success = await UserService.LoginAsync(username, password);
+        userRole = await UserService.GetUserRole();
+        if (success)
+        {
+            if (userRole == "admin")
+            {
+                Navigation.NavigateTo("/admin", forceLoad: true);
+            }
+            else
+            {
+                errorMessage = "Tài khoản của bạn không có quyền truy cập!";
+            }
+        }
+        else
+        {
+            errorMessage = "Tên đăng nhập hoặc mật khẩu không đúng!";
+        }
+
+        isLoggingIn = false;
     }
 
     private void GoBackToIndex()
@@ -51,7 +75,9 @@
             </div>
         </div>
 
-        <button class="btn btn-primary w-100" @onclick="HandleLogin">Đăng nhập</button>
+        <button class="btn btn-primary w-100" @onclick="OnLogin" disabled="@isLoggingIn">
+            @(isLoggingIn ? "Đang đăng nhập ..." : "Đăng nhập")
+        </button>
 
         <!-- Nút quay lại trang chủ -->
         <button class="btn btn-outline-danger w-100 mt-2" @onclick="GoBackToIndex">Quay lại Trang Chủ</button>

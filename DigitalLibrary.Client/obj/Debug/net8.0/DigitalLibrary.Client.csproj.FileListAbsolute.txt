@@ -1093,6 +1093,6 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\t0ok211l7y-xrsaw7fien.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\d4q6aolis2-qdl1xma6oy.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\hx07wuzilp-ej9g67375p.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\x2etluuf0t-tio3t4lya9.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\vs9kcmf25i-5ilwo2ccla.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\qpef9yty32-2n7wsnzhvz.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\x2etluuf0t-6u74x0g8nq.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\vs9kcmf25i-ef57e7v20s.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\qpef9yty32-b5olmitn1a.gz
