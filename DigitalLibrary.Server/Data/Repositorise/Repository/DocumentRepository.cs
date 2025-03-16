@@ -1,6 +1,7 @@
 ﻿using DigitalLibrary.Server.Data.DatabaseContext;
 using DigitalLibrary.Server.Data.Repositorise.Interface;
 using DigitalLibrary.Server.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace DigitalLibrary.Server.Data.Repositorise.Repository
 {
@@ -12,5 +13,9 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
             _context = context;
         }
 
+        public async Task<IEnumerable<Documents>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
+        }
     }
 }

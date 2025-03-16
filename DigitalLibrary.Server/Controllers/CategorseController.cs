@@ -19,31 +19,41 @@ namespace DigitalLibrary.Server.Controllers
 
         [HttpGet("getall")]
         [Authorize(Roles = "admin, stafflv1, stafflv2")]
-        public async Task<IActionResult> GetAllCategoriseAsync()
+        public async Task<IActionResult> GetAllCategoriseAsync([FromQuery] int pageNumber = 1, int pageSize = 10, string searchName = "")
         {
-            var categorise = await _service.GetAllCategorisesAsync();
-            if (categorise == null)
+            var (categories, totalCount)= await _service.GetAllCategoriesAsync(pageNumber, pageSize, searchName);
+
+            if (categories == null || !categories.Any())
             {
-                return NotFound();
+                return NotFound(new { message = "Không tìm thấy thể loại nào." });
             }
 
-            return Ok(categorise);
+            var response = new
+            {
+                Data = categories,
+                TotalRecords = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling((double) totalCount / pageSize)
+            };
+
+            return Ok(response);
         }
 
         [HttpPost("addcategory")]
         [Authorize(Roles = "admin, stafflv1")]
-        public async Task<IActionResult> AddCategoryAsync([FromBody] CategoriseDTO categoriseDTO)
+        public async Task<IActionResult> AddCategoryAsync([FromBody] CategoriesDTO categoriseDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var category = new Categorise()
+            var category = new Categories()
             {
                 catename = categoriseDTO.catename,
                 createdate = DateTime.Now,
-                status = true
+                status = categoriseDTO.status,
             };
 
             await _service.AddCategoryAsync(category);
@@ -53,7 +63,7 @@ namespace DigitalLibrary.Server.Controllers
 
         [HttpPut("editcategory")]
         [Authorize(Roles = "admin, stafflv1")]
-        public async Task<IActionResult> EditCategoryAsync([FromBody] CategoriseDTO categoriseDTO)
+        public async Task<IActionResult> EditCategoryAsync([FromBody] CategoriesDTO categoriseDTO)
         {
             if(!ModelState.IsValid)
             { return BadRequest(ModelState); }
@@ -72,7 +82,7 @@ namespace DigitalLibrary.Server.Controllers
 
         [HttpDelete("deletecategory")]
         [Authorize(Roles = "admin, stafflv1")]
-        public async Task<IActionResult> DeleteCategoryAsync(int id)
+        public async Task<IActionResult> DeleteCategoryAsync([FromBody] int id)
         {
             var existingCate = await _service.FindCategoryByIdAsync(id);
             if (existingCate == null)
@@ -81,6 +91,14 @@ namespace DigitalLibrary.Server.Controllers
             }
 
             await _service.DeleteCategoryAsync(id);
+            return Ok(new { data = "Delete Success!" });
+        }
+
+        [HttpDelete("deletemulti-category")]
+        [Authorize(Roles = "admin, stafflv1")]
+        public async Task<IActionResult> DeleteCategoryAsync([FromBody] List<int> categoryIds)
+        {
+            await _service.DeleteMultipleAsync(categoryIds);
             return Ok(new { data = "Delete Success!" });
         }
     }

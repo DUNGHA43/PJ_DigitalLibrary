@@ -11,7 +11,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         public readonly DbDigitalLibraryContext _context;
         public IUserRepository User { get; private set; }
         public IAuthorsRepository Authors { get; private set; }
-        public ICategoriseRepository Categorise {  get; private set; }
+        public ICategoriesRepository Categorise {  get; private set; }
         public ISubjectRepository Subject { get; private set; }
         public IReviewsRepository Reviews { get; private set; }
         public IRepository<DocumentAuthor> DocumentAuthor { get; private set; }

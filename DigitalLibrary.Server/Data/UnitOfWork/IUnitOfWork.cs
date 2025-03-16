@@ -8,7 +8,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
     {
         IUserRepository User { get; }
         IAuthorsRepository Authors { get; }
-        ICategoriseRepository Categorise { get; }
+        ICategoriesRepository Categorise { get; }
         ISubjectRepository Subject { get; }
         IReviewsRepository Reviews { get; }
         IRepository<DocumentAuthor> DocumentAuthor { get; }

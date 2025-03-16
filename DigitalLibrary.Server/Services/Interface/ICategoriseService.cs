@@ -4,10 +4,11 @@ namespace DigitalLibrary.Server.Services.Interface
 {
     public interface ICategoriseService
     {
-        Task<IEnumerable<Categorise>> GetAllCategorisesAsync();
-        Task<Categorise> FindCategoryByIdAsync(int id);
-        Task AddCategoryAsync(Categorise category);
-        Task UpdateCategoryAsync(Categorise category);
+        Task<(IEnumerable<Categories> Categories, int TotalCount)> GetAllCategoriesAsync(int pageNumber, int pageSize, string searchName);
+        Task<Categories> FindCategoryByIdAsync(int id);
+        Task AddCategoryAsync(Categories category);
+        Task UpdateCategoryAsync(Categories category);
         Task DeleteCategoryAsync(int id);
+        Task DeleteMultipleAsync(List<int> categoryIds);
     }
 }

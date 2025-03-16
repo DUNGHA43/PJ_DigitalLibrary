@@ -67,7 +67,7 @@
     "Parameters": [
       {
         "Name": "categoriseDTO",
-        "Type": "DigitalLibrary.Shared.DTO.CategoriseDTO",
+        "Type": "DigitalLibrary.Shared.DTO.CategoriesDTO",
         "IsRequired": true
       }
     ],
@@ -84,7 +84,23 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.CategorseController",
+    "Method": "DeleteCategoryAsync",
+    "RelativePath": "api/Categorse/deletemulti-category",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -99,7 +115,7 @@
     "Parameters": [
       {
         "Name": "categoriseDTO",
-        "Type": "DigitalLibrary.Shared.DTO.CategoriseDTO",
+        "Type": "DigitalLibrary.Shared.DTO.CategoriesDTO",
         "IsRequired": true
       }
     ],
@@ -112,7 +128,23 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "searchName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

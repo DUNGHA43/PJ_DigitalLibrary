@@ -1,6 +1,7 @@
 ﻿using DigitalLibrary.Server.Data.DatabaseContext;
 using DigitalLibrary.Server.Data.Repositorise.Interface;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DigitalLibrary.Server.Data.Repositorise.Repository
 {
@@ -27,6 +28,16 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
             {
                 _dbSet.Remove(entity);
             }    
+        }
+
+        public async Task DeleteMultipleAsync(List<int> ids, string keyPropertyName)
+        {
+            var entities = await _dbSet.Where(e => ids.Contains(EF.Property<int>(e, keyPropertyName))).ToListAsync();
+
+            if (entities.Any())
+            {
+                _dbSet.RemoveRange(entities);
+            }
         }
 
         public void EditAsync(T entity)

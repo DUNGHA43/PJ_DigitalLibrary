@@ -13,7 +13,7 @@ namespace DigitalLibrary.Server.Services.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task AddCategoryAsync(Categorise category)
+        public async Task AddCategoryAsync(Categories category)
         {
             await _unitOfWork.Categorise.AddAsync(category);
             await _unitOfWork.SaveChangeAsync();
@@ -30,7 +30,13 @@ namespace DigitalLibrary.Server.Services.Service
             await _unitOfWork.SaveChangeAsync();
         }
 
-        public async Task<Categorise> FindCategoryByIdAsync(int id)
+        public async Task DeleteMultipleAsync(List<int> categoryIds)
+        {
+            await _unitOfWork.Categorise.DeleteMultipleCategoriesAsync(categoryIds);
+            await _unitOfWork.SaveChangeAsync();
+        }
+
+        public async Task<Categories> FindCategoryByIdAsync(int id)
         {
             var existingCate = await _unitOfWork.Categorise.GetByIdAsync(id);
             if (existingCate == null)
@@ -40,12 +46,12 @@ namespace DigitalLibrary.Server.Services.Service
             return existingCate;
         }
 
-        public async Task<IEnumerable<Categorise>> GetAllCategorisesAsync()
+        public async Task<(IEnumerable<Categories> Categories, int TotalCount)> GetAllCategoriesAsync(int pageNumber, int pageSize, string searchName)
         {
-            return await _unitOfWork.Categorise.GetAllAsync();
+            return await _unitOfWork.Categorise.GetAllCategoriesAsync(pageNumber, pageSize, searchName);
         }
 
-        public async Task UpdateCategoryAsync(Categorise category)
+        public async Task UpdateCategoryAsync(Categories category)
         {
             var existingCate = await _unitOfWork.Categorise.GetByIdAsync(category.id);
 

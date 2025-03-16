@@ -1,7 +1,11 @@
 ﻿@using DigitalLibrary.Client.Services
+@using MudBlazor
 @inject UserServices UserService
 @inject NavigationManager Navigation
 
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 <Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         @if (routeData.PageType.BaseType == typeof(AdminLayout))

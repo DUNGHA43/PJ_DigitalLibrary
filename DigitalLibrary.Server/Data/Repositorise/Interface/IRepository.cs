@@ -1,4 +1,6 @@
-﻿namespace DigitalLibrary.Server.Data.Repositorise.Interface
+﻿using System.Linq.Expressions;
+
+namespace DigitalLibrary.Server.Data.Repositorise.Interface
 {
     public interface IRepository<T> where T : class
     {
@@ -7,6 +9,7 @@
         Task AddAsync(T entity);
         void EditAsync(T entity);
         void DeleteAsync(object id);
+        Task DeleteMultipleAsync(List<int> ids, string keyPropertyName);
         Task SaveChangeAsync();
     }
 }

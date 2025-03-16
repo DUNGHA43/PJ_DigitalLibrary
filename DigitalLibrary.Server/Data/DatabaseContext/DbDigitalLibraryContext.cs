@@ -8,7 +8,7 @@ namespace DigitalLibrary.Server.Data.DatabaseContext
         public DbDigitalLibraryContext(DbContextOptions<DbDigitalLibraryContext> options) : base(options) { }
 
         public DbSet<Authors> authors { get; set; }
-        public DbSet<Categorise> categorises { get; set; }
+        public DbSet<Categories> categorises { get; set; }
         public DbSet<DocumentAuthors> documentAuthors { get; set; }
         public DbSet<DocumentCategorise> documentCategorises { get; set; }
         public DbSet<Documents> documents { get; set; }

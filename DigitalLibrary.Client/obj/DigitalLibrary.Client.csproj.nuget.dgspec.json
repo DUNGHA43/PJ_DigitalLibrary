@@ -79,6 +79,10 @@
               "version": "[9.0.1, )",
               "autoReferenced": true
             },
+            "MudBlazor": {
+              "target": "Package",
+              "version": "[8.3.0, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[8.6.1, )"

@@ -106,6 +106,34 @@
         "tags": [
           "Categorse"
         ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "searchName",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -122,17 +150,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoriseDTO"
+                "$ref": "#/components/schemas/CategoriesDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoriseDTO"
+                "$ref": "#/components/schemas/CategoriesDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoriseDTO"
+                "$ref": "#/components/schemas/CategoriesDTO"
               }
             }
           }
@@ -153,17 +181,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoriseDTO"
+                "$ref": "#/components/schemas/CategoriesDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoriseDTO"
+                "$ref": "#/components/schemas/CategoriesDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CategoriseDTO"
+                "$ref": "#/components/schemas/CategoriesDTO"
               }
             }
           }
@@ -180,16 +208,71 @@
         "tags": [
           "Categorse"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Categorse/deletemulti-category": {
+      "delete": {
+        "tags": [
+          "Categorse"
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -765,7 +848,7 @@
         },
         "additionalProperties": false
       },
-      "CategoriseDTO": {
+      "CategoriesDTO": {
         "type": "object",
         "properties": {
           "id": {

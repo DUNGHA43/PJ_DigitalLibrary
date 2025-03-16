@@ -15,6 +15,6 @@ namespace DigitalLibrary.Server.Model
         public Documents document { get; set; }
 
         [ForeignKey("categoryid")]
-        public Categorise category { get; set; }
+        public Categories category { get; set; }
     }
 }
