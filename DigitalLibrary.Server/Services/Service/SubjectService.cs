@@ -19,6 +19,12 @@ namespace DigitalLibrary.Server.Services.Service
             await _unitOfWork.SaveChangeAsync();
         }
 
+        public async Task DeleteMultipleSubjectsAsync(List<int> subjectIds)
+        {
+            await _unitOfWork.Subject.DeleteMultipleSubjectsAsync(subjectIds);
+            await _unitOfWork.SaveChangeAsync();
+        }
+
         public async Task DeleteSubjectAsync(int id)
         {
             var subject = await FindSubjectByIdAsync(id);
@@ -45,6 +51,11 @@ namespace DigitalLibrary.Server.Services.Service
         public async Task<IEnumerable<Subjects>> GetAllSubjectsAsync()
         {
             return await _unitOfWork.Subject.GetAllAsync();
+        }
+
+        public async Task<(IEnumerable<Subjects> Subjects, int TotalCount)> GetAllSubjectsAsync(int pageNumber, int pageSize, string searchName)
+        {
+            return await _unitOfWork.Subject.GetAllSubjectsAsync(pageNumber, pageSize, searchName);
         }
 
         public async Task UpdateSubjectAsync(Subjects subject)

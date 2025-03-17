@@ -31,5 +31,6 @@ builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<CategoriesServices>();
 builder.Services.AddScoped<AuthorsServices>();
 builder.Services.AddScoped<NationServices>();
+builder.Services.AddScoped<SubjectsServices>();
 
 await builder.Build().RunAsync();

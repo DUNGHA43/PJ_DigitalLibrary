@@ -93,7 +93,7 @@ OnConfirm="DeleteCategory" />
     private List<int> selectedIds = new List<int>();
 
     private int currentPage = 1;
-    private int pageSize = 5;
+    private int pageSize = 10;
     private int totalRecords;
     private int totalPages => (int)Math.Ceiling((double)totalRecords / pageSize);
     private bool CanPrevious => currentPage > 1;

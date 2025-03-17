@@ -19,18 +19,27 @@ namespace DigitalLibrary.Server.Controllers
 
         [HttpGet("getall")]
         [Authorize(Roles = "admin, stafflv1, stafflv2")]
-        public async Task<IActionResult> GetAllSubjectsAsync() { 
-            var Subjects = await _service.GetAllSubjectsAsync();
+        public async Task<IActionResult> GetAllSubjectsAsync([FromQuery] int pageNumber = 1, int pageSize = 10, string searchName = "") {
+            var (subjects, totalCount) = await _service.GetAllSubjectsAsync(pageNumber, pageSize, searchName);
 
-            if (Subjects == null)
+            if (subjects == null || !subjects.Any())
             {
-                return NotFound("No records exist!");
+                return NotFound(new { message = "Không tìm thấy chủ đề nào!" });
             }
 
-            return Ok(Subjects);
+            var response = new
+            {
+                Data = subjects,
+                TotalRecords = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling((double)totalCount / pageSize)
+            };
+
+            return Ok(response);
         }
 
-        [HttpPost("addSubject")]
+        [HttpPost("addsubject")]
         [Authorize(Roles = "admin, stafflv1")]
         public async Task<IActionResult> AddSubjectAsync([FromBody] SubjectDTO subjectDTO)
         {
@@ -44,7 +53,7 @@ namespace DigitalLibrary.Server.Controllers
             {
                 subjectname = subjectDTO.subjectname,
                 createdate = DateTime.Now,
-                status = true
+                status = subjectDTO.status
             };
 
             if (await _service.FindSubjectByNameAsync(subjectDTO.subjectname!) != null) {
@@ -78,7 +87,7 @@ namespace DigitalLibrary.Server.Controllers
 
         [HttpDelete("deletesubject")]
         [Authorize(Roles = "admin, stafflv1")]
-        public async  Task<IActionResult> DeleteSubjectAsync(int id)
+        public async  Task<IActionResult> DeleteSubjectAsync([FromBody] int id)
         {
 
             var existingSubject = await _service.FindSubjectByIdAsync(id);
@@ -89,6 +98,14 @@ namespace DigitalLibrary.Server.Controllers
 
             await _service.DeleteSubjectAsync(id);
             return Ok(new { data = "Delete success!" });
+        }
+
+        [HttpDelete("deletemulti-subjects")]
+        [Authorize(Roles = "admin, stafflv1")]
+        public async Task<IActionResult> DeleteMultiSubjectsAsync([FromBody] List<int> subjectIds)
+        {
+            await _service.DeleteMultipleSubjectsAsync(subjectIds);
+            return Ok(new { data = "Delete Success!" });
         }
     }
 }

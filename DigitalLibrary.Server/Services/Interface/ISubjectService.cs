@@ -10,5 +10,7 @@ namespace DigitalLibrary.Server.Services.Interface
         Task UpdateSubjectAsync(Subjects subject);
         Task DeleteSubjectAsync(int id);
         Task<Subjects> FindSubjectByNameAsync(string name);
+        Task<(IEnumerable<Subjects> Subjects, int TotalCount)> GetAllSubjectsAsync(int pageNumber, int pageSize, string searchName);
+        Task DeleteMultipleSubjectsAsync(List<int> subjectIds);
     }
 }

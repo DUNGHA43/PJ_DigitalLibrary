@@ -1,0 +1,55 @@
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@inject IJSRuntime JS
+@inject SubjectsServices Subjects
+@inject ISnackbar Snackbar
+
+
+<div class="modal fade" id="AddSubject" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Thêm Chủ đề</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Tên chủ đề:</label>
+                    <input class="form-control" @bind="newSubject.subjectname" />
+                </div>
+
+                <!-- Checkbox chọn trạng thái -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="statusCheck" @bind="newSubject.status">
+                    <label class="form-check-label" for="statusCheck">
+                        Kích Hoạt
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveSubject" data-bs-dismiss="modal">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> OnSubjectAdded { get; set; }
+
+    private SubjectDTO newSubject = new SubjectDTO();
+
+    private async Task SaveSubject()
+    {
+        var result = await Subjects.AddSubjectAsync(newSubject);
+        if (result)
+        {
+            await OnSubjectAdded.InvokeAsync("✅ Thêm chủ đề thành công!");
+        }
+        else
+        {
+            await OnSubjectAdded.InvokeAsync("❌ Thêm chủ đề thất bại!");
+        }
+    }
+}

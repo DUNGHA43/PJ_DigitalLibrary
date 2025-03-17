@@ -1,42 +1,32 @@
-﻿@page "/admin/authors"
+﻿@page "/admin/subjects"
+
 @using DigitalLibrary.Client.Services
 @using DigitalLibrary.Shared.DTO
 @using MudBlazor
 @layout AdminLayout
 @inject NavigationManager Navigation
-@inject AuthorsServices Authors
-@inject NationServices Nations
+@inject SubjectsServices Subjects
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
 
-
 <ConfirmDialog @ref="confirmDialog" Title="Xác nhận xóa"
-Message="Bạn có chắc chắn muốn xóa tác giả này?"
-OnConfirm="DeleteAuthor" />
+               Message="Bạn có chắc chắn muốn xóa chủ đề này này?"
+               OnConfirm="DeleteSubject" />
 
 <h3 class="d-flex align-items-center border-bottom pb-2">
-    <span class="me-2" style="font-size: 1.5rem;">✍️</span>
-    <span class="fw-bold text-dark">Quản lý tác giả</span>
+    <span class="me-2" style="font-size: 1.5rem;">📑</span>
+    <span class="fw-bold text-dark">Quản lý chủ đề</span>
 </h3>
 
 <div class="d-flex justify-content-between" style="margin-top:30px">
-    <div class="input-group w-50 align-items-center gap-2">
+    <div class="input-group w-50">
         <input @bind="searchName" class="form-control" placeholder="Nhập tiêu đề để tìm kiếm" />
-
-        <select class="form-select" @bind="searchNation" style="max-width: 200px;">
-            <option value="">-- Chọn quốc tịch --</option>
-            @foreach (var country in lstNations)
-            {
-                <option value="@country.nationname">@country.nationname</option>
-            }
-        </select>
-
         <button class="btn btn-primary" @onclick="Search">🔍 Tìm kiếm</button>
     </div>
     <div>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAuthor">➕ Thêm mới</button>
-        <AddAuthor OnCategoryAdded="ReloadData"></AddAuthor>
-        @*      <button class="btn btn-success">🔄 Cập nhật vị trí</button> *@
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddSubject">➕ Thêm mới</button>
+        <AddSubject OnSubjectAdded="ReloadData"></AddSubject>
+@*      <button class="btn btn-success">🔄 Cập nhật vị trí</button> *@
         <button class="btn btn-danger" @onclick="() => ConfirmDelete(null)">🗑 Xóa nhiều</button>
     </div>
 </div>
@@ -46,29 +36,23 @@ OnConfirm="DeleteAuthor" />
         <tr>
             <th><input type="checkbox" /></th>
             <th>STT</th>
-            <th>Họ tên</th>
-            <th>Ngày sinh</th>
-            <th>Quốc tịch</th>
-            <th>Mô tả</th>
+            <th>Thể loại</th>
             <th>Ngày tạo</th>
             <th>Trạng thái</th>
             <th>Thao tác</th>
         </tr>
     </thead>
     <tbody>
-        @if(filteredAuthors.Count > 0){
-            @foreach (var (author, index) in filteredAuthors.Select((c, i) => (c, i)))
+        @if(filteredSubjects.Count > 0){
+            @foreach (var (subject, index) in filteredSubjects.Select((c, i) => (c, i)))
             {
                 <tr>
-                    <td><input type="checkbox" checked="@selectedIds.Contains(author.id)" @onchange="(e) => ToggleSelection(author.id, (bool)e.Value)" /></td>
+                    <td><input type="checkbox" checked="@selectedIds.Contains(subject.id)" @onchange="(e) => ToggleSelection(subject.id, (bool)e.Value)" /></td>
                     <td>@(index + 1 + (currentPage - 1) * pageSize)</td>
-                    <td>@author.fullname</td>
-                    <td>@author.birthday</td>
-                    <td>@(lstNations.FirstOrDefault(nt => nt.id == author.nationalityid)?.nationname ?? "Không xác định")</td>
-                    <td>@author.description</td>
-                    <td>@author.createdate</td>
+                    <td>@subject.subjectname</td>
+                    <td>@subject.createdate</td>
                     <td>
-                        @if (author.status)
+                        @if (subject.status)
                         {
                             <span class="badge bg-success">KÍCH HOẠT</span>
                         }
@@ -78,9 +62,9 @@ OnConfirm="DeleteAuthor" />
                         }
                     </td>
                     <td>
-                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#EditAuthor" @onclick="() => OpenEditModal(author)">✏️</button>
-                        <EditAuthor Author="selectedAuthor" OnAuthorEdited="ReloadData"></EditAuthor>
-                        <button class="btn btn-sm btn-danger" @onclick="() => ConfirmDelete(author.id)">🗑</button>
+                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#EditSubject" @onclick="() => OpenEditModal(subject)">✏️</button>
+                        <EditSubject Subject="selectedSubject" OnSubjectEdited="ReloadData"></EditSubject>
+                        <button class="btn btn-sm btn-danger" @onclick="() => ConfirmDelete(subject.id)">🗑</button>
                     </td>
                 </tr>
             }
@@ -99,16 +83,13 @@ OnConfirm="DeleteAuthor" />
     <button class="btn btn-outline-primary" @onclick="NextPage" disabled="@(!CanNext)">Trang sau ➡</button>
 </div>
 
-
 @code{
-    private List<AuthorsDTO> filteredAuthors = new();
+    private List<SubjectDTO> filteredSubjects = new();
     private int selectedId;
     private ConfirmDialog? confirmDialog;
-    private AuthorsDTO selectedAuthor = new AuthorsDTO();
+    private SubjectDTO selectedSubject = new SubjectDTO();
     private string searchName = "";
-    private string searchNation = "";
     private List<int> selectedIds = new List<int>();
-    private List<NationsDTO> lstNations = new();
 
     private int currentPage = 1;
     private int pageSize = 10;
@@ -120,24 +101,22 @@ OnConfirm="DeleteAuthor" />
     protected override async Task OnInitializedAsync()
     {
         await LoadData();
-        lstNations = await Nations.GetAllAsync();
     }
 
     private async Task LoadData()
     {
-        var response = await Authors.GetAuthorsAsync(currentPage, pageSize, searchName, searchNation);
+        var response = await Subjects.GetSubjectsAsync(currentPage, pageSize, searchName);
 
         if (response != null)
         {
-            filteredAuthors = response.Data;
+            filteredSubjects = response.Data;
             totalRecords = response.TotalRecords;
             StateHasChanged();
         }
         else
         {
-            filteredAuthors = new List<AuthorsDTO>();
+            filteredSubjects = new List<SubjectDTO>();
         }
-
     }
 
     private async Task Search()
@@ -172,7 +151,7 @@ OnConfirm="DeleteAuthor" />
         confirmDialog?.Show();
     }
 
-    private async Task DeleteAuthor(bool confirm)
+    private async Task DeleteSubject(bool confirm)
     {
         if (confirm)
         {
@@ -180,21 +159,21 @@ OnConfirm="DeleteAuthor" />
 
             if (selectedIds.Any())
             {
-                isDeleted = await Authors.DeleteAuthorsMultiAsync(selectedIds);
+                isDeleted = await Subjects.DeleteSubjectsMultiAsync(selectedIds);
             }
             else if (selectedId > 0)
             {
-                isDeleted = await Authors.DeleteAuthor(selectedId);
+                isDeleted = await Subjects.DeleteSubject(selectedId);
             }
 
             if (isDeleted)
             {
                 await LoadData();
-                Snackbar.Add("✅ Xóa tác giả thành công!", Severity.Success);
+                Snackbar.Add("✅ Xóa chủ đề thành công!", Severity.Success);
             }
             else
             {
-                Snackbar.Add("❌ Xóa tác giả thất bại!", Severity.Error);
+                Snackbar.Add("❌ Xóa chủ đề thất bại!", Severity.Error);
             }
         }
     }
@@ -214,9 +193,9 @@ OnConfirm="DeleteAuthor" />
 
     private bool IsChecked(int id) => selectedIds.Contains(id);
 
-    private void OpenEditModal(AuthorsDTO author)
+    private void OpenEditModal(SubjectDTO subject)
     {
-        selectedAuthor = author;
+        selectedSubject = subject;
     }
 
     private async Task PreviousPage()

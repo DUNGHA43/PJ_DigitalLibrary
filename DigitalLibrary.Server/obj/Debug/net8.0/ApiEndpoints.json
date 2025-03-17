@@ -384,7 +384,7 @@
   {
     "ContainingType": "DigitalLibrary.Server.Controllers.SubjectController",
     "Method": "AddSubjectAsync",
-    "RelativePath": "api/Subject/addSubject",
+    "RelativePath": "api/Subject/addsubject",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -392,6 +392,22 @@
       {
         "Name": "subjectDTO",
         "Type": "DigitalLibrary.Shared.DTO.SubjectDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.SubjectController",
+    "Method": "DeleteMultiSubjectsAsync",
+    "RelativePath": "api/Subject/deletemulti-subjects",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "subjectIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": true
       }
     ],
@@ -408,7 +424,7 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -436,7 +452,23 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "searchName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
