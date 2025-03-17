@@ -19,7 +19,7 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
 
             if (!string.IsNullOrWhiteSpace(searchName))
             {
-                query = query.Where(c => c.catename.Contains(searchName.Trim()));
+                query = query.Where(c => c.catename!.Contains(searchName.Trim()));
             }
 
             var totalRecords = await query.CountAsync();

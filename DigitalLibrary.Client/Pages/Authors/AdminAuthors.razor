@@ -1,0 +1,256 @@
+﻿@page "/admin/authors"
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@layout AdminLayout
+@inject NavigationManager Navigation
+@inject AuthorsServices Authors
+@inject NationServices Nations
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+
+<ConfirmDialog @ref="confirmDialog" Title="Xác nhận xóa"
+Message="Bạn có chắc chắn muốn xóa tác giả này?"
+OnConfirm="DeleteAuthor" />
+
+<h3 class="d-flex align-items-center border-bottom pb-2">
+    <span class="me-2" style="font-size: 1.5rem;">✍️</span>
+    <span class="fw-bold text-dark">Quản lý tác giả</span>
+</h3>
+
+<div class="d-flex justify-content-between" style="margin-top:30px">
+    <div class="input-group w-50 align-items-center gap-2">
+        <input @bind="searchName" class="form-control" placeholder="Nhập tiêu đề để tìm kiếm" />
+
+        <select class="form-select" @bind="searchNation" style="max-width: 200px;">
+            <option value="">-- Chọn quốc tịch --</option>
+            @foreach (var country in lstNations)
+            {
+                <option value="@country.nationname">@country.nationname</option>
+            }
+        </select>
+
+        <button class="btn btn-primary" @onclick="Search">🔍 Tìm kiếm</button>
+    </div>
+    <div>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAuthor">➕ Thêm mới</button>
+        <AddAuthor OnCategoryAdded="ReloadData"></AddAuthor>
+        @*      <button class="btn btn-success">🔄 Cập nhật vị trí</button> *@
+        <button class="btn btn-danger" @onclick="() => ConfirmDelete(null)">🗑 Xóa nhiều</button>
+    </div>
+</div>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th><input type="checkbox" /></th>
+            <th>STT</th>
+            <th>Họ tên</th>
+            <th>Ngày sinh</th>
+            <th>Quốc tịch</th>
+            <th>Mô tả</th>
+            <th>Ngày tạo</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(filteredAuthors.Count > 0){
+            @foreach (var (author, index) in filteredAuthors.Select((c, i) => (c, i)))
+            {
+                <tr>
+                    <td><input type="checkbox" checked="@selectedIds.Contains(author.id)" @onchange="(e) => ToggleSelection(author.id, (bool)e.Value)" /></td>
+                    <td>@(index + 1 + (currentPage - 1) * pageSize)</td>
+                    <td>@author.fullname</td>
+                    <td>@author.birthday</td>
+                    <td>@(lstNations.FirstOrDefault(nt => nt.id == author.nationalityid)?.nationname ?? "Không xác định")</td>
+                    <td>@author.description</td>
+                    <td>@author.createdate</td>
+                    <td>
+                        @if (author.status)
+                        {
+                            <span class="badge bg-success">KÍCH HOẠT</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">VÔ HIỆU</span>
+                        }
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#EditAuthor" @onclick="() => OpenEditModal(author)">✏️</button>
+                        <EditAuthor Author="selectedAuthor" OnAuthorEdited="ReloadData"></EditAuthor>
+                        <button class="btn btn-sm btn-danger" @onclick="() => ConfirmDelete(author.id)">🗑</button>
+                    </td>
+                </tr>
+            }
+        }
+        else{
+            <tr>
+                <td colspan="10" class="text-center fw-bold text-muted py-3">Không có dữ liệu!</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <button class="btn btn-outline-primary" @onclick="PreviousPage" disabled="@(!CanPrevious)">⬅ Trang trước</button>
+    <span>Trang @currentPage / @totalPages</span>
+    <button class="btn btn-outline-primary" @onclick="NextPage" disabled="@(!CanNext)">Trang sau ➡</button>
+</div>
+
+
+@code{
+    private List<AuthorsDTO> filteredAuthors = new();
+    private int selectedId;
+    private ConfirmDialog? confirmDialog;
+    private AuthorsDTO selectedAuthor = new AuthorsDTO();
+    private string searchName = "";
+    private string searchNation = "";
+    private List<int> selectedIds = new List<int>();
+    private List<NationsDTO> lstNations = new();
+
+    private int currentPage = 1;
+    private int pageSize = 5;
+    private int totalRecords;
+    private int totalPages => (int)Math.Ceiling((double)totalRecords / pageSize);
+    private bool CanPrevious => currentPage > 1;
+    private bool CanNext => currentPage < totalPages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+        lstNations = await Nations.GetAllAsync();
+    }
+
+    private async Task LoadData()
+    {
+        var response = await Authors.GetAuthorsAsync(currentPage, pageSize, searchName, searchNation);
+
+        if (response != null)
+        {
+            filteredAuthors = response.Data;
+            totalRecords = response.TotalRecords;
+            StateHasChanged();
+        }
+        else
+        {
+            filteredAuthors = new List<AuthorsDTO>();
+        }
+
+    }
+
+    private async Task Search()
+    {
+        currentPage = 1;
+        await LoadData();
+    }
+
+    private async Task ReloadData(string message)
+    {
+        if (message.Contains("Thêm"))
+        {
+            currentPage = 1;
+        }
+        await LoadData();
+        var severity = message.Contains("✅") ? Severity.Success : Severity.Error;
+        Snackbar.Add(message, severity);
+    }
+
+    private async Task ConfirmDelete(int? id = null)
+    {
+        if (id.HasValue)
+        {
+            selectedId = id.Value;
+            selectedIds.Clear();
+        }
+        else
+        {
+            selectedId = 0;
+        }
+
+        confirmDialog?.Show();
+    }
+
+    private async Task DeleteAuthor(bool confirm)
+    {
+        if (confirm)
+        {
+            bool isDeleted = false;
+
+            if (selectedIds.Any())
+            {
+                isDeleted = await Authors.DeleteAuthorsMultiAsync(selectedIds);
+            }
+            else if (selectedId > 0)
+            {
+                isDeleted = await Authors.DeleteAuthor(selectedId);
+            }
+
+            if (isDeleted)
+            {
+                await LoadData();
+                Snackbar.Add("✅ Xóa tác giả thành công!", Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add("❌ Xóa tác giả thất bại!", Severity.Error);
+            }
+        }
+    }
+
+    private void ToggleSelection(int id, bool isChecked)
+    {
+        if (isChecked)
+        {
+            if (!selectedIds.Contains(id))
+                selectedIds.Add(id);
+        }
+        else
+        {
+            selectedIds.Remove(id);
+        }
+    }
+
+    private bool IsChecked(int id) => selectedIds.Contains(id);
+
+    private void OpenEditModal(AuthorsDTO author)
+    {
+        selectedAuthor = author;
+    }
+
+    private async Task PreviousPage()
+    {
+        if (CanPrevious)
+        {
+            currentPage--;
+            await LoadData();
+        }
+    }
+
+    private async Task NextPage()
+    {
+        if (CanNext)
+        {
+            currentPage++;
+            await LoadData();
+        }
+    }
+}
+
+<style>
+    h3 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+        h3 span.text-primary {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+    td button {
+        width: 50px !important;
+    }
+</style>

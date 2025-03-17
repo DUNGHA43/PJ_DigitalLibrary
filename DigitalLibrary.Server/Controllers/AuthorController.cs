@@ -22,16 +22,25 @@ namespace DigitalLibrary.Server.Controllers
 
         [HttpGet("getall")]
         [Authorize(Roles = "admin, stafflv1, stafflv2")]
-        public async Task<IActionResult> GetAllAuthorsAsync()
+        public async Task<IActionResult> GetAllAuthorsAsync([FromQuery] int pageNumber = 1, int pageSize = 10, string searchName = "", string searchNation = "")
         {
-            var authors = await _service.GetAllAuthorsAsync();
+            var (authors, totalCount) = await _service.GetAllAuthorsAsync(pageNumber, pageSize, searchName, searchNation);
 
-            if(authors == null)
+            if(authors == null || !authors.Any())
             {
-                return NotFound();
+                return NotFound(new { message = "Không tìm thấy thể loại nào." });
             }
 
-            return Ok(authors);
+            var response = new
+            {
+                Data = authors,
+                TotalRecords = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling((double)totalCount / pageSize)
+            };
+
+            return Ok(response);
         }
 
         [HttpPost("addauthor")]
@@ -85,7 +94,7 @@ namespace DigitalLibrary.Server.Controllers
 
         [HttpDelete("deleteauthor")]
         [Authorize(Roles = "admin, stafflv1")]
-        public async Task<IActionResult> DeleteAuthorAsync(int id)
+        public async Task<IActionResult> DeleteAuthorAsync([FromBody] int id)
         {
             var existingAuthor = await _service.FindAuthorByIdAsync(id);
             if (existingAuthor == null)
@@ -94,6 +103,14 @@ namespace DigitalLibrary.Server.Controllers
             }
 
             await _service.DeleteAuthorAsync(id);
+            return Ok(new { data = "Delete Success!" });
+        }
+
+        [HttpDelete("deletemulti-authors")]
+        [Authorize(Roles = "admin, stafflv1")]
+        public async Task<IActionResult> DeleteMultiAuthorAsync([FromBody] List<int> authorIds)
+        {
+            await _service.DeleteMultipleAuthorsAsync(authorIds);
             return Ok(new { data = "Delete Success!" });
         }
     }

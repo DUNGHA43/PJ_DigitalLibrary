@@ -1,0 +1,107 @@
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@inject IJSRuntime JS
+@inject AuthorsServices Authors
+@inject NationServices Nations
+@inject ISnackbar Snackbar
+
+
+<div class="modal fade" id="EditAuthor" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Sửa Thể Loại</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Tên thể loại:</label>
+                    <input class="form-control" @bind="editAu.fullname" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Ngày sinh:</label>
+                    <input type="date" class="form-control" @bind="editAu.birthday" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Quốc tịch:</label>
+                    <select class="form-select" @bind="editAu.nationalityid">
+                        <option value="">-- Chọn quốc tịch --</option>
+                        @foreach (var country in lstNations)
+                        {
+                            <option value="@country.id">@country.nationname</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Mô tả:</label>
+                    <textarea class="form-control" rows="3" @bind="editAu.description"></textarea>
+                </div>
+
+                <!-- Checkbox chọn trạng thái -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="statusCheck" @bind="editAu.status">
+                    <label class="form-check-label" for="statusCheck">
+                        Kích Hoạt
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveCategory" data-bs-dismiss="modal">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public AuthorsDTO? Author { get; set; } = new AuthorsDTO();
+    [Parameter] public EventCallback<string> OnAuthorEdited { get; set; }
+
+    private AuthorsDTO editAu = new AuthorsDTO();
+
+    private List<NationsDTO> lstNations = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        lstNations = await Nations.GetAllAsync();
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (Author != null)
+        {
+            editAu = new AuthorsDTO
+                {
+                    id = Author.id,
+                    fullname = Author.fullname,
+                    nationalityid = Author.nationalityid,
+                    birthday = Author.birthday,
+                    description = Author.description,
+                    status = Author.status,
+                    createdate = Author.createdate,
+                };
+        }
+    }
+
+    private async Task SaveCategory()
+    {
+        var result = await Authors.EditAuthorAsync(editAu);
+        if (result)
+        {
+            await OnAuthorEdited.InvokeAsync("✅ Sửa thể loại thành công!");
+        }
+        else
+        {
+            await OnAuthorEdited.InvokeAsync("❌ Xóa thể loại thất bại!");
+        }
+    }
+}
+<style>
+    .modal-footer button {
+        width: 100px !important;
+    }
+</style>

@@ -63,6 +63,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5Mb2dpbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/Authors/AddAuthor.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aG9yc1xBZGRBdXRob3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/Authors/AdminAuthors.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aG9yc1xBZG1pbkF1dGhvcnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/Authors/EditAuthor.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aG9yc1xFZGl0QXV0aG9yLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/Categories/AddCategory.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmllc1xBZGRDYXRlZ29yeS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

@@ -7,7 +7,7 @@ namespace DigitalLibrary.Shared.DTO
     public class NationsDTO
     {
         public int id {  get; set; }
-        public string? nationame { get; set; }
+        public string? nationname { get; set; }
         public string? nationiso { get; set; }
     }
 }

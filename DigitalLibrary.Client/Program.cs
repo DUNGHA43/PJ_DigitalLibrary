@@ -29,5 +29,7 @@ builder.Services.AddHttpClient<UserServices>(client =>
 
 builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<CategoriesServices>();
+builder.Services.AddScoped<AuthorsServices>();
+builder.Services.AddScoped<NationServices>();
 
 await builder.Build().RunAsync();

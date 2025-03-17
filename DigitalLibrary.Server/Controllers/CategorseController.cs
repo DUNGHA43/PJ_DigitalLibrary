@@ -21,7 +21,7 @@ namespace DigitalLibrary.Server.Controllers
         [Authorize(Roles = "admin, stafflv1, stafflv2")]
         public async Task<IActionResult> GetAllCategoriseAsync([FromQuery] int pageNumber = 1, int pageSize = 10, string searchName = "")
         {
-            var (categories, totalCount)= await _service.GetAllCategoriesAsync(pageNumber, pageSize, searchName);
+            var (categories, totalCount) = await _service.GetAllCategoriesAsync(pageNumber, pageSize, searchName);
 
             if (categories == null || !categories.Any())
             {

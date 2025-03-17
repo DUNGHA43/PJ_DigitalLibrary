@@ -31,6 +31,12 @@ namespace DigitalLibrary.Server.Services.Service
             await _unitOfWork.SaveChangeAsync();
         }
 
+        public async Task DeleteMultipleAuthorsAsync(List<int> authorIds)
+        {
+            await _unitOfWork.Authors.DeleteMultipleAuthorsAsync(authorIds);
+            await _unitOfWork.SaveChangeAsync();
+        }
+
         public async Task<Authors> FindAuthorByIdAsync(int id)
         {
             var author = await _unitOfWork.Authors.GetByIdAsync(id);
@@ -41,9 +47,9 @@ namespace DigitalLibrary.Server.Services.Service
             return author;
         }
 
-        public async Task<IEnumerable<Authors>> GetAllAuthorsAsync()
+        public async Task<(IEnumerable<Authors> Authors, int TotalCount)> GetAllAuthorsAsync(int pageNumber, int pageSize, string searchName, string searchNation)
         {
-            return await _unitOfWork.Authors.GetAllAsync();
+            return await _unitOfWork.Authors.GetAllAuthorsAsync(pageNumber, pageSize, searchName, searchNation);
         }
 
         public async Task UpdateAuthorAsync(Authors author)
