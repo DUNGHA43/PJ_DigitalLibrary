@@ -4,5 +4,7 @@ namespace DigitalLibrary.Server.Data.Repositorise.Interface
 {
     public interface IDocumentRepository : IRepository<Documents>
     {
+        Task<(IEnumerable<Documents> Documents, int TotalCount)> GetAllDocumentsAsync(int pageNumber, int pageSize, string searchName);
+        Task DeleteMultipleDocumentsAsync(List<int> documentIds);
     }
 }

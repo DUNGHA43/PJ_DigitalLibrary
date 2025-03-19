@@ -1,7 +1,9 @@
 ﻿using DigitalLibrary.Server.Model;
 using DigitalLibrary.Server.Services.Interface;
 using DigitalLibrary.Shared.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DigitalLibrary.Server.Controllers
 {
@@ -10,10 +12,101 @@ namespace DigitalLibrary.Server.Controllers
     public class DocumentController : Controller
     {
         private readonly IDocumentService _service;
+        private readonly IWebHostEnvironment _env;
 
-        public DocumentController(IDocumentService service)
+        public DocumentController(IDocumentService service, IWebHostEnvironment env)
         {
             _service = service;
+            _env = env;
+        }
+
+        [HttpGet("getallinfodocuments")]
+        public async Task<IActionResult> GetAllInfoDocumentsAsync([FromQuery] int pageNumber = 1, int pageSize = 10, string searchName = "")
+        {
+            var (documents, totalCount) = await _service.GetAllDocumentsAsync(pageNumber, pageSize, searchName);
+
+            if (documents == null || !documents.Any())
+            {
+                return NotFound(new { message = "Không tìm thấy tài liệu nào." });
+            }
+
+            var response = new
+            {
+                Data = documents,
+                TotalRecords = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling((double)totalCount / pageSize)
+            };
+
+            return Ok(response);
+        }
+
+        [HttpGet("getimg/{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetDocumentImage(int id)
+        {
+            if (id <= 0)
+                return BadRequest("ID tài liệu không hợp lệ!");
+
+            var document = await _service.FindDocumentByIdAsync(id);
+            if (document == null || string.IsNullOrEmpty(document.imageurl))
+            {
+                return NotFound("Không tìm thấy tài liệu hoặc tài liệu không có ảnh.");
+            }
+
+            var imagePath = Path.Combine("wwwroot/UploadImages", document.imageurl);
+            Console.WriteLine($"🔍 Đường dẫn ảnh: {imagePath}");
+
+            string fullPath = Path.Combine(_env.WebRootPath, imagePath.TrimStart('/').Replace("/", "\\"));
+
+            if (!System.IO.File.Exists(fullPath))
+            {
+                return NotFound($"Ảnh không tồn tại trên server: {fullPath}");
+            }
+
+            try
+            {
+                var imageBytes = await System.IO.File.ReadAllBytesAsync(fullPath);
+                return File(imageBytes, "image/jpeg");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Lỗi khi đọc ảnh: {ex.Message}");
+                return StatusCode(500, "Lỗi khi tải ảnh.");
+            }
+        }
+
+        [HttpGet("getpdf/{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetDocumentPdf(int id)
+        {
+            var document = await _service.FindDocumentByIdAsync(id);
+            if (document == null || string.IsNullOrEmpty(document.fileurl))
+            {
+                return NotFound("Không tìm thấy tài liệu hoặc tài liệu không có ảnh.");
+            }
+
+            var imagePath = Path.Combine("wwwroot/UploadImages", document.fileurl);
+            Console.WriteLine($"🔍 Đường dẫn ảnh: {imagePath}");
+
+            string fullPath = Path.Combine(_env.WebRootPath, imagePath.TrimStart('/').Replace("/", "\\"));
+
+            if (!System.IO.File.Exists(fullPath))
+            {
+                return NotFound($"File không tồn tại trên server: {fullPath}");
+            }
+
+            try
+            {
+                var fileBytes = await System.IO.File.ReadAllBytesAsync(fullPath);
+                return File(fileBytes, "application/pdf");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Lỗi khi đọc tài liệu: {ex.Message}");
+                return StatusCode(500, "Lỗi khi tải tài liệu.");
+            }
         }
 
         [HttpPost("adddocument")]
@@ -35,7 +128,7 @@ namespace DigitalLibrary.Server.Controllers
                 uploadedby = documentDTO.uploadedby,
                 description = documentDTO.description,
                 createdate = DateTime.Now,
-                status = true,
+                status = documentDTO.status,
             };
 
             await _service.AddDocumentAsync(document, dcmFile, imgFile);
@@ -44,7 +137,7 @@ namespace DigitalLibrary.Server.Controllers
         }
 
         [HttpDelete("deletedocument")]
-        public async Task<IActionResult> DeleteDocumentAsync(int id)
+        public async Task<IActionResult> DeleteDocumentAsync([FromBody] int id)
         {
             await _service.DeleteDocumentAsync(id);
             return Ok(new { message = "Delete success!" });

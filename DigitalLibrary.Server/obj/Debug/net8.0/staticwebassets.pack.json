@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadDocuments\\2a0a2bcf-97f9-4484-a923-2c1205fe88d5.pdf",
+      "PackagePath": "staticwebassets\\UploadDocuments\\2a0a2bcf-97f9-4484-a923-2c1205fe88d5.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadDocuments\\862a4845-4707-46fb-8666-a88fb0f1dda8.pdf",
+      "PackagePath": "staticwebassets\\UploadDocuments\\862a4845-4707-46fb-8666-a88fb0f1dda8.pdf"
+    },
+    {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\0eaf13d6-fe70-45ac-8ce7-aa52579ecd57.jpg",
+      "PackagePath": "staticwebassets\\UploadImages\\0eaf13d6-fe70-45ac-8ce7-aa52579ecd57.jpg"
+    },
+    {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\f3946718-9f4f-4488-a646-3301bf433078.jpg",
+      "PackagePath": "staticwebassets\\UploadImages\\f3946718-9f4f-4488-a646-3301bf433078.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DigitalLibrary.Server.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DigitalLibrary.Server.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.DigitalLibrary.Server.props",
+      "PackagePath": "build\\DigitalLibrary.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.DigitalLibrary.Server.props",
+      "PackagePath": "buildMultiTargeting\\DigitalLibrary.Server.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.DigitalLibrary.Server.props",
+      "PackagePath": "buildTransitive\\DigitalLibrary.Server.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

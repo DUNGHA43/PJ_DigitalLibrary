@@ -1,0 +1,99 @@
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@inject IJSRuntime JS
+@inject DocumentsServices Documents
+
+<div class="modal fade" id="DetailDocument" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title">📄 Thông Tin Tài Liệu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                @if (Document != null)
+                {
+                    <div class="text-center">
+                        @if (!string.IsNullOrEmpty(ImageBase64))
+                        {
+                            <img src="@ImageBase64" class="img-thumbnail shadow-sm" width="200" />
+                        }
+                        else
+                        {
+                            <p class="text-muted">Không có ảnh</p>
+                        }
+                    </div>
+                    <hr />
+                    <p><strong>📖 Tiêu đề:</strong> @Document.title</p>
+                    <p><strong>🏢 Nhà xuất bản:</strong> @Document.publisher</p>
+                    <p><strong>📝 Mô tả:</strong> @Document.description</p>
+                    <p><strong>📅 Ngày tạo:</strong> @Document.createdate?.ToString("dd/MM/yyyy")</p>
+                    <p>
+                        <strong>✅ Trạng thái:</strong>
+                        <span class="badge @(Document.status ? "bg-success" : "bg-danger")">
+                            @(Document.status ? "Hoạt động" : "Không hoạt động")
+                        </span>
+                    </p>
+                }
+                else
+                {
+                    <p class="text-danger text-center">❌ Không có dữ liệu!</p>
+                }
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public DocumentsDTO? Document { get; set; } = new DocumentsDTO();
+    private string? ImageBase64;
+    private int? lastDocumentId;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Document != null)
+         {
+            lastDocumentId = Document.id;
+            ImageBase64 = await Documents.GetImageAsync(Document.id);
+        }
+    }
+}
+<style>
+    .modal-footer button {
+        width: 100px !important;
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .modal-header {
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-footer {
+        border-top: 2px solid #dee2e6;
+        padding: 15px;
+    }
+
+    .btn {
+        border-radius: 6px;
+    }
+
+    .img-thumbnail {
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .img-thumbnail:hover {
+            transform: scale(1.05);
+        }
+</style>

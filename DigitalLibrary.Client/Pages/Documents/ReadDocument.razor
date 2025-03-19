@@ -1,0 +1,83 @@
+﻿@page "/admin/read/{documentId:int}"
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@layout AdminLayout
+@inject DocumentsServices Documents
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<div class="document-container">
+    @if (!string.IsNullOrEmpty(PdfUrl))
+    {
+        <iframe id="pdfViewer" class="pdf-viewer"></iframe>
+    }
+    else
+    {
+        <p class="text-danger text-center">Không có tài liệu PDF để hiển thị.</p>
+    }
+
+    <div class="text-center mt-3">
+        <button class="btn btn-secondary px-4" @onclick="GoBack">
+            ⬅️ Quay lại
+        </button>
+        <a href="@PdfUrl" class="btn btn-warning px-4" target="_blank" download>
+            📥 Download
+        </a>
+    </div>
+</div>
+
+@code {
+    [Parameter] public int documentId { get; set; }
+    private string? PdfUrl;
+    private bool IsBase64 = false;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        PdfUrl = await Documents.GetPdfBlobUrlAsync(documentId);
+        if (!string.IsNullOrEmpty(PdfUrl))
+        {
+            IsBase64 = PdfUrl.StartsWith("data:application/pdf;base64,");
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!string.IsNullOrEmpty(PdfUrl))
+        {
+            if (IsBase64)
+            {
+                await JS.InvokeVoidAsync("loadPdfBase64", PdfUrl, "pdfViewer");
+            }
+            else
+            {
+                await JS.InvokeVoidAsync("loadPdfUrl", PdfUrl, "pdfViewer");
+            }
+        }
+    }
+
+    private async Task GoBack()
+    {
+        Navigation.NavigateTo("/admin/documents", replace: true);
+    }
+}
+
+<style>
+    .document-container {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        background: #fff;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .pdf-viewer {
+        width: 100%;
+        height: 700px;
+        border: none;
+    }
+
+    .btn-warning {
+        font-weight: bold;
+        border-radius: 5px;
+    }
+</style>

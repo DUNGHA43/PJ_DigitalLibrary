@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ourv25ivAPdQyRE2ahGGHJ7oaB6I55u2ALl4qFejMvA=",
+  "Hash": "IThsgkHgXVHXKPiRP0QI0m0sB2SNTDjIsg0zgHz5+8Y=",
   "Source": "DigitalLibrary.Server",
   "BasePath": "_content/DigitalLibrary.Server",
   "Mode": "Default",
@@ -15,6 +15,420 @@
       "Pattern": "**"
     }
   ],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadDocuments\\2a0a2bcf-97f9-4484-a923-2c1205fe88d5.pdf",
+      "SourceId": "DigitalLibrary.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\",
+      "BasePath": "_content/DigitalLibrary.Server",
+      "RelativePath": "UploadDocuments/2a0a2bcf-97f9-4484-a923-2c1205fe88d5#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "p0q47rhkh6",
+      "Integrity": "uR/M2Dsz9ClBBjtpgbxwJWnvF9zHM8tniypkDHnbNsc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadDocuments\\2a0a2bcf-97f9-4484-a923-2c1205fe88d5.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadDocuments\\862a4845-4707-46fb-8666-a88fb0f1dda8.pdf",
+      "SourceId": "DigitalLibrary.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\",
+      "BasePath": "_content/DigitalLibrary.Server",
+      "RelativePath": "UploadDocuments/862a4845-4707-46fb-8666-a88fb0f1dda8#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8i1zzpw9rr",
+      "Integrity": "oMayyFBIanGhjlnQMZhFWR2+cCpadTzHfOW3FGi1+ak=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadDocuments\\862a4845-4707-46fb-8666-a88fb0f1dda8.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\0eaf13d6-fe70-45ac-8ce7-aa52579ecd57.jpg",
+      "SourceId": "DigitalLibrary.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\",
+      "BasePath": "_content/DigitalLibrary.Server",
+      "RelativePath": "UploadImages/0eaf13d6-fe70-45ac-8ce7-aa52579ecd57#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "ypulf6ksuq",
+      "Integrity": "xhXiP05JvyYxv2y25Tkl7skcNey6+jaQEw+zGCR+0mk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadImages\\0eaf13d6-fe70-45ac-8ce7-aa52579ecd57.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\f3946718-9f4f-4488-a646-3301bf433078.jpg",
+      "SourceId": "DigitalLibrary.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\",
+      "BasePath": "_content/DigitalLibrary.Server",
+      "RelativePath": "UploadImages/f3946718-9f4f-4488-a646-3301bf433078#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "fpyca27ojj",
+      "Integrity": "TcOSWPMcxXydJp8Fvk/cmNi8hrUjaWd6Os5BJbT4i+0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadImages\\f3946718-9f4f-4488-a646-3301bf433078.jpg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "UploadDocuments/2a0a2bcf-97f9-4484-a923-2c1205fe88d5.p0q47rhkh6.pdf",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadDocuments\\2a0a2bcf-97f9-4484-a923-2c1205fe88d5.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1379260"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uR/M2Dsz9ClBBjtpgbxwJWnvF9zHM8tniypkDHnbNsc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 18 Mar 2025 14:28:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "p0q47rhkh6"
+        },
+        {
+          "Name": "label",
+          "Value": "UploadDocuments/2a0a2bcf-97f9-4484-a923-2c1205fe88d5.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-uR/M2Dsz9ClBBjtpgbxwJWnvF9zHM8tniypkDHnbNsc="
+        }
+      ]
+    },
+    {
+      "Route": "UploadDocuments/2a0a2bcf-97f9-4484-a923-2c1205fe88d5.pdf",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadDocuments\\2a0a2bcf-97f9-4484-a923-2c1205fe88d5.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1379260"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"uR/M2Dsz9ClBBjtpgbxwJWnvF9zHM8tniypkDHnbNsc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 18 Mar 2025 14:28:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-uR/M2Dsz9ClBBjtpgbxwJWnvF9zHM8tniypkDHnbNsc="
+        }
+      ]
+    },
+    {
+      "Route": "UploadDocuments/862a4845-4707-46fb-8666-a88fb0f1dda8.8i1zzpw9rr.pdf",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadDocuments\\862a4845-4707-46fb-8666-a88fb0f1dda8.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2479266"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"oMayyFBIanGhjlnQMZhFWR2+cCpadTzHfOW3FGi1+ak=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 17 Mar 2025 16:00:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8i1zzpw9rr"
+        },
+        {
+          "Name": "label",
+          "Value": "UploadDocuments/862a4845-4707-46fb-8666-a88fb0f1dda8.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-oMayyFBIanGhjlnQMZhFWR2+cCpadTzHfOW3FGi1+ak="
+        }
+      ]
+    },
+    {
+      "Route": "UploadDocuments/862a4845-4707-46fb-8666-a88fb0f1dda8.pdf",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadDocuments\\862a4845-4707-46fb-8666-a88fb0f1dda8.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2479266"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"oMayyFBIanGhjlnQMZhFWR2+cCpadTzHfOW3FGi1+ak=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 17 Mar 2025 16:00:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-oMayyFBIanGhjlnQMZhFWR2+cCpadTzHfOW3FGi1+ak="
+        }
+      ]
+    },
+    {
+      "Route": "UploadImages/0eaf13d6-fe70-45ac-8ce7-aa52579ecd57.jpg",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\0eaf13d6-fe70-45ac-8ce7-aa52579ecd57.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "9598"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xhXiP05JvyYxv2y25Tkl7skcNey6+jaQEw+zGCR+0mk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 18 Mar 2025 14:28:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xhXiP05JvyYxv2y25Tkl7skcNey6+jaQEw+zGCR+0mk="
+        }
+      ]
+    },
+    {
+      "Route": "UploadImages/0eaf13d6-fe70-45ac-8ce7-aa52579ecd57.ypulf6ksuq.jpg",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\0eaf13d6-fe70-45ac-8ce7-aa52579ecd57.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "9598"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xhXiP05JvyYxv2y25Tkl7skcNey6+jaQEw+zGCR+0mk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 18 Mar 2025 14:28:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "ypulf6ksuq"
+        },
+        {
+          "Name": "label",
+          "Value": "UploadImages/0eaf13d6-fe70-45ac-8ce7-aa52579ecd57.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xhXiP05JvyYxv2y25Tkl7skcNey6+jaQEw+zGCR+0mk="
+        }
+      ]
+    },
+    {
+      "Route": "UploadImages/f3946718-9f4f-4488-a646-3301bf433078.fpyca27ojj.jpg",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\f3946718-9f4f-4488-a646-3301bf433078.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10938"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TcOSWPMcxXydJp8Fvk/cmNi8hrUjaWd6Os5BJbT4i+0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 17 Mar 2025 16:00:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "fpyca27ojj"
+        },
+        {
+          "Name": "label",
+          "Value": "UploadImages/f3946718-9f4f-4488-a646-3301bf433078.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-TcOSWPMcxXydJp8Fvk/cmNi8hrUjaWd6Os5BJbT4i+0="
+        }
+      ]
+    },
+    {
+      "Route": "UploadImages/f3946718-9f4f-4488-a646-3301bf433078.jpg",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\f3946718-9f4f-4488-a646-3301bf433078.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10938"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"TcOSWPMcxXydJp8Fvk/cmNi8hrUjaWd6Os5BJbT4i+0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 17 Mar 2025 16:00:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-TcOSWPMcxXydJp8Fvk/cmNi8hrUjaWd6Os5BJbT4i+0="
+        }
+      ]
+    }
+  ]
 }

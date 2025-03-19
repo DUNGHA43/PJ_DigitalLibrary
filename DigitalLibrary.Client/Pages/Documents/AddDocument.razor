@@ -1,0 +1,136 @@
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@using Microsoft.AspNetCore.Components.Forms
+@inject IJSRuntime JS
+@inject DocumentsServices Documents
+@inject ISnackbar Snackbar
+
+
+<div class="modal fade" id="AddDocument" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Thêm Tài liệu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label>Tiêu đề:</label>
+                    <InputText @bind-Value="newDocument.title" class="form-control" />
+                </div>
+
+                <div>
+                    <label>Nhà xuất bản:</label>
+                    <InputText @bind-Value="newDocument.publisher" class="form-control" />
+                </div>
+
+                <div>
+                    <label>Mô tả:</label>
+                    <InputTextArea @bind-Value="newDocument.description" class="form-control" />
+                </div>
+
+                <div class="file-container" style="margin-top:10px">
+                    <label for="pdfFile" class="custom-file-label">📄 Chọn file PDF</label>
+                    <InputFile id="pdfFile" OnChange="HandleDcmFileUpload" />
+                    <span class="file-name">@selectedPdfFileName</span>
+                </div>
+
+                <div class="file-container">
+                    <label for="imgFile" class="custom-file-label">🖼️ Chọn ảnh</label>
+                    <InputFile id="imgFile" OnChange="HandleImgFileUpload" />
+                    <span class="file-name">@selectedImgFileName</span>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="statusCheck" @bind="newDocument.status">
+                    <label class="form-check-label" for="statusCheck">
+                        Kích Hoạt
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveCategory" data-bs-dismiss="modal">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> OnDocumentAdded { get; set; }
+
+    private DocumentsDTO newDocument = new DocumentsDTO();
+    private IBrowserFile? dcmFile;
+    private IBrowserFile? imgFile;
+    private string selectedPdfFileName = "No file chosen";
+    private string selectedImgFileName = "No file chosen";
+
+    private void HandleDcmFileUpload(InputFileChangeEventArgs e)
+    {
+        dcmFile = e.File;
+        selectedPdfFileName = dcmFile.Name;
+    }
+
+    private void HandleImgFileUpload(InputFileChangeEventArgs e)
+    {
+        imgFile = e.File;
+        selectedImgFileName = imgFile.Name;
+    }
+
+    private async Task SaveCategory()
+    {
+        var result = await Documents.AddDocumentAsync(newDocument, dcmFile!, imgFile!);
+        if (result)
+        {
+            await OnDocumentAdded.InvokeAsync("✅ Thêm tài liệu thành công!");
+        }
+        else
+        {
+            await OnDocumentAdded.InvokeAsync("❌ Thêm tài liệu thất bại!");
+        }
+    }
+}
+
+<style>
+    input[type="file"] {
+        display: none;
+    }
+
+    /* Thiết kế nút chọn file đẹp hơn */
+    .custom-file-label {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        width: 130px;
+        transition: background 0.3s;
+    }
+
+        .custom-file-label:hover {
+            background-color: #0056b3;
+        }
+
+    /* Căn chỉnh hiển thị file */
+    .file-container {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    /* Hiển thị tên file */
+    .file-name {
+        font-size: 14px;
+        color: #555;
+        max-width: 150px; /* Giới hạn độ dài tối đa */
+        white-space: nowrap; /* Không xuống dòng */
+        overflow: hidden; /* Ẩn phần dư */
+        text-overflow: ellipsis; /* Hiển thị dấu ... khi quá dài */
+        display: inline-block;
+        vertical-align: middle;
+    }
+</style>

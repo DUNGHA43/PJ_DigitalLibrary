@@ -50,6 +50,12 @@ namespace DigitalLibrary.Server.Services.Service
             await _unitOfWork.SaveChangeAsync();
         }
 
+        public async Task DeleteMultipleDocumentsAsync(List<int> documetnsIds)
+        {
+            await _unitOfWork.Documents.DeleteMultipleDocumentsAsync(documetnsIds);
+            await _unitOfWork.SaveChangeAsync();
+        }
+
         public async Task<Documents> FindDocumentByIdAsync(int id)
         {
             var document = await _unitOfWork.Documents.GetByIdAsync(id);
@@ -65,6 +71,11 @@ namespace DigitalLibrary.Server.Services.Service
         public async Task<IEnumerable<Documents>> GetAllDocumentsAsync()
         {
             return await _unitOfWork.Documents.GetAllAsync();
+        }
+
+        public async Task<(IEnumerable<Documents> Documents, int TotalCount)> GetAllDocumentsAsync(int pageNumber, int pageSize, string searchName)
+        {
+            return await _unitOfWork.Documents.GetAllDocumentsAsync(pageNumber, pageSize, searchName);
         }
 
         public Task UpdateDocumentAsync(Documents document)

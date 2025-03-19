@@ -1,0 +1,256 @@
+﻿@page "/admin/documents"
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@layout AdminLayout
+@inject NavigationManager Navigation
+@inject DocumentsServices Documents
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<ConfirmDialog @ref="confirmDialog" Title="Xác nhận xóa"
+Message="Bạn có chắc chắn muốn xóa tài liệu này?"
+OnConfirm="DeleteDocument" />
+
+<h3 class="d-flex align-items-center border-bottom pb-2">
+    <span class="me-2" style="font-size: 1.5rem;">📖</span>
+    <span class="fw-bold text-dark">Quản lý tài liệu</span>
+</h3>
+
+<div class="d-flex justify-content-between" style="margin-top:30px">
+    <div class="input-group w-50">
+        <input @bind="searchName" class="form-control" placeholder="Nhập tiêu đề để tìm kiếm" />
+        <button class="btn btn-primary" @onclick="Search">🔍 Tìm kiếm</button>
+    </div>
+    <div>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDocument">➕ Thêm mới</button>
+        <AddDocument OnDocumentAdded="ReloadData"></AddDocument>
+@*      <button class="btn btn-success">🔄 Cập nhật vị trí</button> *@
+        <button class="btn btn-danger" @onclick="() => ConfirmDelete(null)">🗑 Xóa nhiều</button>
+    </div>
+</div>
+
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th><input type="checkbox" /></th>
+            <th class="text-center">STT</th>
+            <th class="text-center">Tên tài liệu</th>
+            <th class="text-center">Nhà xuất bản</th>
+            <th class="text-center">Đăng bởi</th>
+            <th class="text-center">Ngày tạo</th>
+            <th class="text-center">Gói áp dụng</th>
+            <th class="text-center">Trạng thái</th>
+            <th class="text-center">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(filteredDocuments.Count > 0){
+            @foreach (var (document, index) in filteredDocuments.Select((c, i) => (c, i)))
+            {
+                <tr>
+                    <td><input type="checkbox" checked="@selectedIds.Contains(document.id)" @onchange="(e) => ToggleSelection(document.id, (bool)e.Value)" /></td>
+                    <td class="text-center">@(index + 1 + (currentPage - 1) * pageSize)</td>
+                    <td class="text-center">@document.title</td>
+                    <td class="text-center">@document.publisher</td>
+                    <td class="text-center">@document.uploadedby</td>
+                    <td class="text-center">@document.createdate</td>
+                    <td class="text-center">@document.accesslevel</td>
+                    <td class="text-center">
+                        @if (document.status)
+                        {
+                            <span class="badge bg-success">KÍCH HOẠT</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">VÔ HIỆU</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-secondary" @onclick="() => ViewDocument(document.id)">👁️</button>
+                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#DetailDocument" @onclick="() => OpenDetailModal(document)">ℹ️</button>
+                        <DetailDocument Document="selectedDocument"></DetailDocument>
+
+                        <button class="btn btn-sm btn-primary">📋</button>
+
+                        <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#EditDocument" @onclick="() => OpenEditModal(document)">✏️</button>
+                        <EditDocument Document="selectedDocument" OnDocumentEdited="ReloadData"></EditDocument>
+
+                        <button class="btn btn-sm btn-danger" @onclick="() => ConfirmDelete(document.id)">🗑</button>
+                    </td>
+                </tr>
+            }
+        }
+        else{
+            <tr>
+                <td colspan="10" class="text-center fw-bold text-muted py-3">Không có dữ liệu!</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <button class="btn btn-outline-primary" @onclick="PreviousPage" disabled="@(!CanPrevious)">⬅ Trang trước</button>
+    <span>Trang @currentPage / @totalPages</span>
+    <button class="btn btn-outline-primary" @onclick="NextPage" disabled="@(!CanNext)">Trang sau ➡</button>
+</div>
+
+@code{
+    private List<DocumentsDTO> filteredDocuments = new();
+    private int selectedId;
+    private ConfirmDialog? confirmDialog;
+    private DocumentsDTO selectedDocument = new DocumentsDTO();
+    private string searchName = "";
+    private List<int> selectedIds = new List<int>();
+
+    private int currentPage = 1;
+    private int pageSize = 10;
+    private int totalRecords;
+    private int totalPages => (int)Math.Ceiling((double)totalRecords / pageSize);
+    private bool CanPrevious => currentPage > 1;
+    private bool CanNext => currentPage < totalPages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        var response = await Documents.GetDocumentsAsync(currentPage, pageSize, searchName);
+
+        if (response != null)
+        {
+            filteredDocuments = response.Data;
+            totalRecords = response.TotalRecords;
+            StateHasChanged();
+        }
+        else
+        {
+            filteredDocuments = new List<DocumentsDTO>();
+        }
+    }
+
+    private async Task Search()
+    {
+        currentPage = 1;
+        await LoadData();
+    }
+
+    private async Task ReloadData(string message)
+    {
+        if (message.Contains("Thêm"))
+        {
+            currentPage = 1;
+        }
+        await LoadData();
+        var severity = message.Contains("✅") ? Severity.Success : Severity.Error;
+        Snackbar.Add(message, severity);
+    }
+
+    private async Task ConfirmDelete(int? id = null)
+    {
+        if (id.HasValue)
+        {
+            selectedId = id.Value;
+            selectedIds.Clear();
+        }
+        else
+        {
+            selectedId = 0;
+        }
+
+        confirmDialog?.Show();
+    }
+
+    private async Task DeleteDocument(bool confirm)
+    {
+        if (confirm)
+        {
+            bool isDeleted = false;
+
+            if (selectedIds.Any())
+            {
+                // isDeleted = await Documents.DeleteDocumentsMultiAsync(selectedIds);
+            }
+            else if (selectedId > 0)
+            {
+                isDeleted = await Documents.DeleteDocumentAsync(selectedId);
+            }
+
+            if (isDeleted)
+            {
+                await LoadData();
+                Snackbar.Add("✅ Xóa tài liệu thành công!", Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add("❌ Xóa tài liệu thất bại!", Severity.Error);
+            }
+        }
+    }
+
+    private void ToggleSelection(int id, bool isChecked)
+    {
+        if (isChecked)
+        {
+            if (!selectedIds.Contains(id))
+                selectedIds.Add(id);
+        }
+        else
+        {
+            selectedIds.Remove(id);
+        }
+    }
+
+    private bool IsChecked(int id) => selectedIds.Contains(id);
+
+    private void OpenEditModal(DocumentsDTO document)
+    {
+        selectedDocument = document;
+    }
+
+    private void OpenDetailModal(DocumentsDTO document)
+    {
+        selectedDocument = document;
+    }
+    private void ViewDocument(int documentId)
+    {
+        Navigation.NavigateTo($"/admin/read/{documentId}");
+    }
+
+    private async Task PreviousPage()
+    {
+        if (CanPrevious)
+        {
+            currentPage--;
+            await LoadData();
+        }
+    }
+
+    private async Task NextPage()
+    {
+        if (CanNext)
+        {
+            currentPage++;
+            await LoadData();
+        }
+    }
+}
+
+<style>
+    h3 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+        h3 span.text-primary {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+    td button {
+        width: 50px !important;
+    }
+</style>

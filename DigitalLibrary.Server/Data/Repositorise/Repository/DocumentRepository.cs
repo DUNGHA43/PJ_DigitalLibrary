@@ -13,9 +13,34 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
             _context = context;
         }
 
+        public async Task DeleteMultipleDocumentsAsync(List<int> documentIds)
+        {
+            await DeleteMultipleAsync(documentIds, "id");
+        }
+
         public async Task<IEnumerable<Documents>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
+        }
+
+        public async Task<(IEnumerable<Documents> Documents, int TotalCount)> GetAllDocumentsAsync(int pageNumber, int pageSize, string searchName)
+        {
+            var query = _dbSet.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchName))
+            {
+                query = query.Where(c => c.title!.Contains(searchName.Trim()));
+            }
+
+            var totalRecords = await query.CountAsync();
+
+            var list = await query
+                .OrderByDescending(c => c.createdate)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (list, totalRecords);
         }
     }
 }
