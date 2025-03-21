@@ -43,6 +43,18 @@ namespace DigitalLibrary.Server.Controllers
             return Ok(response);
         }
 
+        [HttpGet("getall-noqueries")]
+        [Authorize]
+        public async Task<IActionResult> GetAllAuthorsAsync()
+        {
+            var authors = await _service.GetAllAuthorsAsync();
+            if(authors == null)
+            {
+                return NotFound("No records?");
+            }
+            return Ok(authors);
+        }
+
         [HttpPost("addauthor")]
         [Authorize(Roles = "admin, stafflv1")]
         public async Task<IActionResult> AddAuthorAsync([FromBody] AuthorsDTO authorDTO)

@@ -10,7 +10,7 @@ namespace DigitalLibrary.Server.Data.DatabaseContext
         public DbSet<Authors> authors { get; set; }
         public DbSet<Categories> categorises { get; set; }
         public DbSet<DocumentAuthors> documentAuthors { get; set; }
-        public DbSet<DocumentCategorise> documentCategorises { get; set; }
+        public DbSet<DocumentCategories> documentCategorises { get; set; }
         public DbSet<Documents> documents { get; set; }
         public DbSet<DocumentSubject> documentSubjects { get; set; }
         public DbSet<Nations> nations { get; set; }
@@ -28,7 +28,7 @@ namespace DigitalLibrary.Server.Data.DatabaseContext
             modelBuilder.Entity<DocumentAuthors>()
                 .HasKey(da => new { da.documentid, da.authorid });
 
-            modelBuilder.Entity<DocumentCategorise>()
+            modelBuilder.Entity<DocumentCategories>()
                 .HasKey(dc => new { dc.documentid, dc.categoryid });
 
             modelBuilder.Entity<DocumentSubject>()

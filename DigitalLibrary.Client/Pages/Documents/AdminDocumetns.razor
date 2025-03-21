@@ -71,7 +71,7 @@ OnConfirm="DeleteDocument" />
                         <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#DetailDocument" @onclick="() => OpenDetailModal(document)">ℹ️</button>
                         <DetailDocument Document="selectedDocument"></DetailDocument>
 
-                        <button class="btn btn-sm btn-primary">📋</button>
+                        <button class="btn btn-sm btn-primary" @onclick="() => ViewRelations(document.id, document.title)">📋</button>
 
                         <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#EditDocument" @onclick="() => OpenEditModal(document)">✏️</button>
                         <EditDocument Document="selectedDocument" OnDocumentEdited="ReloadData"></EditDocument>
@@ -217,6 +217,11 @@ OnConfirm="DeleteDocument" />
     private void ViewDocument(int documentId)
     {
         Navigation.NavigateTo($"/admin/read/{documentId}");
+    }
+
+    public void ViewRelations(int? documentId, string? title)
+    {
+        Navigation.NavigateTo($"/admin/relations?documentId={documentId}&title={Uri.EscapeDataString(title!)}");
     }
 
     private async Task PreviousPage()

@@ -86,6 +86,9 @@ builder.Services.AddScoped<IReviewsService, ReviewsService>();
 builder.Services.AddScoped<IUploadService, UploadService>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
 builder.Services.AddScoped<INationServices, NationServices>();
+builder.Services.AddScoped<IDocumentAuthorServices, DocumentAuthorServices>();
+builder.Services.AddScoped<IDocumentCategoriesServices, DocumentCategoriesServices>();
+builder.Services.AddScoped<IDocumentSubjectsServices, DocumentSubjectsServices>();
 
 builder.Services.AddControllers();
 

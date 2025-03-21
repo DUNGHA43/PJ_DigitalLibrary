@@ -33,5 +33,8 @@ builder.Services.AddScoped<AuthorsServices>();
 builder.Services.AddScoped<NationServices>();
 builder.Services.AddScoped<SubjectsServices>();
 builder.Services.AddScoped<DocumentsServices>();
+builder.Services.AddScoped<DocumentAuthorServices>();
+builder.Services.AddScoped<DocumentCategoriesServices>();
+builder.Services.AddScoped<DocumentSubjectsServices>();
 
 await builder.Build().RunAsync();

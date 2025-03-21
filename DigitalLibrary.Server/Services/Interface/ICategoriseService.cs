@@ -10,5 +10,6 @@ namespace DigitalLibrary.Server.Services.Interface
         Task UpdateCategoryAsync(Categories category);
         Task DeleteCategoryAsync(int id);
         Task DeleteMultipleAsync(List<int> categoryIds);
+        Task<IEnumerable<Categories>> GetAllCategoriesAsync();
     }
 }

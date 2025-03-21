@@ -17,7 +17,7 @@ namespace DigitalLibrary.Server.Controllers
         public DocumentController(IDocumentService service, IWebHostEnvironment env)
         {
             _service = service;
-            _env = env;
+            _env = env; 
         }
 
         [HttpGet("getallinfodocuments")]
@@ -134,6 +134,36 @@ namespace DigitalLibrary.Server.Controllers
             await _service.AddDocumentAsync(document, dcmFile, imgFile);
 
             return Ok(new {data = document, message = "Add success!" });
+        }
+
+        [HttpPut("editdocument")]
+        [Authorize(Roles = "admin, stafflv1")]
+        public async Task<IActionResult> EditDocumentAsync([FromForm] DocumentsDTO documentDTO, IFormFile dcmFile, IFormFile imgFile)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var existingDocument = await _service.FindDocumentByIdAsync(documentDTO.id);
+
+            if (existingDocument == null)
+            {
+                return NotFound($"Document with id {documentDTO.id} not found!");
+            }
+
+            existingDocument.title = documentDTO.title ?? existingDocument.title;
+            existingDocument.publisher = documentDTO.publisher ?? existingDocument.publisher;
+            existingDocument.imagepath = documentDTO.imagepath ?? existingDocument.imagepath;
+            existingDocument.imageurl = documentDTO.imageurl ?? existingDocument.imageurl;
+            existingDocument.filepath = documentDTO.filepath ?? existingDocument.filepath;
+            existingDocument.fileurl = documentDTO.fileurl ?? existingDocument.fileurl;
+            existingDocument.uploadedby = documentDTO.uploadedby ?? existingDocument.uploadedby;
+            existingDocument.description = documentDTO.description ?? existingDocument.description;
+            existingDocument.status = documentDTO.status;
+
+            await _service.UpdateDocumentAsync(existingDocument, dcmFile, imgFile);
+            return Ok(new { data = existingDocument, message = "Edit success!" });
         }
 
         [HttpDelete("deletedocument")]

@@ -40,6 +40,18 @@ namespace DigitalLibrary.Server.Controllers
             return Ok(response);
         }
 
+        [HttpGet("getall-noqueries")]
+        [Authorize]
+        public async Task<IActionResult> GetAllCategoriesAsync()
+        {
+            var categories = await _service.GetAllCategoriesAsync();
+            if (categories == null)
+            {
+                return NotFound("No records?");
+            }
+            return Ok(categories);
+        }
+
         [HttpPost("addcategory")]
         [Authorize(Roles = "admin, stafflv1")]
         public async Task<IActionResult> AddCategoryAsync([FromBody] CategoriesDTO categoriseDTO)

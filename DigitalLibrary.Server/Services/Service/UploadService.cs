@@ -29,6 +29,22 @@ namespace DigitalLibrary.Server.Services.Service
             return false;
         }
 
+        public async Task<string> FindFile(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new Exception("File path dose not valid!");
+            }
+
+            string fullPath = Path.Combine(_env.WebRootPath, filePath.TrimStart('/').Replace("/", "\\"));
+
+            if (File.Exists(fullPath))
+            {
+                return fullPath;
+            }
+            return string.Empty;
+        }
+
         public async Task<FileUpload> UploadFileDataAsync(IFormFile file)
         {
             if(file == null || file.Length == 0)

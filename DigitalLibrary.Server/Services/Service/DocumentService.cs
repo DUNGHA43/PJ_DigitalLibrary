@@ -78,9 +78,55 @@ namespace DigitalLibrary.Server.Services.Service
             return await _unitOfWork.Documents.GetAllDocumentsAsync(pageNumber, pageSize, searchName);
         }
 
-        public Task UpdateDocumentAsync(Documents document)
+        public async Task UpdateDocumentAsync(Documents document, IFormFile dcmFile, IFormFile imgFile)
         {
-            throw new NotImplementedException();
+            var existingDocument = await FindDocumentByIdAsync(document.id);
+            if (existingDocument == null)
+            {
+                throw new ArgumentException($"Document with id {document.id} does not exist!");
+            }
+
+            var documentFile = new FileUpload();
+            var imageFile = new FileUpload();
+
+            try
+            {
+                if (_uploadService.FindFile(document.fileurl!).Equals(string.Empty) && dcmFile != null && dcmFile.Length > 0)
+                {
+                    documentFile = await _uploadService.UploadFileDataAsync(dcmFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error upload file pdf!", ex);
+            }
+
+            try
+            {
+                if (_uploadService.FindFile(document.imageurl!).Equals(string.Empty) && imgFile != null && imgFile.Length > 0)
+                {
+                    imageFile = await _uploadService.UploadFileDataAsync(imgFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error upload file image!", ex);
+            }
+
+            if (!string.IsNullOrEmpty(imageFile.filePath))
+            {
+                document.imagepath = imageFile.filePath;
+                document.imageurl = imageFile.fileUrl;
+            }
+
+            if (!string.IsNullOrEmpty(documentFile.filePath))
+            {
+                document.filepath = documentFile.filePath;
+                document.fileurl = documentFile.fileUrl;
+            }
+
+            _unitOfWork.Documents.EditAsync(document);
+            await _unitOfWork.SaveChangeAsync();
         }
     }
 }

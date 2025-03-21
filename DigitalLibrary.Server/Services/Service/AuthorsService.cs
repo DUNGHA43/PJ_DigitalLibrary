@@ -52,6 +52,13 @@ namespace DigitalLibrary.Server.Services.Service
             return await _unitOfWork.Authors.GetAllAuthorsAsync(pageNumber, pageSize, searchName, searchNation);
         }
 
+        public async Task<IEnumerable<Authors>> GetAllAuthorsAsync()
+        {
+            var authors = await _unitOfWork.Authors.GetAllAsync();
+            authors = authors.Where(a => a.status == true);
+            return authors;
+        }
+
         public async Task UpdateAuthorAsync(Authors author)
         {
             var existingAuthor = await _unitOfWork.Authors.GetByIdAsync(author.id);

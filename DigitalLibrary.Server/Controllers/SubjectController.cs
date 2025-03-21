@@ -39,6 +39,18 @@ namespace DigitalLibrary.Server.Controllers
             return Ok(response);
         }
 
+        [HttpGet("getall-noqueries")]
+        [Authorize]
+        public async Task<IActionResult> GetAllSubjectsAsync()
+        {
+            var subjects = await _service.GetAllSubjectsAsync();
+            if (subjects == null)
+            {
+                return NotFound("No records?");
+            }
+            return Ok(subjects);
+        }
+
         [HttpPost("addsubject")]
         [Authorize(Roles = "admin, stafflv1")]
         public async Task<IActionResult> AddSubjectAsync([FromBody] SubjectDTO subjectDTO)

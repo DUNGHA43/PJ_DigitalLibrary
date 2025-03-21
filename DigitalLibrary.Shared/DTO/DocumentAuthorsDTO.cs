@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DigitalLibrary.Shared.DTO
 {
-    public class DocumentAuthor
+    public class DocumentAuthorDTO
     {
         public int documentid { get; set; }
         public int authorid { get; set; }

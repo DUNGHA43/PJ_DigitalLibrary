@@ -95,6 +95,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "DigitalLibrary.Server.Controllers.AuthorController",
+    "Method": "GetAllAuthorsAsync",
+    "RelativePath": "api/Author/getall-noqueries",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DigitalLibrary.Server.Controllers.CategorseController",
     "Method": "AddCategoryAsync",
     "RelativePath": "api/Categorse/addcategory",
@@ -182,6 +192,16 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.CategorseController",
+    "Method": "GetAllCategoriesAsync",
+    "RelativePath": "api/Categorse/getall-noqueries",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -335,6 +355,150 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentAuthorsController",
+    "Method": "AddDocumentAuthorsAsync",
+    "RelativePath": "api/DocumentAuthors/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentAuthorDTO",
+        "Type": "DigitalLibrary.Shared.DTO.DocumentAuthorDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentAuthorsController",
+    "Method": "DeleteDocumentAuthorsAsync",
+    "RelativePath": "api/DocumentAuthors/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentSubjectDTO",
+        "Type": "DigitalLibrary.Shared.DTO.DocumentAuthorDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentAuthorsController",
+    "Method": "GetAllDocumentAuthorsAsync",
+    "RelativePath": "api/DocumentAuthors/getall",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentCategoriesController",
+    "Method": "AddDocumentCategoriesAsync",
+    "RelativePath": "api/DocumentCategories/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentCategoriesDTO",
+        "Type": "DigitalLibrary.Shared.DTO.DocumentCategoriesDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentCategoriesController",
+    "Method": "DeleteDocumentCategoriesAsync",
+    "RelativePath": "api/DocumentCategories/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentCategoriesDTO",
+        "Type": "DigitalLibrary.Shared.DTO.DocumentCategoriesDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentCategoriesController",
+    "Method": "GetAllDocumentCategoriesAsync",
+    "RelativePath": "api/DocumentCategories/getall",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentSubjectsController",
+    "Method": "AddDocumentSubjectAsync",
+    "RelativePath": "api/DocumentSubjects/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentSubjectDTO",
+        "Type": "DigitalLibrary.Shared.DTO.DocumentSubjectDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentSubjectsController",
+    "Method": "DeleteDocumentSubjectAsync",
+    "RelativePath": "api/DocumentSubjects/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentSubjectDTO",
+        "Type": "DigitalLibrary.Shared.DTO.DocumentSubjectDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentSubjectsController",
+    "Method": "GetAllDocumentSubjectAsync",
+    "RelativePath": "api/DocumentSubjects/getall",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -527,6 +691,16 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.SubjectController",
+    "Method": "GetAllSubjectsAsync",
+    "RelativePath": "api/Subject/getall-noqueries",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

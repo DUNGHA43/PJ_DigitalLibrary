@@ -14,9 +14,9 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         public ICategoriesRepository Categorise {  get; private set; }
         public ISubjectRepository Subject { get; private set; }
         public IReviewsRepository Reviews { get; private set; }
-        public IRepository<DocumentAuthor> DocumentAuthor { get; private set; }
-        public IRepository<DocumentCategorise> DocumentCategorise { get; private set; }
-        public IRepository<DocumentSubject> DocumentSubject { get; private set; }
+        public IDocumentAuthorsRepository DocumentAuthor { get; private set; }
+        public IDocumentCategoriesRepository DocumentCategorise { get; private set; }
+        public IDocumentSubjectsRepository DocumentSubject { get; private set; }
         public IDocumentRepository Documents { get; private set; }
         public IRepository<Nations> Nations { get; private set; }
 
@@ -28,9 +28,9 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
             Categorise = new CategoriseRepository(_context);
             Subject = new SubjectRepository(_context);
             Reviews = new ReviewsRepository(_context);
-            DocumentAuthor = new Repository<DocumentAuthor>(_context);
-            DocumentCategorise = new Repository<DocumentCategorise>(_context);
-            DocumentSubject = new Repository<DocumentSubject>(_context);
+            DocumentAuthor = new DocumentAuthorsRepository(_context);
+            DocumentCategorise = new DocumentCategoriesRepository(_context);
+            DocumentSubject = new DocumentSubjectsRepository(_context);
             Documents = new DocumentRepository(_context);
             Nations = new Repository<Nations>(_context);
         }

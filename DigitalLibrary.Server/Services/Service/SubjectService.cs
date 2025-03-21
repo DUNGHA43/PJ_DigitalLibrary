@@ -50,7 +50,9 @@ namespace DigitalLibrary.Server.Services.Service
 
         public async Task<IEnumerable<Subjects>> GetAllSubjectsAsync()
         {
-            return await _unitOfWork.Subject.GetAllAsync();
+            var subjects = await _unitOfWork.Subject.GetAllAsync();
+            subjects = subjects.Where(s => s.status == true);
+            return subjects;
         }
 
         public async Task<(IEnumerable<Subjects> Subjects, int TotalCount)> GetAllSubjectsAsync(int pageNumber, int pageSize, string searchName)

@@ -40,6 +40,15 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
             }
         }
 
+        public void DeleteRelationsAsync(object documentId, object relationId)
+        {
+            var entity = _dbSet.Find(documentId, relationId);
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+            }
+        }
+
         public void EditAsync(T entity)
         {
             _dbSet.Attach(entity);

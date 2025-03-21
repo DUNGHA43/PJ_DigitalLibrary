@@ -48,6 +48,32 @@ namespace DigitalLibrary.Client.Services
             }
         }
 
+        public async Task<List<SubjectDTO>> GetSubjectsAsync()
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/Subject/getall-noqueries");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return new List<SubjectDTO>();
+                }
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<List<SubjectDTO>>();
+                return result ?? new List<SubjectDTO>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi gọi API: {e.Message}");
+                return new List<SubjectDTO>();
+            }
+        }
+
+
         public async Task<bool> AddSubjectAsync(SubjectDTO subject)
         {
             try

@@ -4,14 +4,27 @@
 @using Microsoft.AspNetCore.Components.Routing
 
 <style>
+    .navbar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #2c3e50;
+        padding: 10px 20px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
     .navbar ul {
         display: flex;
-        gap: 0; /* Khoảng cách giữa các mục */
+        gap: 20px; /* Khoảng cách giữa các mục */
         padding: 0;
+        list-style: none;
+        margin: 0;
+        align-items: center;
     }
 
         .navbar ul:last-child {
-            margin-left: auto; /* Đẩy phần tử cuối (nút đăng nhập) sang phải */
+            margin-left: auto;
         }
 </style>
 

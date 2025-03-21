@@ -1,0 +1,321 @@
+﻿@page "/admin/relations"
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@layout AdminLayout
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@inject DocumentAuthorServices DocumentAuthors
+@inject DocumentCategoriesServices DocumentCategories
+@inject DocumentSubjectsServices DocumentSubjects
+@inject AuthorsServices Authors
+@inject CategoriesServices Categories
+@inject SubjectsServices Subjects
+
+<ConfirmDialog @ref="confirmDialog" Title="Xác nhận xóa"
+Message="Bạn có chắc chắn muốn xóa tài liệu này?"
+OnConfirm="DeleteDocumentReletions" />
+
+<h3 class="d-flex align-items-center border-bottom pb-2">
+    <span class="me-2" style="font-size: 1.5rem;">📋 Tài liệu: @title</span>
+    <span class="fw-bold text-dark"></span>
+</h3>
+
+<div class="d-flex justify-content-between" style="margin-top:30px">
+    <div class="input-group w-50">
+        <button class="btn btn-secondary px-4" @onclick="GoBack">
+            ⬅️ Quay lại
+        </button>
+    </div>
+    <div>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddCate">📂 Gán thể loại</button>
+        <AddDocumentCategory documentId="@documentId" OnDocumentCategoryAdded="ReloadData"></AddDocumentCategory>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddSub">📑 Gán chủ đề</button>
+        <AddDocumentSubject documentId="@documentId" OnDocumentSubjectAdded="ReloadData"></AddDocumentSubject>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddAu">✍️ Gán tác giả</button>
+        <AddDocumentAuthor documentId="@documentId" OnDocumentAuthorAdded="ReloadData"></AddDocumentAuthor>
+    </div>
+</div>
+
+<h5 class="table-title">Tác giả của tài liệu</h5>
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th class="text-center">STT</th>
+            <th class="text-center">Tên tác giả</th>
+            <th class="text-center">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (filteredDocumentsAuthors.Count > 0)
+        {
+            @foreach (var (author, index) in filteredDocumentsAuthors.Select((c, i) => (c, i)))
+            {
+                <tr>
+                    <td class="text-center">@(index + 1)</td>
+                    <td class="text-center">@(lstAuthors.FirstOrDefault(nt => nt.id == author.authorid)?.fullname ?? "Không xác định")</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-danger" @onclick='() => ConfirmDelete("author", author.documentid, author.authorid)'>🗑</button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center fw-bold text-muted py-3">Không có dữ liệu!</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h5 class="table-title">Chủ đề của tài liệu</h5>
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th class="text-center">STT</th>
+            <th class="text-center">Tên chủ đề</th>
+            <th class="text-center">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (filteredDocumentsSubjects.Count > 0)
+        {
+            @foreach (var (subject, index) in filteredDocumentsSubjects.Select((c, i) => (c, i)))
+            {
+                <tr>
+                    <td class="text-center">@(index + 1)</td>
+                    <td class="text-center">@(lstSubjects.FirstOrDefault(nt => nt.id == subject.subjectid)?.subjectname ?? "Không xác định")</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-danger" @onclick='() => ConfirmDelete("subject", subject.documentid, subject.subjectid)'>🗑</button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center fw-bold text-muted py-3">Không có dữ liệu!</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h5 class="table-title">Thể loại của tài liệu</h5>
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th class="text-center">STT</th>
+            <th class="text-center">Tên thể loại</th>
+            <th class="text-center">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (filteredDocumentsCategories.Count > 0)
+        {
+            @foreach (var (category, index) in filteredDocumentsCategories.Select((c, i) => (c, i)))
+            {
+                <tr>
+                    <td class="text-center">@(index + 1)</td>
+                    <td class="text-center">@(lstCategories.FirstOrDefault(nt => nt.id == category.categoryid)?.catename ?? "Không xác định")</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-danger" @onclick='() => ConfirmDelete("category", category.documentid, category.categoryid)'>🗑</button>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center fw-bold text-muted py-3">Không có dữ liệu!</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code{
+    [Parameter, SupplyParameterFromQuery] public string? title { get; set; }
+    [Parameter, SupplyParameterFromQuery] public int documentId { get; set; }
+
+    private List<DocumentAuthorDTO> filteredDocumentsAuthors = new();
+    private List<DocumentCategoriesDTO> filteredDocumentsCategories = new();
+    private List<DocumentSubjectDTO> filteredDocumentsSubjects = new();
+    private List<SubjectDTO> lstSubjects = new();
+    private List<AuthorsDTO> lstAuthors = new();
+    private List<CategoriesDTO> lstCategories = new();
+    private int selectedDocumentId;
+    private int selectedRelationId;
+    private string deleteTable = string.Empty;
+    private ConfirmDialog? confirmDialog;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+        lstSubjects = await Subjects.GetSubjectsAsync();
+        lstAuthors = await Authors.GetAuthorsAsync();
+        lstCategories = await Categories.GetCategoriesAsync();
+    }
+
+    private async Task LoadData()
+    {
+        var responseDA = await DocumentAuthors.GetDocumentAuthorsAsync(documentId);
+        var responseDS = await DocumentSubjects.GetDocumentSubjectsAsync(documentId);
+        var responseDC = await DocumentCategories.GetDocumentCategoriesAsync(documentId);
+
+        if (responseDA != null || responseDS != null || responseDC != null)
+        {
+            filteredDocumentsAuthors = responseDA!;
+            filteredDocumentsCategories = responseDC!;
+            filteredDocumentsSubjects = responseDS!;
+            StateHasChanged();
+        }
+        else
+        {
+            filteredDocumentsAuthors = new List<DocumentAuthorDTO>();
+            filteredDocumentsCategories = new List<DocumentCategoriesDTO>();
+            filteredDocumentsSubjects = new List<DocumentSubjectDTO>();
+        }
+    }
+
+    private async Task ReloadData(string message)
+    {
+        await LoadData();
+        var severity = message.Contains("✅") ? Severity.Success : Severity.Error;
+        Snackbar.Add(message, severity);
+    }
+
+    private async Task ConfirmDelete(string? tableName, int? documentId = null, int? relationsId = null)
+    {
+        if (documentId.HasValue && relationsId.HasValue)
+        {
+            selectedDocumentId = documentId.Value;
+            selectedRelationId = relationsId.Value;
+            deleteTable = tableName!;
+        }
+
+        confirmDialog?.Show();
+    }
+
+    private async Task DeleteDocumentReletions(bool confirm)
+    {
+        if (confirm)
+        {
+            bool isDeleted = false;
+
+            if(deleteTable.Equals("author")){
+                var documentAuthor = new DocumentAuthorDTO
+                    {
+                        documentid = selectedDocumentId,
+                        authorid = selectedRelationId
+                    };
+
+                isDeleted = await DocumentAuthors.DeleteDocumentAuthorAsync(documentAuthor);
+            }
+
+            if (deleteTable.Equals("category"))
+            {
+                var documentCategory = new DocumentCategoriesDTO
+                    {
+                        documentid = selectedDocumentId,
+                        categoryid = selectedRelationId
+                    };
+
+                isDeleted = await DocumentCategories.DeleteDocumentCategoryAsync(documentCategory);
+            }
+
+            if (deleteTable.Equals("subject"))
+            {
+                var documentSubject = new DocumentSubjectDTO
+                    {
+                        documentid = selectedDocumentId,
+                        subjectid = selectedRelationId
+                    };
+
+                isDeleted = await DocumentSubjects.DeleteSubjectCategoryAsync(documentSubject);
+            }
+
+            if (isDeleted)
+            {
+                await LoadData();
+                Snackbar.Add("✅ Xóa tài liệu thành công!", Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add("❌ Xóa tài liệu thất bại!", Severity.Error);
+            }
+        }
+    }
+
+    private async Task GoBack()
+    {
+        JS.InvokeVoidAsync("history.back");
+    }
+}
+
+<style>
+    h3 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+        h3 span.text-primary {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+    td button {
+        width: 50px !important;
+    }
+
+    .table-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        background: #f8f9fa;
+        padding: 10px;
+        margin-top: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .table-striped tbody tr {
+        height: 50px; /* Đảm bảo các dòng có chiều cao đồng đều */
+    }
+
+    .table thead th {
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+    }
+
+    .table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+        .table th,
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+            .table th:last-child,
+            .table td:last-child {
+                width: 100px;
+                text-align: center;
+            }
+
+    .btn-danger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        padding: 0;
+    }
+
+</style>

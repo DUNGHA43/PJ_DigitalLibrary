@@ -51,6 +51,13 @@ namespace DigitalLibrary.Server.Services.Service
             return await _unitOfWork.Categorise.GetAllCategoriesAsync(pageNumber, pageSize, searchName);
         }
 
+        public async Task<IEnumerable<Categories>> GetAllCategoriesAsync()
+        {
+            var categories = await _unitOfWork.Categorise.GetAllAsync();
+            categories = categories.Where(c => c.status == true);
+            return categories;
+        }
+
         public async Task UpdateCategoryAsync(Categories category)
         {
             var existingCate = await _unitOfWork.Categorise.GetByIdAsync(category.id);

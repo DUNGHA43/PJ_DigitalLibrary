@@ -49,6 +49,31 @@ namespace DigitalLibrary.Client.Services
             }
         }
 
+        public async Task<List<CategoriesDTO>> GetCategoriesAsync()
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/Categorse/getall-noqueries");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return new List<CategoriesDTO>();
+                }
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<List<CategoriesDTO>>();
+                return result ?? new List<CategoriesDTO>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi gọi API: {e.Message}");
+                return new List<CategoriesDTO>();
+            }
+        }
+
         public async Task<bool> AddCategoryAsync(CategoriesDTO category)
         {
             try

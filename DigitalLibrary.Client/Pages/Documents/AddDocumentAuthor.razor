@@ -1,0 +1,106 @@
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@using Microsoft.AspNetCore.Components.Forms
+@inject IJSRuntime JS
+@inject DocumentAuthorServices DocumentAuthors
+@inject AuthorsServices Authors
+@inject ISnackbar Snackbar
+
+
+<div class="modal fade" id="AddAu" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Gán tác giả</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Tác giả:</label>
+                    <select class="form-select" @bind="newDocumentAuthor.authorid">
+                        <option value="">-- Chọn tác giả --</option>
+                        @foreach (var authors in lstAuthors)
+                        {
+                            <option value="@authors.id">@authors.fullname</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveDocumentAuthor" data-bs-dismiss="modal">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> OnDocumentAuthorAdded { get; set; }
+    [Parameter] public int documentId { get; set; }
+
+    private DocumentAuthorDTO newDocumentAuthor = new DocumentAuthorDTO();
+    private List<AuthorsDTO> lstAuthors = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        lstAuthors = await Authors.GetAuthorsAsync();
+        newDocumentAuthor.documentid = documentId;
+    }
+
+    private async Task SaveDocumentAuthor()
+    {
+        var result = await DocumentAuthors.AddDocumentAuthorAsync(newDocumentAuthor);
+        if (result)
+        {
+            await OnDocumentAuthorAdded.InvokeAsync("✅ Gán tác giả thành công!");
+        }
+        else
+        {
+            await OnDocumentAuthorAdded.InvokeAsync("❌ Tác giả này đã được gán!");
+        }
+    }
+}
+
+<style>
+    input[type="file"] {
+        display: none;
+    }
+
+    /* Thiết kế nút chọn file đẹp hơn */
+    .custom-file-label {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        width: 130px;
+        transition: background 0.3s;
+    }
+
+        .custom-file-label:hover {
+            background-color: #0056b3;
+        }
+
+    /* Căn chỉnh hiển thị file */
+    .file-container {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    /* Hiển thị tên file */
+    .file-name {
+        font-size: 14px;
+        color: #555;
+        max-width: 150px; /* Giới hạn độ dài tối đa */
+        white-space: nowrap; /* Không xuống dòng */
+        overflow: hidden; /* Ẩn phần dư */
+        text-overflow: ellipsis; /* Hiển thị dấu ... khi quá dài */
+        display: inline-block;
+        vertical-align: middle;
+    }
+</style>

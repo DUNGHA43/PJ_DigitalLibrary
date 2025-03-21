@@ -11,9 +11,9 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         ICategoriesRepository Categorise { get; }
         ISubjectRepository Subject { get; }
         IReviewsRepository Reviews { get; }
-        IRepository<DocumentAuthor> DocumentAuthor { get; }
-        IRepository<DocumentCategorise> DocumentCategorise { get; }
-        IRepository<DocumentSubject> DocumentSubject { get; }
+        IDocumentAuthorsRepository DocumentAuthor { get; }
+        IDocumentCategoriesRepository DocumentCategorise { get; }
+        IDocumentSubjectsRepository DocumentSubject { get; }
         IDocumentRepository Documents { get; }
         IRepository<Nations> Nations { get; }
         Task SaveChangeAsync();

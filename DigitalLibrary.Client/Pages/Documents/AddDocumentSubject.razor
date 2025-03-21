@@ -1,0 +1,63 @@
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@using Microsoft.AspNetCore.Components.Forms
+@inject IJSRuntime JS
+@inject DocumentSubjectsServices DocumentSubjects
+@inject SubjectsServices Subjects
+@inject ISnackbar Snackbar
+
+
+<div class="modal fade" id="AddSub" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Gán chủ đề</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Chủ đề:</label>
+                    <select class="form-select" @bind="newDocumentSubject.subjectid">
+                        <option value="">-- Chọn chủ đề --</option>
+                        @foreach (var subjects in lstSubjects)
+                        {
+                            <option value="@subjects.id">@subjects.subjectname</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveDocumentSubject" data-bs-dismiss="modal">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> OnDocumentSubjectAdded { get; set; }
+    [Parameter] public int documentId { get; set; }
+
+    private DocumentSubjectDTO newDocumentSubject = new DocumentSubjectDTO();
+    private List<SubjectDTO> lstSubjects = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        lstSubjects = await Subjects.GetSubjectsAsync();
+        newDocumentSubject.documentid = documentId;
+    }
+
+    private async Task SaveDocumentSubject()
+    {
+        var result = await DocumentSubjects.AddDocumentSubjectAsync(newDocumentSubject);
+        if (result)
+        {
+            await OnDocumentSubjectAdded.InvokeAsync("✅ Gán chủ đề thành công!");
+        }
+        else
+        {
+            await OnDocumentSubjectAdded.InvokeAsync("❌ Chủ đề này đã được gán!");
+        }
+    }
+}
