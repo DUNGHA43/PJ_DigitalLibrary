@@ -2,32 +2,55 @@
 using DigitalLibrary.Server.Data.UnitOfWork;
 using DigitalLibrary.Server.Model;
 using DigitalLibrary.Server.Services.Interface;
+using System.Reflection.Metadata;
+using System.Text.RegularExpressions;
 
 namespace DigitalLibrary.Server.Services.Service
 {
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public UserService(IUnitOfWork unitOfWork)
+        private readonly IUploadService _uploadService;
+        public UserService(IUnitOfWork unitOfWork, IUploadService uploadService)
         {
             _unitOfWork = unitOfWork;
+            _uploadService = uploadService;
         }
 
-        public async Task AdduserAsync(Users user)
+        public async Task AdduserAsync(Users user, IFormFile imgFile)
         {
+            if (string.IsNullOrWhiteSpace(user.email))
+            {
+                throw new ArgumentException("Email cannot be empty!");
+            }
+
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            if (!Regex.IsMatch(user.email, emailPattern))
+            {
+                throw new ArgumentException("Invalid email format!");
+            }
+
             var existingUser = await _unitOfWork.User.GetByEmailAsync(user.email!);
             if (existingUser != null)
             {
                 throw new ArgumentException("email already exists!");
             }
+
+            var imageFile = new FileUpload();
+
+            if (!(imgFile == null) || !(imgFile!.Length == 0))
+            {
+                imageFile = await _uploadService.UploadFileImageAsync(imgFile);
+            }
+            user.imageurl = imageFile.fileUrl ?? "";
+
             await _unitOfWork.User.AddAsync(user);
             await _unitOfWork.SaveChangeAsync();
         }
 
-        public async Task DeleteuserAsync(string email)
+        public async Task DeleteUserAsync(int id)
         {
-            var user = await GetByEmailAsync(email);
+            var user = await FindUserByIdAsync(id);
             if (user == null)
             {
                 throw new ArgumentException("user does not exits!");
@@ -46,12 +69,37 @@ namespace DigitalLibrary.Server.Services.Service
             return await _unitOfWork.User.GetUserByRefreshTokenAsync(refreshToken);
         }
 
-        public async Task<Users> FindUserByIdAsync(string id)
+        public async Task<Users> FindUserByIdAsync(int id)
         {
             return await _unitOfWork.User.GetByIdAsync(id);
         }
 
-        public async Task UpdateuserAsync(Users user)
+        public async Task UpdateUserAsync(Users user, IFormFile? imgFile)
+        {
+            var imageFile = new FileUpload();
+
+            try
+            {
+                if (_uploadService.FindFile(user.imageurl!).Equals(string.Empty) && imgFile != null && imgFile.Length > 0)
+                {
+                    imageFile = await _uploadService.UploadFileDataAsync(imgFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error upload file image!", ex);
+            }
+
+            if (!string.IsNullOrEmpty(imageFile.filePath))
+            {
+                user.imageurl = imageFile.fileUrl;
+            }
+
+            _unitOfWork.User.EditAsync(user);
+            await _unitOfWork.SaveChangeAsync();
+        }
+
+        public async Task UpdateUserAsync(Users user)
         {
             _unitOfWork.User.EditAsync(user);
             await _unitOfWork.SaveChangeAsync();
@@ -70,6 +118,17 @@ namespace DigitalLibrary.Server.Services.Service
         public async Task<Users> GetByUsernameAsync(string username)
         {
             return await _unitOfWork.User.GetByUsernameAsync(username);
+        }
+
+        public async Task<(IEnumerable<Users> Users, int TotalCount)> GetAllUsersAsync(int pageNumber, int pageSize, string searchName, string searchEmail, int? searchRole, bool? searchStatus)
+        {
+            return await _unitOfWork.User.GetAllUsersAsync(pageNumber, pageSize, searchName, searchEmail, searchRole, searchStatus);
+        }
+
+        public async Task DeleteMultipleUsersAsync(List<int> userIds)
+        {
+            await _unitOfWork.User.DeleteMultipleUsersAsync(userIds);
+            await _unitOfWork.SaveChangeAsync();
         }
     }
 }

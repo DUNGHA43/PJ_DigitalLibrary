@@ -15,12 +15,13 @@ namespace DigitalLibrary.Server.Controllers
         private readonly IUserService _userService;
         private readonly IConfiguration _config;
         private readonly TokenService _jwt;
-
-        public UserController(IUserService userService, IConfiguration config)
+        private readonly IWebHostEnvironment _env;
+        public UserController(IUserService userService, IConfiguration config, IWebHostEnvironment env)
         {
             _userService = userService;
             _config = config;
             _jwt = new TokenService(_config);
+            _env = env;
         }
 
         [HttpPost("login")]
@@ -45,7 +46,7 @@ namespace DigitalLibrary.Server.Controllers
 
             user.refreshtoken = refreshToken;
             user.refreshtokenexpirytime = DateTime.UtcNow.AddDays(7);
-            await _userService.UpdateuserAsync(user);
+            await _userService.UpdateUserAsync(user);
 
             return Ok(new { AccessToken = accessToken, RefreshToken = refreshToken });
         }
@@ -73,22 +74,78 @@ namespace DigitalLibrary.Server.Controllers
 
             user.refreshtoken = newRefreshToken;
             user.refreshtokenexpirytime = DateTime.UtcNow.AddDays(7);
-            await _userService.UpdateuserAsync(user);
+            await _userService.UpdateUserAsync(user);
 
             return Ok(new { AccessToken = newAccessToken, RefreshToken = newRefreshToken });
         }
 
-        [HttpGet]
-        [Authorize(Roles = "admin, stafflv1, stafflv2")]
+        [HttpGet("getall-noqueries")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAllAccount()
         {
             var accounts = await _userService.GetAllUsersAsync();
             return Ok(accounts);
         }
 
-        [HttpPost("AddUser")]
+        [HttpGet("getall")]
+        [Authorize(Roles = "admin, stafflv1, stafflv2")]
+        public async Task<IActionResult> GetAllAuthorsAsync([FromQuery] int pageNumber = 1, int pageSize = 10, string searchName = "", string searchEmail = "", int? searchRole = null, bool? searchStatus = null)
+        {
+            var (user, totalCount) = await _userService.GetAllUsersAsync(pageNumber, pageSize, searchName, searchEmail, searchRole, searchStatus);
+
+            if (user == null || !user.Any())
+            {
+                return NotFound(new { message = "Không tìm thấy người dùng nào." });
+            }
+
+            var response = new
+            {
+                Data = user,
+                TotalRecords = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = (int)Math.Ceiling((double)totalCount / pageSize)
+            };
+
+            return Ok(response);
+        }
+
+        [HttpGet("getimg/{id}")]
+        [Authorize]
+        public async Task<IActionResult> GetDocumentImage(int id)
+        {
+            if (id <= 0)
+                return BadRequest("ID tài liệu không hợp lệ!");
+
+            var user = await _userService.FindUserByIdAsync(id);
+            if (user == null || string.IsNullOrEmpty(user.imageurl))
+            {
+                return NotFound("Không tìm thấy người dùng hoặc người dùng không có ảnh.");
+            }
+
+            var imagePath = Path.Combine("wwwroot/UploadImages", user.imageurl);
+
+            string fullPath = Path.Combine(_env.WebRootPath, imagePath.TrimStart('/').Replace("/", "\\"));
+
+            if (!System.IO.File.Exists(fullPath))
+            {
+                return NotFound($"Ảnh không tồn tại trên server: {fullPath}");
+            }
+
+            try
+            {
+                var imageBytes = await System.IO.File.ReadAllBytesAsync(fullPath);
+                return File(imageBytes, "image/jpeg");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Lỗi khi tải ảnh.");
+            }
+        }
+
+        [HttpPost("adduser")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> AddUserAsync([FromBody] UsersDTO userDTO)
+        public async Task<IActionResult> AddUserAsync([FromForm] UsersDTO userDTO, IFormFile imgFile)
         {
             if (!ModelState.IsValid)
             {
@@ -108,57 +165,59 @@ namespace DigitalLibrary.Server.Controllers
                 identification = userDTO.identification,
                 address = userDTO.address,
                 createdate = DateTime.Now,
-                status = true,
+                status = userDTO.status,
                 refreshtoken = null,
                 refreshtokenexpirytime = null
             };
 
-            await _userService.AdduserAsync(user);
+            await _userService.AdduserAsync(user, imgFile);
             return Ok(new { message = "Add user success!" });
         }
 
-        [HttpPut("EditUser")]
+        [HttpPut("edituser")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> EditUserAsync([FromBody] UsersDTO usersDTO)
+        public async Task<IActionResult> EditUserAsync([FromForm] UsersDTO userDTO, IFormFile imgFile)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var existingUser = await _userService.GetByUsernameAsync(usersDTO.username!);
+            var existingUser = await _userService.GetByUsernameAsync(userDTO.username!);
             if (existingUser == null)
             {
-                return NotFound($"user with {usersDTO.username} not found!");
+                return NotFound($"user with {userDTO.username} not found!");
             }
 
-            existingUser.username = usersDTO.username ?? existingUser.username;
-            existingUser.password = usersDTO.password ?? existingUser.password;
-            existingUser.email = usersDTO.email ?? existingUser.email;
-            existingUser.fullname = usersDTO.fullname ?? existingUser.fullname;
-            existingUser.gender = usersDTO.gender ?? existingUser.gender;
-            existingUser.birthday = usersDTO.birthday ?? existingUser.birthday;
-            existingUser.phonenumber = usersDTO.phonenumber ?? existingUser.phonenumber;
-            existingUser.identification = usersDTO.identification ?? existingUser.identification;
-            existingUser.address = usersDTO.address ?? existingUser.address;
-            existingUser.status = usersDTO.status;
+            existingUser.username = userDTO.username ?? existingUser.username;
+            existingUser.password = userDTO.password ?? existingUser.password;
+            existingUser.email = userDTO.email ?? existingUser.email;
+            existingUser.fullname = userDTO.fullname ?? existingUser.fullname;
+            existingUser.gender = userDTO.gender ?? existingUser.gender;
+            existingUser.birthday = userDTO.birthday ?? existingUser.birthday;
+            existingUser.phonenumber = userDTO.phonenumber ?? existingUser.phonenumber;
+            existingUser.identification = userDTO.identification ?? existingUser.identification;
+            existingUser.address = userDTO.address ?? existingUser.address;
+            existingUser.status = userDTO.status;
 
-            await _userService.UpdateuserAsync(existingUser);
+            await _userService.UpdateUserAsync(existingUser, imgFile);
             return Ok(new { message = "Edit user success!" });
         }
 
-        [HttpDelete("DeleteUser")]
+        [HttpDelete("deleteuser")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteUserAsync(string email)
+        public async Task<IActionResult> DeleteUserAsync([FromBody] int id)
         {
-            var existingUser = await _userService.GetByEmailAsync(email);
-            if (existingUser == null)
-            {
-                return NotFound($"User with email {email} not found!");
-            }
-
-            await _userService.DeleteuserAsync(email);
+            await _userService.DeleteUserAsync(id);
             return Ok(new { message = "Delete Success!"});
+        }
+
+        [HttpDelete("deletemulti-users")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> DeleteMultipleUsersAsync([FromBody] List<int> userIds)
+        {
+            await _userService.DeleteMultipleUsersAsync(userIds);
+            return Ok(new { data = "Delete Success!" });
         }
     }
 }

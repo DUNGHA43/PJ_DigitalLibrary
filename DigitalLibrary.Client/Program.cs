@@ -36,5 +36,7 @@ builder.Services.AddScoped<DocumentsServices>();
 builder.Services.AddScoped<DocumentAuthorServices>();
 builder.Services.AddScoped<DocumentCategoriesServices>();
 builder.Services.AddScoped<DocumentSubjectsServices>();
+builder.Services.AddScoped<UserManagementServices>();
+builder.Services.AddScoped<RoleServices>();
 
 await builder.Build().RunAsync();

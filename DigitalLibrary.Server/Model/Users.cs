@@ -24,6 +24,7 @@ namespace DigitalLibrary.Server.Model
         public bool status { get; set; }
         public string? refreshtoken { get; set; }
         public DateTime? refreshtokenexpirytime { get; set; }
+        public string? imageurl { get; set; }
 
 
         [ForeignKey("roleid")]

@@ -89,6 +89,7 @@ builder.Services.AddScoped<INationServices, NationServices>();
 builder.Services.AddScoped<IDocumentAuthorServices, DocumentAuthorServices>();
 builder.Services.AddScoped<IDocumentCategoriesServices, DocumentCategoriesServices>();
 builder.Services.AddScoped<IDocumentSubjectsServices, DocumentSubjectsServices>();
+builder.Services.AddScoped<IRolesServices, RolesServices>();
 
 builder.Services.AddControllers();
 

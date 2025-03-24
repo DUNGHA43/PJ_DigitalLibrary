@@ -19,6 +19,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         public IDocumentSubjectsRepository DocumentSubject { get; private set; }
         public IDocumentRepository Documents { get; private set; }
         public IRepository<Nations> Nations { get; private set; }
+        public IRepository<Roles> Roles { get; private set; }
 
         public UnitOfWork(DbDigitalLibraryContext context)
         {
@@ -33,6 +34,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
             DocumentSubject = new DocumentSubjectsRepository(_context);
             Documents = new DocumentRepository(_context);
             Nations = new Repository<Nations>(_context);
+            Roles = new Repository<Roles>(_context);
         }
 
         public void Dispose()

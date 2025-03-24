@@ -16,6 +16,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         IDocumentSubjectsRepository DocumentSubject { get; }
         IDocumentRepository Documents { get; }
         IRepository<Nations> Nations { get; }
+        IRepository<Roles> Roles { get; }
         Task SaveChangeAsync();
     }
 }

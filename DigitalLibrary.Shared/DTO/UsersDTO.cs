@@ -17,6 +17,8 @@ namespace DigitalLibrary.Shared.DTO
         public string? phonenumber { get; set; }
         public string? identification {  get; set; }
         public string? address { get; set; }
+        public DateTime? createdate { get; set; }
         public bool status { get; set; }
+        public string? imageurl { get; set; }
     }
 }

@@ -595,6 +595,120 @@
         }
       }
     },
+    "/api/Document/editdocument": {
+      "put": {
+        "tags": [
+          "Document"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "publisher": {
+                    "type": "string"
+                  },
+                  "imagepath": {
+                    "type": "string"
+                  },
+                  "imageurl": {
+                    "type": "string"
+                  },
+                  "filepath": {
+                    "type": "string"
+                  },
+                  "fileurl": {
+                    "type": "string"
+                  },
+                  "uploadedby": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "createdate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "status": {
+                    "type": "boolean"
+                  },
+                  "accesslevel": {
+                    "type": "string"
+                  },
+                  "dcmFile": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "imgFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "id": {
+                  "style": "form"
+                },
+                "title": {
+                  "style": "form"
+                },
+                "publisher": {
+                  "style": "form"
+                },
+                "imagepath": {
+                  "style": "form"
+                },
+                "imageurl": {
+                  "style": "form"
+                },
+                "filepath": {
+                  "style": "form"
+                },
+                "fileurl": {
+                  "style": "form"
+                },
+                "uploadedby": {
+                  "style": "form"
+                },
+                "description": {
+                  "style": "form"
+                },
+                "createdate": {
+                  "style": "form"
+                },
+                "status": {
+                  "style": "form"
+                },
+                "accesslevel": {
+                  "style": "form"
+                },
+                "dcmFile": {
+                  "style": "form"
+                },
+                "imgFile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Document/deletedocument": {
       "delete": {
         "tags": [
@@ -1033,6 +1147,18 @@
         }
       }
     },
+    "/api/Role/getallroles": {
+      "get": {
+        "tags": [
+          "Role"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Subject/getall": {
       "get": {
         "tags": [
@@ -1286,7 +1412,7 @@
         }
       }
     },
-    "/api/User": {
+    "/api/User/getall-noqueries": {
       "get": {
         "tags": [
           "User"
@@ -1298,26 +1424,201 @@
         }
       }
     },
-    "/api/User/AddUser": {
+    "/api/User/getall": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "searchName",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "searchEmail",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "searchRole",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "searchStatus",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/getimg/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/adduser": {
       "post": {
         "tags": [
           "User"
         ],
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/UsersDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UsersDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UsersDTO"
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "roleid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "fullname": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "boolean"
+                  },
+                  "birthday": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "phonenumber": {
+                    "type": "string"
+                  },
+                  "identification": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "createdate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "status": {
+                    "type": "boolean"
+                  },
+                  "imageurl": {
+                    "type": "string"
+                  },
+                  "imgFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "id": {
+                  "style": "form"
+                },
+                "roleid": {
+                  "style": "form"
+                },
+                "username": {
+                  "style": "form"
+                },
+                "password": {
+                  "style": "form"
+                },
+                "email": {
+                  "style": "form"
+                },
+                "fullname": {
+                  "style": "form"
+                },
+                "gender": {
+                  "style": "form"
+                },
+                "birthday": {
+                  "style": "form"
+                },
+                "phonenumber": {
+                  "style": "form"
+                },
+                "identification": {
+                  "style": "form"
+                },
+                "address": {
+                  "style": "form"
+                },
+                "createdate": {
+                  "style": "form"
+                },
+                "status": {
+                  "style": "form"
+                },
+                "imageurl": {
+                  "style": "form"
+                },
+                "imgFile": {
+                  "style": "form"
+                }
               }
             }
           }
@@ -1329,8 +1630,128 @@
         }
       }
     },
-    "/api/User/EditUser": {
+    "/api/User/edituser": {
       "put": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "roleid": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "fullname": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "boolean"
+                  },
+                  "birthday": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "phonenumber": {
+                    "type": "string"
+                  },
+                  "identification": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "createdate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "status": {
+                    "type": "boolean"
+                  },
+                  "imageurl": {
+                    "type": "string"
+                  },
+                  "imgFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "id": {
+                  "style": "form"
+                },
+                "roleid": {
+                  "style": "form"
+                },
+                "username": {
+                  "style": "form"
+                },
+                "password": {
+                  "style": "form"
+                },
+                "email": {
+                  "style": "form"
+                },
+                "fullname": {
+                  "style": "form"
+                },
+                "gender": {
+                  "style": "form"
+                },
+                "birthday": {
+                  "style": "form"
+                },
+                "phonenumber": {
+                  "style": "form"
+                },
+                "identification": {
+                  "style": "form"
+                },
+                "address": {
+                  "style": "form"
+                },
+                "createdate": {
+                  "style": "form"
+                },
+                "status": {
+                  "style": "form"
+                },
+                "imageurl": {
+                  "style": "form"
+                },
+                "imgFile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/deleteuser": {
+      "delete": {
         "tags": [
           "User"
         ],
@@ -1338,17 +1759,20 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UsersDTO"
+                "type": "integer",
+                "format": "int32"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UsersDTO"
+                "type": "integer",
+                "format": "int32"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UsersDTO"
+                "type": "integer",
+                "format": "int32"
               }
             }
           }
@@ -1360,20 +1784,42 @@
         }
       }
     },
-    "/api/User/DeleteUser": {
+    "/api/User/deletemulti-users": {
       "delete": {
         "tags": [
           "User"
         ],
-        "parameters": [
-          {
-            "name": "email",
-            "in": "query",
-            "schema": {
-              "type": "string"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -1557,61 +2003,6 @@
           "createdate": {
             "type": "string",
             "format": "date-time",
-            "nullable": true
-          },
-          "status": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UsersDTO": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "roleid": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "username": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "fullname": {
-            "type": "string",
-            "nullable": true
-          },
-          "gender": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "birthday": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "phonenumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "identification": {
-            "type": "string",
-            "nullable": true
-          },
-          "address": {
-            "type": "string",
             "nullable": true
           },
           "status": {
