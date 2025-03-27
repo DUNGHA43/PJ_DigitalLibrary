@@ -10,7 +10,7 @@
 @inject IDialogService DialogService
 
 <ConfirmDialog @ref="confirmDialog" Title="Xác nhận xóa"
-Message="Bạn có chắc chắn muốn xóa tài liệu này?"
+Message="Bạn có chắc chắn muốn xóa người dùng này này?"
 OnConfirm="DeleteUser" />
 
 <h3 class="d-flex align-items-center border-bottom pb-2">
@@ -77,7 +77,7 @@ OnConfirm="DeleteUser" />
                     <td class="text-center">@(lstRoles.FirstOrDefault(r => r.id == user.roleid)?.rolenamevn ?? "Không xác định")</td>
                     <td class="text-center">@user.fullname</td>
                     <td class="text-center">
-                        @if (user.gender ?? true)
+                        @if (user.gender)
                         {
                             <span class="badge bg-warning">Nam</span>
                         }
@@ -99,12 +99,13 @@ OnConfirm="DeleteUser" />
                     </td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#DetailUser" @onclick="() => OpenDetailModal(user)">ℹ️</button>
-                        <DetailUser Document="selectedDocument"></DetailUser>
+                        <DetailUser User="selectedUser"></DetailUser>
 
-                        <button class="btn btn-sm btn-primary" @onclick="() => ViewPermission(user.id)">📋</button>
+                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#PermissionUser"  @onclick="() => ViewPermission(user)">📋</button>
+                        <PermissionUser User="selectedUser" OnUserEditPermission="ReloadData"></PermissionUser>
 
                         <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#EditUser" @onclick="() => OpenEditModal(user)">✏️</button>
-                        <EditUser Document="selectedDocument" OnDocumentEdited="ReloadData"></EditUser>
+                        <EditUser User="selectedUser" OnUserEdited="ReloadData"></EditUser>
 
                         <button class="btn btn-sm btn-danger" @onclick="() => ConfirmDelete(user.id)">🗑</button>
                     </td>
@@ -113,7 +114,7 @@ OnConfirm="DeleteUser" />
         }
         else{
             <tr>
-                <td colspan="10" class="text-center fw-bold text-muted py-3">Không có dữ liệu!</td>
+                <td colspan="10" class="text-center fw-bold text-muted py-3">Đang tải...</td>
             </tr>
         }
     </tbody>
@@ -208,7 +209,14 @@ OnConfirm="DeleteUser" />
             selectedId = 0;
         }
 
-        confirmDialog?.Show();
+        if ((selectedIds.Count > 0 && selectedId == 0) || selectedId > 0)
+        {
+            confirmDialog?.Show();
+        }
+        else
+        {
+            Snackbar.Add("Chưa chọn bản ghi nào!", Severity.Warning);
+        }
     }
 
     private async Task DeleteUser(bool confirm)
@@ -219,11 +227,11 @@ OnConfirm="DeleteUser" />
 
             if (selectedIds.Any())
             {
-                // isDeleted = await Documents.DeleteDocumentsMultiAsync(selectedIds);
+                isDeleted = await UserManagement.DeleteUsersMultiAsync(selectedIds);
             }
             else if (selectedId > 0)
             {
-                isDeleted = await UserManagement.DeleteDocumentAsync(selectedId);
+                isDeleted = await UserManagement.DeleteUserAsync(selectedId);
             }
 
             if (isDeleted)
@@ -263,9 +271,9 @@ OnConfirm="DeleteUser" />
         selectedUser = user;
     }
 
-    public void ViewPermission(int? documentId)
+    public void ViewPermission(UsersDTO user)
     {
-        Navigation.NavigateTo($"/admin/relations?documentId={documentId}");
+        selectedUser = user;
     }
 
     private async Task PreviousPage()

@@ -743,6 +743,49 @@
         }
       }
     },
+    "/api/Document/deletemulti-users": {
+      "delete": {
+        "tags": [
+          "Document"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/DocumentAuthors/getall": {
       "get": {
         "tags": [
@@ -1826,6 +1869,80 @@
           }
         }
       }
+    },
+    "/api/UserPermission/getall-noqueries": {
+      "get": {
+        "tags": [
+          "UserPermission"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserPermission/adduserpermission": {
+      "post": {
+        "tags": [
+          "UserPermission"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPermissionsDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPermissionsDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPermissionsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserPermission/updateuserpermission": {
+      "put": {
+        "tags": [
+          "UserPermission"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPermissionsDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPermissionsDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPermissionsDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2006,6 +2123,22 @@
             "nullable": true
           },
           "status": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserPermissionsDTO": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "canread": {
+            "type": "boolean"
+          },
+          "candowload": {
             "type": "boolean"
           }
         },

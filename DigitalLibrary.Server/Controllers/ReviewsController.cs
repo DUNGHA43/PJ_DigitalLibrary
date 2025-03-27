@@ -11,9 +11,9 @@ namespace DigitalLibrary.Server.Controllers
     [ApiController]
     public class ReviewsController : Controller
     {
-        private readonly IReviewsService _service;
+        private readonly IReviewsServices _service;
 
-        public ReviewsController(IReviewsService service)
+        public ReviewsController(IReviewsServices service)
         {
             _service = service;
         }

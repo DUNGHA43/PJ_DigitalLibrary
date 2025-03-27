@@ -10,9 +10,9 @@ namespace DigitalLibrary.Server.Controllers
     [ApiController]
     public class SubjectController : Controller
     {
-        private readonly ISubjectService _service;
+        private readonly ISubjectServices _service;
 
-        public SubjectController(ISubjectService service)
+        public SubjectController(ISubjectServices service)
         {
             _service = service;
         }

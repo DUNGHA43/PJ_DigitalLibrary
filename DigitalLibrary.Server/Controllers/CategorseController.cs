@@ -10,9 +10,9 @@ namespace DigitalLibrary.Server.Controllers
     [ApiController]
     public class CategorseController : Controller
     {
-        private readonly ICategoriseService _service;
+        private readonly ICategoriseServices _service;
 
-        public CategorseController(ICategoriseService service)
+        public CategorseController(ICategoriseServices service)
         {
             _service = service;
         }

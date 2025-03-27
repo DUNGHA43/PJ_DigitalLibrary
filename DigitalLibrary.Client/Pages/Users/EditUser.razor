@@ -1,1 +1,255 @@
-﻿
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@inject IJSRuntime JS
+@inject UserManagementServices UserManagement
+@inject NationServices Nations
+@inject ISnackbar Snackbar
+
+
+<div class="modal fade" id="EditUser" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title">✏️ Sửa thông tin người dùng</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="section-title">🖼️ Ảnh đại diện</h6>
+                <div class="text-center mb-3">
+                    @if (!string.IsNullOrEmpty(ImageBase64))
+                    {
+                        <img src="@ImageBase64" class="img-thumbnail user-image" />
+                    }
+                    else
+                    {
+                        <p class="text-muted">Không có ảnh</p>
+                    }
+                </div>
+                <hr />
+
+                <!-- Thông tin tài khoản -->
+                <h6 class="section-title">📌 Thông tin tài khoản</h6>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tên tài khoản:</label>
+                        <input class="form-control" @bind="editUser.username" disabled />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Mật khẩu:</label>
+                        <div class="input-group">
+                            <input type="@(!showPassword ? "password" : "text")" class="form-control" @bind-value="editUser.password" placeholder="Nhập mật khẩu">
+                            <button class="btn btn-outline-secondary" type="button" @onclick="TogglePasswordVisibility">
+                                <i class="fas @(showPassword ? "fa-eye-slash" : "fa-eye")"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thông tin cá nhân -->
+                <h6 class="section-title">👤 Thông tin cá nhân</h6>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Họ và tên:</label>
+                        <input class="form-control" @bind="editUser.fullname" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email:</label>
+                        <input class="form-control" @bind="editUser.email" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Giới tính:</label>
+                        <select class="form-select" @bind="stringGender">
+                            <option value="">-- Chọn giới tính --</option>
+                            <option value="true">Nam</option>
+                            <option value="false">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Ngày sinh:</label>
+                        <input type="date" class="form-control" @bind="editUser.birthday" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Số điện thoại:</label>
+                        <input class="form-control" @bind="editUser.phonenumber" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">CCCD:</label>
+                        <input class="form-control" @bind="editUser.identification" />
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Địa chỉ:</label>
+                        <textarea class="form-control" rows="3" @bind="editUser.address"></textarea>
+                    </div>
+                </div>
+
+                <!-- Hình ảnh -->
+                <h6 class="section-title">🖼️ Chọn ảnh đại diện</h6>
+                <div class="file-container">
+                    <label for="imgFileEdit" class="custom-file-label">🖼️ Chọn ảnh</label>
+                    <InputFile id="imgFileEdit" OnChange="HandleImgFileUpload" />
+                    <span class="file-name">@((!selectedImgFileName.Equals("No file chosen!") ? selectedImgFileName : editUser.imageurl))</span>
+                </div>
+
+                <!-- Trạng thái tài khoản -->
+                <h6 class="section-title">⚡ Trạng thái</h6>
+                <div class="form-check" style="text-align:left"> 
+                    <input class="form-check-input" type="checkbox" id="statusCheck" @bind="editUser.status">
+                    <label class="form-check-label" for="statusCheck">Kích hoạt</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveUser" data-bs-dismiss="modal">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public UsersDTO? User { get; set; } = new UsersDTO();
+    [Parameter] public EventCallback<string> OnUserEdited { get; set; }
+
+    private UsersDTO editUser = new UsersDTO();
+    private IBrowserFile? imgFileEdit;
+    private string selectedImgFileName = "No file chosen!";
+    private bool showPassword = false;
+    private string stringGender = "";
+    private bool? gender = null;
+    private string? ImageBase64;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+    private void TogglePasswordVisibility()
+    {
+        showPassword = !showPassword;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        selectedImgFileName = "No file chosen!";
+        if (User != null)
+        {
+            editUser = new UsersDTO
+                {
+                    id = User.id,
+                    username = User.username,
+                    password = User.password,
+                    email = User.email,
+                    fullname = User.fullname,
+                    gender = User.gender,
+                    birthday = User.birthday,
+                    phonenumber = User.phonenumber,
+                    identification = User.identification,
+                    address = User.address,
+                    status = User.status,
+                    imageurl = User.imageurl
+                };
+
+            ImageBase64 = await UserManagement.GetImageAsync(editUser.id);
+            StateHasChanged();
+        }
+    }
+
+    private async Task HandleImgFileUpload(InputFileChangeEventArgs e)
+    {
+        imgFileEdit = e.File;
+        selectedImgFileName = imgFileEdit.Name;
+
+        using var stream = imgFileEdit.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+        using var memoryStream = new MemoryStream();
+        await stream.CopyToAsync(memoryStream);
+        var imageBytes = memoryStream.ToArray();
+
+        ImageBase64 = $"data:{imgFileEdit.ContentType};base64,{Convert.ToBase64String(imageBytes)}";
+
+        StateHasChanged();
+    }
+
+    private async Task SaveUser()
+    {
+        gender = null;
+
+        if (!string.IsNullOrEmpty(stringGender))
+        {
+            gender = bool.Parse(stringGender);
+            editUser.gender = gender ?? true;
+        }
+
+        var result = await UserManagement.UpdateUserAsync(editUser, imgFileEdit!);
+        if (result)
+        {
+            await OnUserEdited.InvokeAsync("✅ Sửa người dùng thành công!");
+        }
+        else
+        {
+            await OnUserEdited.InvokeAsync("❌ Sửa người dùng thất bại!");
+        }
+    }
+}
+
+<style>
+    .modal-footer button {
+        width: 100px;
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #007bff;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    .user-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .user-image:hover {
+            transform: scale(1.05);
+        }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .custom-file-label {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        width: 130px;
+        transition: background 0.3s;
+    }
+
+        .custom-file-label:hover {
+            background-color: #0056b3;
+        }
+
+    .file-container {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .file-name {
+        font-size: 14px;
+        color: #555;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>

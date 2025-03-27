@@ -1,11 +1,8 @@
 ﻿using DigitalLibrary.Server.Model;
 using DigitalLibrary.Server.Services.Interface;
-using DigitalLibrary.Server.Services.Service;
 using DigitalLibrary.Shared.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
-using System.Reflection.Metadata.Ecma335;
 
 namespace DigitalLibrary.Server.Controllers
 {
@@ -13,9 +10,9 @@ namespace DigitalLibrary.Server.Controllers
     [ApiController]
     public class AuthorController : Controller
     {
-        private readonly IAuthorsService _service;
+        private readonly IAuthorsServices _service;
 
-        public AuthorController(IAuthorsService service)
+        public AuthorController(IAuthorsServices service)
         {
             _service = service;
         }

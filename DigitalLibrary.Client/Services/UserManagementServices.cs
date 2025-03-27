@@ -93,13 +93,15 @@ namespace DigitalLibrary.Client.Services
                 content.Add(new StringContent(user.username!), "username");
                 content.Add(new StringContent(user.password!), "password");
                 content.Add(new StringContent(user.email!), "email");
-                content.Add(new StringContent(user.fullname!), "fullname");
-                content.Add(new StringContent(user.gender.ToString()!.ToLower()), "gender");
-                content.Add(new StringContent(user.birthday.ToString()!.ToLower()), "birthday");
-                content.Add(new StringContent(user.roleid.ToString()!.Trim()), "roleid");
-                content.Add(new StringContent(user.phonenumber!), "phonenumber");
-                content.Add(new StringContent(user.identification!), "identification");
-                content.Add(new StringContent(user.address!), "address");
+                content.Add(new StringContent(user.fullname ?? ""), "fullname");
+                content.Add(new StringContent(user.gender.ToString()!.ToLower() ?? "true"), "gender");
+                content.Add(new StringContent(user.birthday.HasValue
+                                                            ? user.birthday.Value.ToString("yyyy-MM-dd")
+                                                            : DateTime.Now.ToString("yyyy-MM-dd")), "birthday");
+                content.Add(new StringContent(user.roleid.ToString()!.Trim() ?? "7"), "roleid");
+                content.Add(new StringContent(user.phonenumber ?? ""), "phonenumber");
+                content.Add(new StringContent(user.identification ?? ""), "identification");
+                content.Add(new StringContent(user.address ?? ""), "address");
                 content.Add(new StringContent(user.status.ToString().ToLower()), "status");
 
                 if (imgFile != null)
@@ -133,7 +135,7 @@ namespace DigitalLibrary.Client.Services
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, "api/User/adduser");
+                var request = new HttpRequestMessage(HttpMethod.Put, "api/User/edituser");
                 var token = await _userServices.GetToken();
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
@@ -177,7 +179,7 @@ namespace DigitalLibrary.Client.Services
             }
         }
 
-        public async Task<bool> DeleteDocumentAsync(int id)
+        public async Task<bool> DeleteUserAsync(int id)
         {
             try
             {
@@ -196,6 +198,29 @@ namespace DigitalLibrary.Client.Services
             catch (Exception e)
             {
                 Console.WriteLine($"Lỗi khi xóa tài liệu: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteUsersMultiAsync(List<int> selectedIds)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Delete, "api/User/deletemulti-users");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+                request.Content = JsonContent.Create(selectedIds);
+
+                var response = await _httpClient.SendAsync(request);
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return false;
+                }
+                response.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi xóa người dùng: {e.Message}");
                 return false;
             }
         }

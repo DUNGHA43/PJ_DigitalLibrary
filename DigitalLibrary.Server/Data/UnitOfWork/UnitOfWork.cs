@@ -20,6 +20,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         public IDocumentRepository Documents { get; private set; }
         public IRepository<Nations> Nations { get; private set; }
         public IRepository<Roles> Roles { get; private set; }
+        public IRepository<UserPermissions> UserPermissions { get; private set; }
 
         public UnitOfWork(DbDigitalLibraryContext context)
         {
@@ -35,6 +36,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
             Documents = new DocumentRepository(_context);
             Nations = new Repository<Nations>(_context);
             Roles = new Repository<Roles>(_context);
+            UserPermissions = new Repository<UserPermissions>(_context);
         }
 
         public void Dispose()

@@ -78,18 +78,19 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IAuthorsService, AuthorsService>();
-builder.Services.AddScoped<ICategoriseService, CategoriseService>();
-builder.Services.AddScoped<ISubjectService, SubjectService>();
-builder.Services.AddScoped<IReviewsService, ReviewsService>();
-builder.Services.AddScoped<IUploadService, UploadService>();
-builder.Services.AddScoped<IDocumentService, DocumentService>();
+builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<IAuthorsServices, AuthorsServices>();
+builder.Services.AddScoped<ICategoriseServices, CategoriseServices>();
+builder.Services.AddScoped<ISubjectServices, SubjectServices>();
+builder.Services.AddScoped<IReviewsServices, ReviewsServices>();
+builder.Services.AddScoped<IUploadServices, UploadServices>();
+builder.Services.AddScoped<IDocumentServices, DocumentServices>();
 builder.Services.AddScoped<INationServices, NationServices>();
 builder.Services.AddScoped<IDocumentAuthorServices, DocumentAuthorServices>();
 builder.Services.AddScoped<IDocumentCategoriesServices, DocumentCategoriesServices>();
 builder.Services.AddScoped<IDocumentSubjectsServices, DocumentSubjectsServices>();
 builder.Services.AddScoped<IRolesServices, RolesServices>();
+builder.Services.AddScoped<IUserPermissionServices, UserPermissionServices>();
 
 builder.Services.AddControllers();
 

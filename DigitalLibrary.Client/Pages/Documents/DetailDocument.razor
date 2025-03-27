@@ -8,15 +8,15 @@
         <div class="modal-content shadow-lg">
             <div class="modal-header">
                 <h5 class="modal-title">📄 Thông Tin Tài Liệu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 @if (Document != null)
                 {
-                    <div class="text-center">
+                    <div class="text-center mb-3">
                         @if (!string.IsNullOrEmpty(ImageBase64))
                         {
-                            <img src="@ImageBase64" class="img-thumbnail shadow-sm" width="200" />
+                            <img src="@ImageBase64" class="img-thumbnail shadow-sm document-image" />
                         }
                         else
                         {
@@ -24,16 +24,23 @@
                         }
                     </div>
                     <hr />
-                    <p><strong>📖 Tiêu đề:</strong> @Document.title</p>
-                    <p><strong>🏢 Nhà xuất bản:</strong> @Document.publisher</p>
-                    <p><strong>📝 Mô tả:</strong> @Document.description</p>
-                    <p><strong>📅 Ngày tạo:</strong> @Document.createdate?.ToString("dd/MM/yyyy")</p>
-                    <p>
-                        <strong>✅ Trạng thái:</strong>
-                        <span class="badge @(Document.status ? "bg-success" : "bg-danger")">
-                            @(Document.status ? "Hoạt động" : "Không hoạt động")
-                        </span>
-                    </p>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><i class="bi bi-book text-primary"></i> <strong>Tiêu đề:</strong> @Document.title</p>
+                            <p><i class="bi bi-building text-danger"></i> <strong>Nhà xuất bản:</strong> @Document.publisher</p>
+                            <p><i class="bi bi-calendar-plus text-warning"></i> <strong>Ngày tạo:</strong> @Document.createdate?.ToString("dd/MM/yyyy")</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><i class="bi bi-card-text text-success"></i> <strong>Mô tả:</strong> @Document.description</p>
+                            <p>
+                                <i class="bi bi-toggle-on text-success"></i> <strong>Trạng thái:</strong>
+                                <span class="badge @(Document.status ? "bg-success" : "bg-danger")">
+                                    @(Document.status ? "Hoạt động" : "Không hoạt động")
+                                </span>
+                            </p>
+                        </div>
+                    </div>
                 }
                 else
                 {
@@ -55,17 +62,14 @@
     protected override async Task OnParametersSetAsync()
     {
         if (Document != null)
-         {
+        {
             lastDocumentId = Document.id;
             ImageBase64 = await Documents.GetImageAsync(Document.id);
         }
     }
 }
 <style>
-    .modal-footer button {
-        width: 100px !important;
-    }
-
+    /* Căn chỉnh modal */
     .modal-content {
         border-radius: 12px;
         overflow: hidden;
@@ -73,6 +77,7 @@
 
     .modal-header {
         border-bottom: 2px solid #dee2e6;
+        padding: 15px;
     }
 
     .modal-body {
@@ -84,16 +89,33 @@
         padding: 15px;
     }
 
+    /* Nút bấm */
     .btn {
         border-radius: 6px;
+        width: auto !important;
     }
 
-    .img-thumbnail {
+    /* Ảnh tài liệu */
+    .document-image {
+        width: 180px;
+        height: 250px;
+        object-fit: cover;
         border-radius: 10px;
         transition: transform 0.3s ease-in-out;
     }
 
-        .img-thumbnail:hover {
+        .document-image:hover {
             transform: scale(1.05);
         }
+
+    /* Định dạng badge */
+    .badge {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+
+    /* Điều chỉnh icon */
+    i {
+        margin-right: 6px;
+    }
 </style>

@@ -88,5 +88,10 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
         {
             await DeleteMultipleAsync(userIds, "id");
         }
+
+        public async Task<List<Users>> GetUsersByIdsAsync(List<int> userIds)
+        {
+            return await _dbSet.Where(u => userIds.Contains(u.id)).ToListAsync();
+        }
     }
 }

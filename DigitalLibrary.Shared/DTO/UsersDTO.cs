@@ -12,7 +12,7 @@ namespace DigitalLibrary.Shared.DTO
         public string? password { get; set; }
         public string? email { get; set; }
         public string? fullname { get; set; }
-        public bool? gender { get; set; }
+        public bool gender { get; set; }
         public DateTime? birthday { get; set; }
         public string? phonenumber { get; set; }
         public string? identification {  get; set; }

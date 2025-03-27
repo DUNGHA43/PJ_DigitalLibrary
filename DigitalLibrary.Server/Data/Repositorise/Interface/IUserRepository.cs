@@ -10,5 +10,6 @@ namespace DigitalLibrary.Server.Data.Repositorise.Interface
         Task<Users> GetByUsernameAsync(string username);
         Task<(IEnumerable<Users> Users, int TotalCount)> GetAllUsersAsync(int pageNumber, int pageSize, string searchName, string searchEmail, int? searchRole, bool? searchStatus);
         Task DeleteMultipleUsersAsync(List<int> userIds);
+        Task<List<Users>> GetUsersByIdsAsync(List<int> userIds);
     }
 }

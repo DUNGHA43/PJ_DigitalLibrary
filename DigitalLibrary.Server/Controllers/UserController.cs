@@ -12,13 +12,15 @@ namespace DigitalLibrary.Server.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IUserServices _userService;
+        private readonly IUserPermissionServices _userPermissionServices;
         private readonly IConfiguration _config;
         private readonly TokenService _jwt;
         private readonly IWebHostEnvironment _env;
-        public UserController(IUserService userService, IConfiguration config, IWebHostEnvironment env)
+        public UserController(IUserServices userService, IUserPermissionServices userPermissionServices, IConfiguration config, IWebHostEnvironment env)
         {
             _userService = userService;
+            _userPermissionServices = userPermissionServices;
             _config = config;
             _jwt = new TokenService(_config);
             _env = env;
@@ -145,7 +147,7 @@ namespace DigitalLibrary.Server.Controllers
 
         [HttpPost("adduser")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> AddUserAsync([FromForm] UsersDTO userDTO, IFormFile imgFile)
+        public async Task<IActionResult> AddUserAsync([FromForm] UsersDTO userDTO, IFormFile? imgFile)
         {
             if (!ModelState.IsValid)
             {
@@ -171,12 +173,22 @@ namespace DigitalLibrary.Server.Controllers
             };
 
             await _userService.AdduserAsync(user, imgFile);
+
+            var userPermission = new UserPermissions
+            {
+                userid = user.id,
+                canread = true,
+                candowload = false,
+            };
+
+            await _userPermissionServices.AddUserPermissionAsync(userPermission);
+
             return Ok(new { message = "Add user success!" });
         }
 
         [HttpPut("edituser")]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> EditUserAsync([FromForm] UsersDTO userDTO, IFormFile imgFile)
+        public async Task<IActionResult> EditUserAsync([FromForm] UsersDTO userDTO, IFormFile? imgFile)
         {
             if (!ModelState.IsValid)
             {
@@ -193,7 +205,7 @@ namespace DigitalLibrary.Server.Controllers
             existingUser.password = userDTO.password ?? existingUser.password;
             existingUser.email = userDTO.email ?? existingUser.email;
             existingUser.fullname = userDTO.fullname ?? existingUser.fullname;
-            existingUser.gender = userDTO.gender ?? existingUser.gender;
+            existingUser.gender = userDTO.gender;
             existingUser.birthday = userDTO.birthday ?? existingUser.birthday;
             existingUser.phonenumber = userDTO.phonenumber ?? existingUser.phonenumber;
             existingUser.identification = userDTO.identification ?? existingUser.identification;

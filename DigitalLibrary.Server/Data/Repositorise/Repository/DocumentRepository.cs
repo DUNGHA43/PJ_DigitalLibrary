@@ -42,5 +42,10 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
 
             return (list, totalRecords);
         }
+
+        public async Task<List<Documents>> GetDocumentsByIdsAsync(List<int> documentIds)
+        {
+            return await _dbSet.Where(u => documentIds.Contains(u.id)).ToListAsync();
+        }
     }
 }

@@ -11,16 +11,17 @@ namespace DigitalLibrary.Server.Controllers
     [ApiController]
     public class DocumentController : Controller
     {
-        private readonly IDocumentService _service;
+        private readonly IDocumentServices _service;
         private readonly IWebHostEnvironment _env;
 
-        public DocumentController(IDocumentService service, IWebHostEnvironment env)
+        public DocumentController(IDocumentServices service, IWebHostEnvironment env)
         {
             _service = service;
             _env = env; 
         }
 
         [HttpGet("getallinfodocuments")]
+        [Authorize]
         public async Task<IActionResult> GetAllInfoDocumentsAsync([FromQuery] int pageNumber = 1, int pageSize = 10, string searchName = "")
         {
             var (documents, totalCount) = await _service.GetAllDocumentsAsync(pageNumber, pageSize, searchName);
@@ -110,6 +111,7 @@ namespace DigitalLibrary.Server.Controllers
         }
 
         [HttpPost("adddocument")]
+        [Authorize(Roles = "admin, stafflv1")]
         public async Task<IActionResult> AddDocumentAsync([FromForm] DocumentsDTO documentDTO, IFormFile dcmFile, IFormFile imgFile)
         {
             if (!ModelState.IsValid)
@@ -167,10 +169,19 @@ namespace DigitalLibrary.Server.Controllers
         }
 
         [HttpDelete("deletedocument")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteDocumentAsync([FromBody] int id)
         {
             await _service.DeleteDocumentAsync(id);
             return Ok(new { message = "Delete success!" });
+        }
+
+        [HttpDelete("deletemulti-users")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> DeleteMultipleUsersAsync([FromBody] List<int> documentIds)
+        {
+            await _service.DeleteMultipleDocumentsAsync(documentIds);
+            return Ok(new { data = "Delete Success!" });
         }
     }
 }

@@ -303,6 +303,22 @@
   },
   {
     "ContainingType": "DigitalLibrary.Server.Controllers.DocumentController",
+    "Method": "DeleteMultipleUsersAsync",
+    "RelativePath": "api/Document/deletemulti-users",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentIds",
+        "Type": "System.Collections.Generic.List\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentController",
     "Method": "EditDocumentAsync",
     "RelativePath": "api/Document/editdocument",
     "HttpMethod": "PUT",
@@ -834,7 +850,7 @@
       },
       {
         "Name": "gender",
-        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.Boolean",
         "IsRequired": false
       },
       {
@@ -952,7 +968,7 @@
       },
       {
         "Name": "gender",
-        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "System.Boolean",
         "IsRequired": false
       },
       {
@@ -1092,6 +1108,48 @@
       {
         "Name": "request",
         "Type": "DigitalLibrary.Server.Model.RefreshTokenRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.UserPermissionController",
+    "Method": "AddUserPermission",
+    "RelativePath": "api/UserPermission/adduserpermission",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userPermissions",
+        "Type": "DigitalLibrary.Shared.DTO.UserPermissionsDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.UserPermissionController",
+    "Method": "GetAllUserPermission",
+    "RelativePath": "api/UserPermission/getall-noqueries",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.UserPermissionController",
+    "Method": "UpdateUserPermission",
+    "RelativePath": "api/UserPermission/updateuserpermission",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userPermissionsDTO",
+        "Type": "DigitalLibrary.Shared.DTO.UserPermissionsDTO",
         "IsRequired": true
       }
     ],

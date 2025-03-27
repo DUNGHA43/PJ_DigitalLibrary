@@ -1,1 +1,206 @@
-﻿
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@using Microsoft.AspNetCore.Components.Forms
+@inject IJSRuntime JS
+@inject UserManagementServices UserManagement
+@inject RoleServices Roles
+@inject ISnackbar Snackbar
+
+
+<div class="modal fade" id="AddUser" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Thêm người dùng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label>Tên tài khoản:</label>
+                    <InputText @bind-value="newUser.username" class="form-control" />
+                </div>
+
+                <div class="mb-3 position-relative">
+                    <label class="form-label">Mật khẩu</label>
+                    <div class="input-group">
+                        <input type="@(!showPassword ? "password" : "text")" class="form-control" @bind-value="newUser.password" placeholder="Nhập mật khẩu">
+                        <button class="btn btn-outline-secondary" type="button" @onclick="TogglePasswordVisibility">
+                            <i class="fas @(showPassword ? "fa-eye-slash" : "fa-eye")"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Vai trò:</label>
+                    <select class="form-select" @bind="newUser.roleid">
+                        <option value="">-- Chọn vài trò --</option>
+                        @foreach (var roles in lstRoles)
+                        {
+                            <option value="@roles.id">@roles.rolenamevn</option>
+                        }
+                    </select>
+                </div>
+
+                <div>
+                    <label>Email:</label>
+                    <InputText @bind-value="newUser.email" class="form-control" />
+                </div>
+
+                <div>
+                    <label>Họ và tên:</label>
+                    <InputText @bind-value="newUser.fullname" class="form-control" />
+                </div>
+
+                <div>
+                    <label class="form-label">Giới tính:</label>
+                    <select class="form-select" @bind="stringGender">
+                        <option value="">-- Chọn giới tính --</option>
+                        <option value="true">Nam</option>
+                        <option value="false">Nữ</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Ngày sinh:</label>
+                    <input type="date" class="form-control" @bind="newUser.birthday" @bind:format="yyyy-MM-dd" />
+                </div>
+
+                <div>
+                    <label>Số điện thoại:</label>
+                    <InputText @bind-value="newUser.phonenumber" class="form-control" />
+                </div>
+
+                <div>
+                    <label>Căn cước công dân:</label>
+                    <InputText @bind-value="newUser.identification" class="form-control" />
+                </div>
+
+                <div>
+                    <label>Địa chỉ:</label>
+                    <InputTextArea @bind-value="newUser.address" class="form-control" />
+                </div>
+
+                <div class="file-container">
+                    <label for="imgFile" class="custom-file-label">🖼️ Chọn ảnh</label>
+                    <InputFile id="imgFile" OnChange="HandleImgFileUpload" />
+                    <span class="file-name">@selectedImgFileName</span>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="statusCheck" @bind="newUser.status">
+                    <label class="form-check-label" for="statusCheck">
+                        Kích Hoạt
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveUser" data-bs-dismiss="modal">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> OnUserAdded { get; set; }
+
+    private List<RolesDTO> lstRoles = new List<RolesDTO>();
+    private UsersDTO newUser = new UsersDTO();
+    private IBrowserFile? imgFile;
+    private bool showPassword = false;
+    private string stringGender = "";
+    private bool? gender = null;
+    private string selectedImgFileName = "No file chosen";
+
+    protected override async Task OnInitializedAsync()
+    {
+        lstRoles = await Roles.GetAllAsync();
+    }
+
+    private void HandleImgFileUpload(InputFileChangeEventArgs e)
+    {
+        imgFile = e.File;
+        selectedImgFileName = imgFile.Name;
+    }
+
+    private void TogglePasswordVisibility()
+    {
+        showPassword = !showPassword;
+    }
+
+    private async Task SaveUser()
+    {
+        gender = null;
+
+        if (!string.IsNullOrEmpty(stringGender))
+        {
+            gender = bool.Parse(stringGender);
+            newUser.gender = gender ?? true;
+        }
+
+        if(string.IsNullOrEmpty(newUser.username)){
+            Snackbar.Add("❌ Vui lòng nhập tên người dùng!", Severity.Error);
+        }
+        else if(string.IsNullOrEmpty(newUser.password)){
+            Snackbar.Add("❌ Vui lòng nhập mật khẩu!", Severity.Error);
+        }
+        else if(string.IsNullOrEmpty(newUser.email)){
+            Snackbar.Add("❌ Vui lòng nhập email!", Severity.Error);
+        }
+        else
+        {
+            var result = await UserManagement.AddUserAsync(newUser, imgFile!);
+            if (result)
+            {
+                await OnUserAdded.InvokeAsync("✅ Thêm người dùng thành công!");
+            }
+            else
+            {
+                await OnUserAdded.InvokeAsync("❌ Thêm người dùng thất bại!");
+            }
+        }
+    }
+}
+
+<style>
+    input[type="file"] {
+        display: none;
+    }
+
+    .custom-file-label {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        width: 130px;
+        transition: background 0.3s;
+    }
+
+        .custom-file-label:hover {
+            background-color: #0056b3;
+        }
+
+    .file-container {
+        margin-bottom: 12px;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .file-name {
+        font-size: 14px;
+        color: #555;
+        max-width: 150px;
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        display: inline-block;
+        vertical-align: middle;
+    }
+</style>

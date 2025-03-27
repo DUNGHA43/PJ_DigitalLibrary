@@ -1,0 +1,108 @@
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@inject IJSRuntime JS
+@inject UserPermissionServices UserPermissions
+@inject ISnackbar Snackbar
+
+
+<div class="modal fade" id="PermissionUser" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Chỉnh sửa quyền</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3" style="text-align: left">
+                    <label class="form-label">Người dùng:</label>
+                    <label class="form-label" style="font-size:18px">@User!.fullname</label>
+                </div>
+
+                <div class="mb-3" style="text-align: left">
+                    <label class="form-label">Quyền đọc:</label>
+                    <select class="form-select text-center"
+                            @bind:get="canReadBool"
+                            @bind:set="ChangeCanRead">
+                        <option value="true">Kích hoạt</option>
+                        <option value="false">Vô hiệu</option>
+                    </select>
+                </div>
+
+                <div class="mb-3" style="text-align: left">
+                    <label class="form-label">Quyền tải:</label>
+                    <select class="form-select text-center"
+                            @bind:get="canDowloadBool"
+                            @bind:set="ChangeCanDowload">
+                        <option value="true">Kích hoạt</option>
+                        <option value="false">Vô hiệu</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveCategory" data-bs-dismiss="modal">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public UsersDTO? User { get; set; } = new UsersDTO();
+    [Parameter] public EventCallback<string> OnUserEditPermission { get; set; }
+
+    private UserPermissionsDTO editUserPermission = new UserPermissionsDTO();
+    private List<UserPermissionsDTO> lstUserPermission = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        lstUserPermission = await UserPermissions.GetUserPermissionAsync();
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (User != null)
+        {
+            editUserPermission = lstUserPermission.FirstOrDefault(x => x.userid == User!.id)!;
+        }
+    }
+
+    private string canReadBool => editUserPermission.canread.ToString().ToLower();
+
+    private void ChangeCanRead(string value)
+    {
+        editUserPermission.canread = bool.Parse(value);
+    }
+
+    private string canDowloadBool => editUserPermission.candowload.ToString().ToLower();
+
+    private void ChangeCanDowload(string value)
+    {
+        editUserPermission.candowload = bool.Parse(value);
+    }
+
+    private async Task SaveCategory()
+    {
+        var permission = new UserPermissionsDTO{
+                userid = editUserPermission.userid,
+                canread = editUserPermission.canread,
+                candowload = editUserPermission.candowload
+            };
+
+        var result = await UserPermissions.EditUserPermissionsAsync(permission);
+        if (result)
+        {
+            await OnUserEditPermission.InvokeAsync("✅ Sửa quyền thành công!");
+        }
+        else
+        {
+            await OnUserEditPermission.InvokeAsync("❌ Xóa quyền thất bại!");
+        }
+    }
+}
+<style>
+    .modal-footer button {
+        width: 100px !important;
+    }
+</style>

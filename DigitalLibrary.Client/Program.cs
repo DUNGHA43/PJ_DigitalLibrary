@@ -17,9 +17,8 @@ builder.Services.AddMudServices(config =>
     config.SnackbarConfiguration.NewestOnTop = true;
 });
 
-builder.Services.AddScoped(sp =>
-    new HttpClient { BaseAddress = new Uri("https://localhost:7211/") });
 
+builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<AuthInterceptorHandler>();
 
 builder.Services.AddHttpClient<UserServices>(client =>
@@ -27,16 +26,59 @@ builder.Services.AddHttpClient<UserServices>(client =>
     client.BaseAddress = new Uri("https://localhost:7211/");
 }).AddHttpMessageHandler<AuthInterceptorHandler>();
 
-builder.Services.AddScoped<UserServices>();
-builder.Services.AddScoped<CategoriesServices>();
-builder.Services.AddScoped<AuthorsServices>();
-builder.Services.AddScoped<NationServices>();
-builder.Services.AddScoped<SubjectsServices>();
-builder.Services.AddScoped<DocumentsServices>();
-builder.Services.AddScoped<DocumentAuthorServices>();
-builder.Services.AddScoped<DocumentCategoriesServices>();
-builder.Services.AddScoped<DocumentSubjectsServices>();
-builder.Services.AddScoped<UserManagementServices>();
-builder.Services.AddScoped<RoleServices>();
+builder.Services.AddHttpClient<CategoriesServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<AuthorsServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<NationServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<SubjectsServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<DocumentsServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<DocumentAuthorServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<DocumentCategoriesServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<DocumentSubjectsServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<UserManagementServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<RoleServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<UserPermissionServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
 
 await builder.Build().RunAsync();
