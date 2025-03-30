@@ -18,6 +18,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         IRepository<Nations> Nations { get; }
         IRepository<Roles> Roles { get; }
         IRepository<UserPermissions> UserPermissions { get; }
+        IRepository<Statistics> Statistics { get; }
         Task SaveChangeAsync();
     }
 }

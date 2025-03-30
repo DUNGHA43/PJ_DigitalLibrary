@@ -26,6 +26,31 @@ namespace DigitalLibrary.Client.Services
             _userServices = userServices;
         }
 
+        public async Task<List<DocumentsDTO>> GetDocumentNoAuthorizeAsync(int? subjectId = null, int? authorId = null, int? categoryId = null)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/Document/getdocument_noauthorize?subjectId={subjectId}&authorId={authorId}&categoryId={categoryId}");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return new List<DocumentsDTO>();
+                }
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<List<DocumentsDTO>>();
+                return result ?? new List<DocumentsDTO>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi gọi API: {e.Message}");
+                return new List<DocumentsDTO>();
+            }
+        }
+
         public async Task<PaginationResponse<DocumentsDTO>> GetDocumentsAsync(int pageNumber = 1, int pageSize = 10, string searchName = "")
         {
             try
@@ -118,7 +143,7 @@ namespace DigitalLibrary.Client.Services
             }
         }
 
-        public async Task<bool> AddDocumentAsync(DocumentsDTO document, IBrowserFile dcmFile, IBrowserFile imgFile)
+        public async Task<bool> AddDocumentAsync(DocumentsDTO document, IBrowserFile dcmFile, IBrowserFile? imgFile)
         {
             try
             {
@@ -135,6 +160,7 @@ namespace DigitalLibrary.Client.Services
                 content.Add(new StringContent(document.publisher!), "publisher");
                 content.Add(new StringContent(updatedBy.ToString()), "uploadedby");
                 content.Add(new StringContent(document.description!), "description");
+                content.Add(new StringContent(document.accesslevel!), "accesslevel");
                 content.Add(new StringContent(document.status.ToString().ToLower()), "status");
 
                 if(dcmFile == null)
@@ -173,6 +199,62 @@ namespace DigitalLibrary.Client.Services
             }
         }
 
+        public async Task<bool> UpdateDocumentAsync(DocumentsDTO document, IBrowserFile? dcmFile, IBrowserFile? imgFile)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Put, "api/Document/editdocument");
+                var token = await _userServices.GetToken();
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var handler = new JwtSecurityTokenHandler();
+                var jwtToken = handler.ReadJwtToken(token);
+                var updatedBy = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value;
+
+                var content = new MultipartFormDataContent();
+                content.Add(new StringContent(document.id.ToString()), "id");
+                content.Add(new StringContent(document.title!), "title");
+                content.Add(new StringContent(document.publisher!), "publisher");
+                content.Add(new StringContent(updatedBy.ToString()), "uploadedby");
+                content.Add(new StringContent(document.description!), "description");
+                content.Add(new StringContent(document.accesslevel!), "accesslevel");
+                content.Add(new StringContent(document.status.ToString().ToLower()), "status");
+
+                if (dcmFile != null)
+                {
+                    var dcmStream = dcmFile.OpenReadStream(dcmFile.Size);
+                    var dcmContent = new StreamContent(dcmStream);
+                    dcmContent.Headers.ContentType = new MediaTypeHeaderValue(dcmFile.ContentType);
+                    content.Add(dcmContent, "dcmFile", dcmFile.Name);
+                }
+
+                if (imgFile != null)
+                {
+                    var imgStream = imgFile.OpenReadStream(imgFile.Size);
+                    var imgContent = new StreamContent(imgStream);
+                    imgContent.Headers.ContentType = new MediaTypeHeaderValue(imgFile.ContentType);
+                    content.Add(imgContent, "imgFile", imgFile.Name);
+                }
+
+                request.Content = content;
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return false;
+                }
+
+                response.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi sửa tài liệu: {e.Message}");
+                return false;
+            }
+        }
+
         public async Task<bool> DeleteDocumentAsync(int id)
         {
             try
@@ -180,6 +262,29 @@ namespace DigitalLibrary.Client.Services
                 var request = new HttpRequestMessage(HttpMethod.Delete, "api/Document/deletedocument");
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
                 request.Content = JsonContent.Create(id);
+
+                var response = await _httpClient.SendAsync(request);
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return false;
+                }
+                response.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi xóa tài liệu: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteDocumentsMultiAsync(List<int> selectedIds)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Delete, "api/Document/deletemulti-documents");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+                request.Content = JsonContent.Create(selectedIds);
 
                 var response = await _httpClient.SendAsync(request);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)

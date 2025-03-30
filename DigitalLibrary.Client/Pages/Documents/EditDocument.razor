@@ -1,5 +1,216 @@
-﻿<h3>EditDocument</h3>
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@using Microsoft.AspNetCore.Components.Forms
+@inject IJSRuntime JS
+@inject DocumentsServices Documents
+@inject ISnackbar Snackbar
+
+
+<div class="modal fade" id="EditDocument" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Sửa tài liệu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6 class="section-title">🖼️ Ảnh tài liệu</h6>
+                <div class="image-container">
+                    @if (!string.IsNullOrEmpty(ImageBase64))
+                    {
+                        <img src="@ImageBase64" class="img-thumbnail document-image" />
+                    }
+                    else
+                    {
+                        <p class="text-muted">Không có ảnh</p>
+                    }
+                </div>
+                <hr />
+
+                <div class="form-group">
+                    <label>Tiêu đề:</label>
+                    <InputText @bind-Value="editDocument.title" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Nhà xuất bản:</label>
+                    <InputText @bind-Value="editDocument.publisher" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Mô tả:</label>
+                    <InputTextArea @bind-Value="editDocument.description" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Gói áp dụng:</label>
+                    <select class="form-select" @bind="editDocument.accesslevel">
+                        <option value="">-- Chọn gói áp dụng --</option>
+                        <option value="Basic">Basic</option>
+                        <option value="Vip">Vip</option>
+                        <option value="Pro">Pro</option>
+                    </select>
+                </div>
+
+                <div class="file-container">
+                    <label for="dcmFileEdit" class="custom-file-label">📄 Chọn file PDF</label>
+                    <InputFile id="dcmFileEdit" OnChange="HandleDcmFileUpload" />
+                    <span class="file-name">@((!selectedPdfFileName.Equals("No file chosen!") ? selectedPdfFileName : editDocument.fileurl))</span>
+                </div>
+
+                <div class="file-container">
+                    <label for="imgFileEdit" class="custom-file-label">🖼️ Chọn ảnh</label>
+                    <InputFile id="imgFileEdit" OnChange="HandleImgFileUpload" />
+                    <span class="file-name">@((!selectedImgFileName.Equals("No file chosen!") ? selectedImgFileName : editDocument.imageurl))</span>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="statusCheck" @bind="editDocument.status">
+                    <label class="form-check-label" for="statusCheck">
+                        Kích Hoạt
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveDocument" data-bs-dismiss="modal">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @code {
+    [Parameter] public EventCallback<string> OnDocumentEdited { get; set; }
+    [Parameter] public DocumentsDTO? Document { get; set; } = new DocumentsDTO();
 
+    private DocumentsDTO editDocument = new DocumentsDTO();
+    private IBrowserFile? dcmFileEdit;
+    private IBrowserFile? imgFileEdit;
+    private string selectedPdfFileName = "No file chosen!";
+    private string selectedImgFileName = "No file chosen!";
+    private string? ImageBase64;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        selectedImgFileName = "No file chosen!";
+        selectedPdfFileName = "No file chosen!";
+        if (Document != null)
+        {
+            editDocument = new DocumentsDTO
+                {
+                    id = Document.id,
+                    title = Document.title,
+                    publisher = Document.publisher,
+                    description = Document.description,
+                    accesslevel = Document.accesslevel!.Trim(),
+                    fileurl = Document.fileurl,
+                    imageurl = Document.imageurl,
+                    status = Document.status
+                };
+
+            ImageBase64 = await Documents.GetImageAsync(editDocument.id);
+            StateHasChanged();
+        }
+    }
+
+    private async Task HandleDcmFileUpload(InputFileChangeEventArgs e)
+    {
+        dcmFileEdit = e.File;
+        selectedPdfFileName = dcmFileEdit.Name;
+    }
+
+    private async Task HandleImgFileUpload(InputFileChangeEventArgs e)
+    {
+        imgFileEdit = e.File;
+        selectedImgFileName = imgFileEdit.Name;
+
+        using var stream = imgFileEdit.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+        using var memoryStream = new MemoryStream();
+        await stream.CopyToAsync(memoryStream);
+        var imageBytes = memoryStream.ToArray();
+
+        ImageBase64 = $"data:{imgFileEdit.ContentType};base64,{Convert.ToBase64String(imageBytes)}";
+    }
+
+    private async Task SaveDocument()
+    {
+        var result = await Documents.UpdateDocumentAsync(editDocument, dcmFileEdit!, imgFileEdit!);
+        if (result)
+        {
+            await OnDocumentEdited.InvokeAsync("✅ Sửa tài liệu thành công!");
+        }
+        else
+        {
+            await OnDocumentEdited.InvokeAsync("❌ Sửa tài liệu thất bại!");
+        }
+    }
 }
+
+<style>
+    .image-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .document-image {
+        max-width: 100%;
+        max-height: 300px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .file-upload-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+
+    .file-container {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Khoảng cách giữa nút chọn file và tên file */
+        margin-bottom: 12px;
+    }
+
+    .custom-file-label {
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        transition: background 0.3s;
+        white-space: nowrap; /* Tránh bị xuống dòng */
+    }
+
+        .custom-file-label:hover {
+            background-color: #0056b3;
+        }
+
+    .file-name {
+        font-size: 14px;
+        color: #555;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>

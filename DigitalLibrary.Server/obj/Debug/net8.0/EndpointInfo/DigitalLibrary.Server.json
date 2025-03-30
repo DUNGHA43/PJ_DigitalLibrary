@@ -395,6 +395,44 @@
         }
       }
     },
+    "/api/Document/getdocument_noauthorize": {
+      "get": {
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "authorId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Document/getallinfodocuments": {
       "get": {
         "tags": [
@@ -743,7 +781,7 @@
         }
       }
     },
-    "/api/Document/deletemulti-users": {
+    "/api/Document/deletemulti-documents": {
       "delete": {
         "tags": [
           "Document"

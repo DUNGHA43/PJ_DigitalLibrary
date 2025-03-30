@@ -149,6 +149,8 @@
                     imageurl = User.imageurl
                 };
 
+            stringGender = editUser.gender.ToString().ToLower();
+
             ImageBase64 = await UserManagement.GetImageAsync(editUser.id);
             StateHasChanged();
         }

@@ -82,11 +82,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" class="form-check-input">
-                        <label class="form-check-label">Nhớ mật khẩu</label>
-                    </div>
-                    <button class="btn btn-primary w-100" @onclick="OnLogin" disabled="@isLoggingIn">
+                    <button class="btn btn-primary w-100" @onclick="OnLogin" disabled="@isLoggingIn" style="margin-top: 20px">
                         @(isLoggingIn ? "Đang đăng nhập ..." : "Đăng nhập")
                     </button>
                     <div class="text-center mt-3">

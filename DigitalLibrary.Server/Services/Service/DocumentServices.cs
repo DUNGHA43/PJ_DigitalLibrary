@@ -15,7 +15,7 @@ namespace DigitalLibrary.Server.Services.Service
             _uploadService = uploadService;
         }
 
-        public async Task AddDocumentAsync(Documents document, IFormFile dcmFile, IFormFile imgFile)
+        public async Task AddDocumentAsync(Documents document, IFormFile dcmFile, IFormFile? imgFile)
         {
             var imageFile = new FileUpload();
             var documentFile = new FileUpload();
@@ -35,6 +35,14 @@ namespace DigitalLibrary.Server.Services.Service
             document.filepath = documentFile.filePath ?? "";
             document.fileurl = documentFile.fileUrl ?? "";
 
+            var statistics = new Statistics()
+            {
+                documentid = document.id,
+                views = 0,
+                dowloaded = 0,
+            };
+
+            await _unitOfWork.Statistics.AddAsync(statistics);
             await _unitOfWork.Documents.AddAsync(document);
             await _unitOfWork.SaveChangeAsync();
         }
@@ -61,8 +69,14 @@ namespace DigitalLibrary.Server.Services.Service
 
             foreach (var document in documents)
             {
-                await _uploadService.DeleteFileAsync(document.fileurl!);
-                await _uploadService.DeleteFileAsync(document.imageurl!);
+                if (!string.IsNullOrEmpty(document.imageurl))
+                {
+                    await _uploadService.DeleteFileAsync(document.imageurl!);
+                }
+                if (!string.IsNullOrEmpty(document.fileurl))
+                {
+                    await _uploadService.DeleteFileAsync(document.fileurl!);
+                }
             }
 
             await _unitOfWork.Documents.DeleteMultipleDocumentsAsync(documetnsIds);
@@ -91,12 +105,17 @@ namespace DigitalLibrary.Server.Services.Service
             return await _unitOfWork.Documents.GetAllDocumentsAsync(pageNumber, pageSize, searchName);
         }
 
+        public async Task<IEnumerable<Documents>> GetDocumentHomePageAsync(int? subjectId = null, int? authorId = null, int? categoryId = null)
+        {
+            return await _unitOfWork.Documents.GetDocumentHomePageAsync(subjectId, authorId, categoryId);
+        }
+
         public async Task<List<Documents>> GetDocumentsByIdsAsync(List<int> documentIds)
         {
             return await _unitOfWork.Documents.GetDocumentsByIdsAsync(documentIds);
         }
 
-        public async Task UpdateDocumentAsync(Documents document, IFormFile dcmFile, IFormFile imgFile)
+        public async Task UpdateDocumentAsync(Documents document, IFormFile? dcmFile, IFormFile? imgFile)
         {
             var existingDocument = await FindDocumentByIdAsync(document.id);
             if (existingDocument == null)

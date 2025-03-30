@@ -20,6 +20,13 @@ namespace DigitalLibrary.Server.Controllers
             _env = env; 
         }
 
+        [HttpGet("getdocument_noauthorize")]
+        public async Task<IActionResult> GetDocumentNoAuthorizeAsync([FromQuery] int? subjectId = null, int? authorId = null, int? categoryId = null)
+        {
+            var documents = await _service.GetDocumentHomePageAsync(subjectId, authorId, categoryId);
+            return Ok(documents);
+        }
+
         [HttpGet("getallinfodocuments")]
         [Authorize]
         public async Task<IActionResult> GetAllInfoDocumentsAsync([FromQuery] int pageNumber = 1, int pageSize = 10, string searchName = "")
@@ -112,7 +119,7 @@ namespace DigitalLibrary.Server.Controllers
 
         [HttpPost("adddocument")]
         [Authorize(Roles = "admin, stafflv1")]
-        public async Task<IActionResult> AddDocumentAsync([FromForm] DocumentsDTO documentDTO, IFormFile dcmFile, IFormFile imgFile)
+        public async Task<IActionResult> AddDocumentAsync([FromForm] DocumentsDTO documentDTO, IFormFile dcmFile, IFormFile? imgFile)
         {
             if (!ModelState.IsValid)
             {
@@ -129,6 +136,7 @@ namespace DigitalLibrary.Server.Controllers
                 fileurl = documentDTO.fileurl,
                 uploadedby = documentDTO.uploadedby,
                 description = documentDTO.description,
+                accesslevel = documentDTO.accesslevel,
                 createdate = DateTime.Now,
                 status = documentDTO.status,
             };
@@ -140,7 +148,7 @@ namespace DigitalLibrary.Server.Controllers
 
         [HttpPut("editdocument")]
         [Authorize(Roles = "admin, stafflv1")]
-        public async Task<IActionResult> EditDocumentAsync([FromForm] DocumentsDTO documentDTO, IFormFile dcmFile, IFormFile imgFile)
+        public async Task<IActionResult> EditDocumentAsync([FromForm] DocumentsDTO documentDTO, IFormFile? dcmFile, IFormFile? imgFile)
         {
             if (!ModelState.IsValid)
             {
@@ -162,6 +170,7 @@ namespace DigitalLibrary.Server.Controllers
             existingDocument.fileurl = documentDTO.fileurl ?? existingDocument.fileurl;
             existingDocument.uploadedby = documentDTO.uploadedby ?? existingDocument.uploadedby;
             existingDocument.description = documentDTO.description ?? existingDocument.description;
+            existingDocument.accesslevel = documentDTO.accesslevel ?? existingDocument.accesslevel;
             existingDocument.status = documentDTO.status;
 
             await _service.UpdateDocumentAsync(existingDocument, dcmFile, imgFile);
@@ -176,7 +185,7 @@ namespace DigitalLibrary.Server.Controllers
             return Ok(new { message = "Delete success!" });
         }
 
-        [HttpDelete("deletemulti-users")]
+        [HttpDelete("deletemulti-documents")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteMultipleUsersAsync([FromBody] List<int> documentIds)
         {

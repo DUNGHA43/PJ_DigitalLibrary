@@ -12,5 +12,6 @@ namespace DigitalLibrary.Server.Services.Interface
         Task<(IEnumerable<Documents> Documents, int TotalCount)> GetAllDocumentsAsync(int pageNumber, int pageSize, string searchName);
         Task DeleteMultipleDocumentsAsync(List<int> documetnsIds);
         Task<List<Documents>> GetDocumentsByIdsAsync(List<int> documentIds);
+        Task<IEnumerable<Documents>> GetDocumentHomePageAsync(int? subjectId = null, int? authorId = null, int? categoryId = null);
     }
 }

@@ -146,7 +146,14 @@ OnConfirm="DeleteCategory" />
             selectedId = 0;
         }
 
-        confirmDialog?.Show();
+        if ((selectedIds.Count > 0 && selectedId == 0) || selectedId > 0)
+        {
+            confirmDialog?.Show();
+        }
+        else
+        {
+            Snackbar.Add("Chưa chọn bản ghi nào!", Severity.Warning);
+        }
     }
 
     private async Task DeleteCategory(bool confirm)

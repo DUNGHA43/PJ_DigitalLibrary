@@ -304,7 +304,7 @@
   {
     "ContainingType": "DigitalLibrary.Server.Controllers.DocumentController",
     "Method": "DeleteMultipleUsersAsync",
-    "RelativePath": "api/Document/deletemulti-users",
+    "RelativePath": "api/Document/deletemulti-documents",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -419,6 +419,32 @@
       {
         "Name": "searchName",
         "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.DocumentController",
+    "Method": "GetDocumentNoAuthorizeAsync",
+    "RelativePath": "api/Document/getdocument_noauthorize",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "subjectId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "authorId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "categoryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }
     ],

@@ -17,6 +17,8 @@ builder.Services.AddMudServices(config =>
     config.SnackbarConfiguration.NewestOnTop = true;
 });
 
+builder.Services.AddScoped(sp =>
+    new HttpClient { BaseAddress = new Uri("https://localhost:7211/") });
 
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<AuthInterceptorHandler>();

@@ -17,17 +17,27 @@
             <div class="modal-body">
                 <div>
                     <label>Tiêu đề:</label>
-                    <InputText @bind-Value="newDocument.title" class="form-control" />
+                    <InputText @bind-value="newDocument.title" class="form-control" />
                 </div>
 
                 <div>
                     <label>Nhà xuất bản:</label>
-                    <InputText @bind-Value="newDocument.publisher" class="form-control" />
+                    <InputText @bind-value="newDocument.publisher" class="form-control" />
                 </div>
 
                 <div>
                     <label>Mô tả:</label>
-                    <InputTextArea @bind-Value="newDocument.description" class="form-control" />
+                    <InputTextArea @bind-value="newDocument.description" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Gói áp dụng:</label>
+                    <select class="form-select" @bind="newDocument.accesslevel">
+                        <option value="">-- Chọn gói áp dụng --</option>
+                        <option value="Basic">Basic</option>
+                        <option value="Vip">Vip</option>
+                        <option value="Pro">Pro</option>
+                    </select>
                 </div>
 
                 <div class="file-container" style="margin-top:10px">
