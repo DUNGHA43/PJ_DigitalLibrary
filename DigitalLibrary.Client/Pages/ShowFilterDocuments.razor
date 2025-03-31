@@ -1,10 +1,12 @@
-﻿@page "/"
+﻿@page "/documents"
 @using DigitalLibrary.Client.Services
 @using DigitalLibrary.Shared.DTO
 @using MudBlazor
-@using Shared.DTO
 @inject NavigationManager NavigationManager
 @inject DocumentsServices Documents
+@inject SubjectsServices SubjectServices
+@inject CategoriesServices CategoriesServices
+@inject AuthorsServices AuthorsServices
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
 
@@ -12,75 +14,12 @@
 <div class="home-page">
     <section class="book-category">
         <div class="category-header">
-            <h2 class="category-title">Tài liệu mới cập nhật</h2>
-            <a href="/documents" class="see-more">Xem thêm</a>
+            <h2 class="category-title">@pageTitle</h2>
         </div>
         <div class="book-list">
             @if (filteredDocuments != null && filteredDocuments.Any())
             {
-                @foreach (var book in filteredDocuments.Take(6))
-                {
-                    <div class="book-card" @onclick="() => GoToBookDetail(book.id)">
-                        <div class="pdf-badge">PDF</div>
-                        <div class="level-badge @GetAccessClass(book.accesslevel)">
-                            @book.accesslevel
-                        </div>
-                        <img src="@($"https://localhost:7211{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
-                        <div class="book-info">
-                            <p class="book-title">@book.title</p>
-                            <p class="book-downloads">Lượt tải: 0</p>
-                            <p class="book-author">Added by @book.publisher</p>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>Không có sách nào.</p>
-            }
-        </div>
-    </section>
-
-    <section class="book-subject">
-        <div class="category-header">
-            <h2 class="category-title">Tài liệu thể loại công nghệ thông tin</h2>
-            <a href="/documents?category=@category" class="see-more">Xem thêm</a>
-        </div>
-        <div class="book-list">
-            @if (filteredDocumentCategory != null && filteredDocumentCategory.Any())
-            {
-                @foreach (var book in filteredDocumentCategory.Take(6))
-                {
-                    <div class="book-card" @onclick="() => GoToBookDetail(book.id)">
-                        <div class="pdf-badge">PDF</div>
-                        <div class="level-badge @GetAccessClass(book.accesslevel)">
-                            @book.accesslevel
-                        </div>
-                        <img src="@($"https://localhost:7211{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
-                        <div class="book-info">
-                            <p class="book-title">@book.title</p>
-                            <p class="book-downloads">Lượt tải: 0</p>
-                            <p class="book-author">Added by @book.publisher</p>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>Không có sách nào.</p>
-            }
-        </div>
-    </section>
-
-    <section class="book-subject">
-        <div class="category-header">
-            <h2 class="category-title">Miễn phí cho bạn</h2>
-            <a href="/documents?accessLevel=Basic" class="see-more">Xem thêm</a>
-        </div>
-        <div class="book-list">
-            @if (filteredDocuments != null && filteredDocuments.Any())
-            {
-                @foreach (var book in filteredDocuments.Where(d => d.accesslevel!.Contains("Basic")).Take(6))
+                @foreach (var book in filteredDocuments)
                 {
                     <div class="book-card" @onclick="() => GoToBookDetail(book.id)">
                         <div class="pdf-badge">PDF</div>
@@ -98,7 +37,7 @@
             }
             else
             {
-                <p>Không có sách nào.</p>
+                <p>Xin lỗi không có tài liệu bạn cần rồi!</p>
             }
         </div>
     </section>
@@ -109,38 +48,134 @@
 }
 @code {
     private List<DocumentsDTO> filteredDocuments = new List<DocumentsDTO>();
-    private List<DocumentsDTO> filteredDocumentCategory = new List<DocumentsDTO>();
-    private bool isLoggedIn = false;
+    private List<SubjectDTO> lstSub = new List<SubjectDTO>();
+    private List<AuthorsDTO> lstAu = new List<AuthorsDTO>();
+    private List<CategoriesDTO> lstCate = new List<CategoriesDTO>();
     private bool isLoginFormVisible = false;
-    private int category = 24;
+
+    [Parameter] [SupplyParameterFromQuery] public int? author { get; set; }
+    [Parameter] [SupplyParameterFromQuery] public int? category { get; set; }
+    [Parameter] [SupplyParameterFromQuery] public int? subject { get; set; }
+    [Parameter] [SupplyParameterFromQuery] public string? accessLevel { get; set; }
+    [Parameter] [SupplyParameterFromQuery] public string? searchName { get; set; }
+    private string pageTitle = "Tất cả tài liệu";
+    private bool isGroupedView = false;
 
     protected override async Task OnInitializedAsync()
     {
-        var documentsnew = await Documents.GetDocumentNoAuthorizeAsync(null, null, null, null, null);
-        var documentscategory = await Documents.GetDocumentNoAuthorizeAsync(null, null, category, null, null);
-        if (documentsnew != null)
-        {
-            filteredDocuments = documentsnew;
-        }
-        if (documentsnew != null)
-        {
-            filteredDocumentCategory = documentscategory;
-        }
+        await LoadDocumentsAsync();
+        lstAu = await AuthorsServices.GetAuthorsAsync();
+        lstSub = await SubjectServices.GetSubjectsAsync();
+        lstCate = await CategoriesServices.GetCategoriesAsync();
     }
 
-    private void ShowLoginForm()
+    protected override async Task OnParametersSetAsync()
     {
-        isLoginFormVisible = true;
-    }
-    private void CloseLoginForm()
-    {
-        isLoginFormVisible = false;
+        if (author.HasValue)
+        {
+            var authorName = lstAu.FirstOrDefault(au => au.id == author)!.fullname;
+            pageTitle = $"Sách của tác giả: {authorName}";
+        }
+        else if (category.HasValue)
+        {
+            var categoryName = lstCate.FirstOrDefault(ca => ca.id == category)!.catename;
+            pageTitle = $"Thể loại: {categoryName}";
+        }
+        else if (subject.HasValue)
+        {
+            var subjectName = lstSub.FirstOrDefault(au => au.id == subject)!.subjectname;
+            pageTitle = $"Chủ đề: {subjectName}";
+        }
+        else if (!string.IsNullOrEmpty(accessLevel))
+        {
+            pageTitle = $"Hạng truy cập: {accessLevel}";
+        }
+        else{
+
+        }
+
+        if (!author.HasValue && !category.HasValue && !subject.HasValue && string.IsNullOrEmpty(accessLevel) && string.IsNullOrEmpty(searchName))
+        {
+            pageTitle = "Tất cả tài liệu";
+            isGroupedView = false;
+        }
+        else if (author.HasValue)
+        {
+            if (author.Value == 0)
+            {
+                pageTitle = "Tài liệu theo tác giả";
+                GroupByField("author");
+            }
+            else
+            {
+                var authorName = lstAu.FirstOrDefault(au => au.id == author)!.fullname;
+                pageTitle = $"Sách của tác giả: {authorName}";
+                isGroupedView = false;
+            }
+        }
+        else if (category.HasValue)
+        {
+            if (category.Value == 0)
+            {
+                pageTitle = "Tài liệu theo thể loại";
+                GroupByField("category");
+            }
+            else
+            {
+                var categoryName = lstCate.FirstOrDefault(ca => ca.id == category)!.catename;
+                pageTitle = $"Thể loại: {categoryName}";
+                isGroupedView = false;
+            }
+        }
+        else if (subject.HasValue)
+        {
+            if (subject.Value == 0)
+            {
+                pageTitle = "Tài liệu theo chủ đề";
+                GroupByField("subject");
+            }
+            else
+            {
+                var subjectName = lstSub.FirstOrDefault(au => au.id == subject)!.subjectname;
+                pageTitle = $"Chủ đề: {subjectName}";
+                isGroupedView = false;
+            }
+        }
+        else if (!string.IsNullOrEmpty(accessLevel))
+        {
+            if (accessLevel == "All")
+            {
+                pageTitle = "Tài liệu theo hạng truy cập";
+                GroupByField("accessLevel");
+            }
+            else
+            {
+                pageTitle = $"Hạng truy cập: {accessLevel}";
+                isGroupedView = false;
+            }
+        }
+        else if(!string.IsNullOrEmpty(searchName)){
+            pageTitle = $"Kết quả tìm kiếm:";
+            isGroupedView = false;
+        }
+        await LoadDocumentsAsync();
     }
 
-    private async Task GoToBookDetail(int documentId)
+    private async Task LoadDocumentsAsync()
+    {
+        filteredDocuments = await Documents.GetDocumentNoAuthorizeAsync(subject, author, category, accessLevel, searchName) ?? new List<DocumentsDTO>();
+    }
+
+    private void GroupByField(string field){
+
+    }
+
+    private void ShowLoginForm() => isLoginFormVisible = true;
+    private void CloseLoginForm() => isLoginFormVisible = false;
+
+    private async Task GoToBookDetail(int bookId)
     {
         var token = await JS.InvokeAsync<string>("localStorage.getItem", "accessToken");
-
         if (string.IsNullOrEmpty(token))
         {
             Snackbar.Add("Bạn phải đăng nhập mới có thể xem tài liệu!", Severity.Warning);
@@ -148,20 +183,17 @@
         }
         else
         {
-            NavigationManager.NavigateTo($"/detaildocument?document={documentId}");
+            NavigationManager.NavigateTo($"/detaildocument/{bookId}");
         }
     }
 
-    private string GetAccessClass(string accessLevel)
+    private string GetAccessClass(string accessLevel) => accessLevel switch
     {
-        return accessLevel switch
-        {
-            "Basic" => "access-basic",
-            "Vip" => "access-vip",
-            "Pro" => "access-pro",
-            _ => "access-basic"
-        };
-    }
+        "Basic" => "access-basic",
+        "Vip" => "access-vip",
+        "Pro" => "access-pro",
+        _ => "access-basic"
+    };
 }
 
 <style>
@@ -175,7 +207,6 @@
         --pdf-badge-text: white;
     }
 
-    
     body {
         background-color: var(--background-color);
         color: var(--text-color);
@@ -215,6 +246,7 @@
         margin: 10px auto;
         text-align: left;
         padding: 30px;
+        min-height: 460px;
     }
 
     .book-subject {

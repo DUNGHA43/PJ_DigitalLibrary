@@ -1,7 +1,9 @@
 ﻿using DigitalLibrary.Server.Data.DatabaseContext;
 using DigitalLibrary.Server.Data.Repositorise.Interface;
 using DigitalLibrary.Server.Model;
+using DigitalLibrary.Shared.DTO;
 using Microsoft.EntityFrameworkCore;
+using Shared.DTO;
 using System.Reflection.Metadata;
 
 namespace DigitalLibrary.Server.Data.Repositorise.Repository
@@ -44,7 +46,7 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
             return (list, totalRecords);
         }
 
-        public async Task<IEnumerable<Documents>> GetDocumentHomePageAsync(int? subjectId = null, int? authorId = null, int? categoryId = null)
+        public async Task<IEnumerable<Documents>> GetDocumentHomePageAsync(int? subjectId = null, int? authorId = null, int? categoryId = null, string? accesslevel = null, string? searchName = null)
         {
             var query = _dbSet.Where(d => d.status == true);
 
@@ -66,6 +68,16 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
                     .Any(ds => ds.documentid == d.id && ds.categoryid == categoryId.Value));
             }
 
+            if (!string.IsNullOrEmpty(accesslevel))
+            {
+                query = query.Where(d => d.accesslevel!.Contains(accesslevel));
+            }
+
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                query = query.Where(d => d.title!.Contains(searchName));
+            }
+
             var list = await query.OrderByDescending(d => d.createdate)
                 .Select(d => new Documents
                 {
@@ -80,7 +92,6 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
 
             return list;
         }
-
 
         public async Task<List<Documents>> GetDocumentsByIdsAsync(List<int> documentIds)
         {

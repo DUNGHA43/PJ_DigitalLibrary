@@ -40,7 +40,6 @@ namespace DigitalLibrary.Server.Controllers
         }
 
         [HttpGet("getall-noqueries")]
-        [Authorize]
         public async Task<IActionResult> GetAllSubjectsAsync()
         {
             var subjects = await _service.GetAllSubjectsAsync();

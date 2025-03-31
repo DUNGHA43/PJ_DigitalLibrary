@@ -1,0 +1,15 @@
+﻿@page "/detaildocument"
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@inject NavigationManager NavigationManager
+@inject DocumentsServices Documents
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+
+
+<h2>@document</h2>
+
+@code{
+    [Parameter, SupplyParameterFromQuery] public int document { get; set; }
+}

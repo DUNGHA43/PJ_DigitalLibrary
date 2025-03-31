@@ -1,4 +1,5 @@
 ﻿using DigitalLibrary.Server.Model;
+using DigitalLibrary.Shared.DTO;
 
 namespace DigitalLibrary.Server.Data.Repositorise.Interface
 {
@@ -7,6 +8,6 @@ namespace DigitalLibrary.Server.Data.Repositorise.Interface
         Task<(IEnumerable<Documents> Documents, int TotalCount)> GetAllDocumentsAsync(int pageNumber, int pageSize, string searchName);
         Task DeleteMultipleDocumentsAsync(List<int> documentIds);
         Task<List<Documents>> GetDocumentsByIdsAsync(List<int> documentIds);
-        Task<IEnumerable<Documents>> GetDocumentHomePageAsync(int? subjectId = null, int? authorId = null, int? categoryId = null);
+        Task<IEnumerable<Documents>> GetDocumentHomePageAsync(int? subjectId = null, int? authorId = null, int? categoryId = null, string? accesslevel = null, string? searchName = null);
     }
 }

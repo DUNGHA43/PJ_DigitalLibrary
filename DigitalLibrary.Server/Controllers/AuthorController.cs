@@ -41,7 +41,6 @@ namespace DigitalLibrary.Server.Controllers
         }
 
         [HttpGet("getall-noqueries")]
-        [Authorize]
         public async Task<IActionResult> GetAllAuthorsAsync()
         {
             var authors = await _service.GetAllAuthorsAsync();

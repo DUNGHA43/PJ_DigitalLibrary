@@ -1,6 +1,7 @@
 ﻿using DigitalLibrary.Server.Data.UnitOfWork;
 using DigitalLibrary.Server.Model;
 using DigitalLibrary.Server.Services.Interface;
+using Shared.DTO;
 
 namespace DigitalLibrary.Server.Services.Service
 {
@@ -105,9 +106,9 @@ namespace DigitalLibrary.Server.Services.Service
             return await _unitOfWork.Documents.GetAllDocumentsAsync(pageNumber, pageSize, searchName);
         }
 
-        public async Task<IEnumerable<Documents>> GetDocumentHomePageAsync(int? subjectId = null, int? authorId = null, int? categoryId = null)
+        public async Task<IEnumerable<Documents>> GetDocumentHomePageAsync(int? subjectId = null, int? authorId = null, int? categoryId = null, string? accesslevel = null, string? searchName = null)
         {
-            return await _unitOfWork.Documents.GetDocumentHomePageAsync(subjectId, authorId, categoryId);
+            return await _unitOfWork.Documents.GetDocumentHomePageAsync(subjectId, authorId, categoryId, accesslevel, searchName);
         }
 
         public async Task<List<Documents>> GetDocumentsByIdsAsync(List<int> documentIds)

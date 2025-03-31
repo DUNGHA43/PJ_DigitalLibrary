@@ -4,6 +4,7 @@ using DigitalLibrary.Shared.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Shared.DTO;
 
 namespace DigitalLibrary.Server.Controllers
 {
@@ -21,9 +22,10 @@ namespace DigitalLibrary.Server.Controllers
         }
 
         [HttpGet("getdocument_noauthorize")]
-        public async Task<IActionResult> GetDocumentNoAuthorizeAsync([FromQuery] int? subjectId = null, int? authorId = null, int? categoryId = null)
+        public async Task<IActionResult> GetDocumentNoAuthorizeAsync([FromQuery] int? subjectId = null, int? authorId = null, int? categoryId = null,
+        string? accesslevel = null, string? searchName = null)
         {
-            var documents = await _service.GetDocumentHomePageAsync(subjectId, authorId, categoryId);
+            var documents = await _service.GetDocumentHomePageAsync(subjectId, authorId, categoryId, accesslevel, searchName);
             return Ok(documents);
         }
 

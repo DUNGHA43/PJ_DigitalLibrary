@@ -54,7 +54,6 @@ namespace DigitalLibrary.Server.Controllers
         }
 
         [HttpPost("refresh-token")]
-        [Authorize]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
             var user = await _userService.GetUserByRefreshTokenAsync(request.RefreshToken);

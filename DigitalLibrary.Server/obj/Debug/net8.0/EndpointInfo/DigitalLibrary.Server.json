@@ -424,6 +424,20 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "accesslevel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "searchName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {

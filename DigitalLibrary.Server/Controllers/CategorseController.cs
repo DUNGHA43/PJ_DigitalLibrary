@@ -41,7 +41,6 @@ namespace DigitalLibrary.Server.Controllers
         }
 
         [HttpGet("getall-noqueries")]
-        [Authorize]
         public async Task<IActionResult> GetAllCategoriesAsync()
         {
             var categories = await _service.GetAllCategoriesAsync();

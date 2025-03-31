@@ -26,11 +26,13 @@ namespace DigitalLibrary.Client.Services
             _userServices = userServices;
         }
 
-        public async Task<List<DocumentsDTO>> GetDocumentNoAuthorizeAsync(int? subjectId = null, int? authorId = null, int? categoryId = null)
+        public async Task<List<DocumentsDTO>> GetDocumentNoAuthorizeAsync(int? subjectId = null, int? authorId = null, int? categoryId = null,
+        string? accesslevel = null, string? searchName = null)
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, $"api/Document/getdocument_noauthorize?subjectId={subjectId}&authorId={authorId}&categoryId={categoryId}");
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/Document/getdocument_noauthorize?subjectId={subjectId}&authorId={authorId}&categoryId={categoryId}" +
+                    $"&accesslevel={accesslevel}&searchName={searchName}");
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
 
                 var response = await _httpClient.SendAsync(request);
