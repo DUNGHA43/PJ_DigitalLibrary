@@ -91,6 +91,8 @@ builder.Services.AddScoped<IDocumentCategoriesServices, DocumentCategoriesServic
 builder.Services.AddScoped<IDocumentSubjectsServices, DocumentSubjectsServices>();
 builder.Services.AddScoped<IRolesServices, RolesServices>();
 builder.Services.AddScoped<IUserPermissionServices, UserPermissionServices>();
+builder.Services.AddScoped<IStatisticsServices, StatisticServices>();
+builder.Services.AddScoped<IUserSubscriptionServices, UserSubscriptionServices>();
 
 builder.Services.AddControllers();
 

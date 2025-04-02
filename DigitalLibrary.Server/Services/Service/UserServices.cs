@@ -44,7 +44,17 @@ namespace DigitalLibrary.Server.Services.Service
             }
             user.imageurl = imageFile.fileUrl ?? "";
 
+            var subscription = new UserSubcriptions
+            {
+                userid = user.id,
+                planid = 1,
+                redate = DateTime.Now,
+                exdate = DateTime.Now,
+                status = true
+            };
+
             await _unitOfWork.User.AddAsync(user);
+            await _unitOfWork.UserSubscriptions.AddAsync(subscription);
             await _unitOfWork.SaveChangeAsync();
         }
 

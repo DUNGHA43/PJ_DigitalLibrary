@@ -17,7 +17,7 @@ wwwroot\UploadDocuments\ec38482d-5001-4ac8-89a3-b0b3c4fe2d28.pdf
 wwwroot\UploadImages\1358caf3-05f7-4ffc-b121-8f8a5d47a823.png
 wwwroot\UploadImages\204d0a65-e5b1-42f7-9ee1-f1f2af31eb40.png
 wwwroot\UploadImages\308c7d35-3f5b-454f-97b7-7764ac1fdd9f.jpg
-wwwroot\UploadImages\30c2da50-ba4a-4038-b295-cbf1bddd54dd.jpg
+wwwroot\UploadImages\362b061c-0628-4caa-8a2a-12b510a68bfe.jpg
 wwwroot\UploadImages\37771df2-46d6-475f-9f3e-935dacd8dee7.png
 wwwroot\UploadImages\386aaa50-e20d-4bb2-bbc3-8f37b21ff72b.png
 wwwroot\UploadImages\4c4f6b6a-d73e-4692-906b-d11711c2c656.jpg

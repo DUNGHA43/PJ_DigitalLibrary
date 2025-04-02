@@ -53,6 +53,59 @@ namespace DigitalLibrary.Client.Services
             }
         }
 
+        public async Task<IEnumerable<DocumentGroupDTO>> GetDocumentByFilterAsync(int? subjectId = null, int? authorId = null, int? categoryId = null,
+        string? accesslevel = null, string? searchName = null, string? filterGroup = null, int page = 1, int pageSize = 10)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/Document/getdocumentfilter_noauthorize?subjectId={subjectId}&authorId={authorId}&categoryId={categoryId}" +
+                    $"&accesslevel={accesslevel}&searchName={searchName}&filterGroup={filterGroup}&page={page}&pageSize={pageSize}");
+
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return new List<DocumentGroupDTO>();
+                }
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<List<DocumentGroupDTO>>();
+                return result ?? new List<DocumentGroupDTO>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi gọi API: {e.Message}");
+                return new List<DocumentGroupDTO>();
+            }
+        }
+
+        public async Task<DocumentsDTO> FindDocumentById(int documentId)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/Document/getdocumentbyid?documentId={documentId}");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return new DocumentsDTO();
+                }
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<DocumentsDTO>();
+                return result ?? new DocumentsDTO();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi gọi API: {e.Message}");
+                return new DocumentsDTO();
+            }
+        }
+
         public async Task<PaginationResponse<DocumentsDTO>> GetDocumentsAsync(int pageNumber = 1, int pageSize = 10, string searchName = "")
         {
             try

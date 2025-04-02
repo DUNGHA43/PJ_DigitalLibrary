@@ -1,6 +1,7 @@
 ﻿using DigitalLibrary.Server.Data.UnitOfWork;
 using DigitalLibrary.Server.Model;
 using DigitalLibrary.Server.Services.Interface;
+using DigitalLibrary.Shared.DTO;
 using Shared.DTO;
 
 namespace DigitalLibrary.Server.Services.Service
@@ -96,6 +97,18 @@ namespace DigitalLibrary.Server.Services.Service
             return document;
         }
 
+        public async Task<DocumentsDTO> FindDocumentDetailByIdAsync(int id)
+        {
+            var document = await _unitOfWork.Documents.FindDocumentDetailByIdAsync(id);
+
+            if (document == null)
+            {
+                throw new ArgumentException($"Document with id {id} dose not exist!");
+            }
+
+            return document;
+        }
+
         public async Task<IEnumerable<Documents>> GetAllDocumentsAsync()
         {
             return await _unitOfWork.Documents.GetAllAsync();
@@ -104,6 +117,11 @@ namespace DigitalLibrary.Server.Services.Service
         public async Task<(IEnumerable<Documents> Documents, int TotalCount)> GetAllDocumentsAsync(int pageNumber, int pageSize, string searchName)
         {
             return await _unitOfWork.Documents.GetAllDocumentsAsync(pageNumber, pageSize, searchName);
+        }
+
+        public async Task<IEnumerable<DocumentGroupDTO>> GetDocumentByFilterAsync(int? subjectId = null, int? authorId = null, int? categoryId = null, string? accesslevel = null, string? searchName = null, string? filterGroup = null, int page = 1, int pageSize = 10)
+        {
+            return await _unitOfWork.Documents.GetDocumentByFilterAsync(subjectId, authorId, categoryId, accesslevel, searchName, filterGroup, page, pageSize);
         }
 
         public async Task<IEnumerable<Documents>> GetDocumentHomePageAsync(int? subjectId = null, int? authorId = null, int? categoryId = null, string? accesslevel = null, string? searchName = null)

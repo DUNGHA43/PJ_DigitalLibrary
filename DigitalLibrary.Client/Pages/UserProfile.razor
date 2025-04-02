@@ -1,0 +1,421 @@
+﻿@page "/profile"
+@layout ReadDocumentLayout
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@using System.IdentityModel.Tokens.Jwt
+@inject UserServices UserServices
+@inject UserSubscriptionServices UserSubscriptionServices
+@inject UserManagementServices UserManagement
+@inject NavigationManager Navigation
+@inject ISnackbar Snackbar
+
+<div class="profile-container">
+    <div class="container py-5">
+        @if (checkUser == userId)
+        {
+            <div class="row">
+                <!-- Left Column - Profile Card -->
+                <div class="col-lg-4">
+                    <div class="card profile-card mb-4">
+                        <div class="card-body text-center">
+                            <div class="profile-image-container">
+                                @if (!string.IsNullOrEmpty(ImageBase64))
+                                {
+                                    <img src="@ImageBase64" class="rounded-circle img-fluid profile-image" />
+                                }
+                                else
+                                {
+                                    <p class="text-muted">Không có ảnh</p>
+                                }
+                                <InputFile id="profileImageUpload" class="d-none"
+                                           OnChange="HandleImgFileUpload"
+                                           accept=".jpg,.jpeg,.png,.gif" />
+                            </div>
+
+                            <h5 class="my-3">@UserSub.Users.fullname</h5>
+                            <p class="text-muted mb-1">@UserSub.Users.username</p>
+                            <p class="text-muted mb-4">@UserSub.Users.address</p>
+                            <div class="d-flex justify-content-center mb-2">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateUserDetail" @onclick="() => selectedUser = UserSub.Users">Chỉnh sửa thông tin</button>
+                                <button type="button" class="btn btn-outline-primary ms-1" onclick="document.getElementById('profileImageUpload').click()">
+                                    Thay đổi ảnh
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subscription Plan Card -->
+                    <div class="card subscription-card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0">Gói đăng ký</h5>
+                                <span class="badge bg-success">@(UserSub.exdate < DateTime.UtcNow && !UserSub.SubscriptionPlans.nameplan.Trim().Equals("Basic")
+                                        ? "Đã hết hạn" : "Hoạt động")
+                                </span>
+                            </div>
+                            <hr>
+                            <div class="plan-details">
+                                <h4 class="plan-name">@UserSub.SubscriptionPlans.nameplan</h4>
+                                <div class="price">@string.Format("{0:N0} VNĐ", UserSub.SubscriptionPlans.price)<span class="period">/@UserSub.SubscriptionPlans.durationsindays ngày</span></div>
+                                <p class="plan-description">@UserSub.SubscriptionPlans.description</p>
+                                <div class="expiry-date">
+                                    <i class="fas fa-calendar-alt me-2"></i>
+                                    <span>Hết hạn vào ngày: @UserSub.exdate.ToString("dd-MM-yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - User Details -->
+                <div class="col-lg-8">
+                    <div class="card user-details-card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Họ và tên</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@UserSub.Users.fullname</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@UserSub.Users.email</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Số điện thoại</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@UserSub.Users.phonenumber</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Số căn cước</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@UserSub.Users.identification</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Giới tính</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@(UserSub.Users.gender ? "Nam" : "Nữ")</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Ngày sinh</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@UserSub.Users.birthday?.ToString("dd-MM-yyyy")</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Địa chỉ</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@UserSub.Users.address</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Ngày tạo tài khoản</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@UserSub.Users.createdate?.ToString("dd-MM-yyyy")</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Trạng thái của tài khoản</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <span class="badge @(UserSub.Users.status ? "bg-success" : "bg-danger")">
+                                        @(UserSub.Users.status ? "Kích hoạt" : "Vộ hiệu")
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Actions -->
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card action-card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-lock fa-2x mb-3 text-primary"></i>
+                                    <h5 class="card-title">Thay đổi mật khẩu</h5>
+                                    <p class="card-text">Thay đổi mật khẩu cho tài khoản của bạn</p>
+                                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#ChangeUserPass" @onclick="() => selectedUser = UserSub.Users">Thay đổi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<ChangeUserPassword User="selectedUser" OnUserChangePass="ReloadData"></ChangeUserPassword>
+<UpdateUserDetail User="selectedUser" OnUserUpdateDetail="ReloadData"></UpdateUserDetail>
+@code{
+    [Parameter, SupplyParameterFromQuery] public int userId { get; set; }
+    private UserSubscriptionsDTO UserSub = new UserSubscriptionsDTO();
+    private UsersDTO selectedUser = new UsersDTO();
+    private string? ImageBase64;
+    private IBrowserFile? imgFileEdit;
+    private int checkUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var token = await UserServices.GetToken();
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+        checkUser = int.Parse(jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value);
+    }
+
+    protected override async Task OnParametersSetAsync(){
+        if(checkUser == userId){
+            ImageBase64 = await UserManagement.GetImageAsync(userId);
+            UserSub = await UserSubscriptionServices.FindUserSubscriptionByUserId(userId);
+        }
+        else{
+            Snackbar.Add("Lỗi xác thực hoặc do bạn truy cập trái phép. Vui lòng đăng nhập lại", Severity.Error);
+        }
+    }
+
+    private async Task HandleImgFileUpload(InputFileChangeEventArgs e)
+    {
+        imgFileEdit = e.File;
+
+        using var stream = imgFileEdit.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+        using var memoryStream = new MemoryStream();
+        await stream.CopyToAsync(memoryStream);
+        var imageBytes = memoryStream.ToArray();
+
+        ImageBase64 = $"data:{imgFileEdit.ContentType};base64,{Convert.ToBase64String(imageBytes)}";
+
+        StateHasChanged();
+
+        var result = await UserManagement.UpdateUserAsync(UserSub.Users, imgFileEdit!);
+        if (result)
+        {
+            Snackbar.Add("✅ Thay ảnh đại diện thành công!", Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add("✅ Thay ảnh đại diện thất bại!", Severity.Error);
+        }
+    }
+
+    private async Task ReloadData(string message)
+    {
+        var severity = message.Contains("✅") ? Severity.Success : Severity.Error;
+        Snackbar.Add(message, severity);
+        StateHasChanged();
+    }
+}
+
+<style>
+    .profile-container {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+    }
+
+    .profile-card {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s;
+    }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border: 5px solid #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 0;
+    }
+
+    .subscription-card {
+        border: none;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+        .subscription-card hr {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+    .plan-details {
+        padding: 10px;
+    }
+
+    .plan-name {
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .price {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .period {
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .plan-description {
+        opacity: 0.9;
+        margin-bottom: 20px;
+    }
+
+    .expiry-date {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 8px 12px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .user-details-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+        .user-details-card .row {
+            margin-bottom: 0;
+        }
+
+    .action-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s;
+    }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-card .card-title {
+            color: #4e73df;
+        }
+
+    .profile-image-container {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 20px;
+    }
+
+    .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 5px solid #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-image-container:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .upload-btn {
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.2);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+        .upload-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+    .empty-avatar {
+        width: 150px;
+        height: 150px;
+        background-color: #f0f0f0;
+        border-radius: 50%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 5px solid #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .empty-avatar .upload-btn {
+            color: #6c757d;
+            font-size: 2rem;
+        }
+
+    /* Giữ nguyên các style cũ */
+    .profile-card {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s;
+    }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+</style>

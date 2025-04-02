@@ -5,6 +5,7 @@
 @using Shared.DTO
 @inject NavigationManager NavigationManager
 @inject DocumentsServices Documents
+@inject StatisticServices Statistic
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
 
@@ -28,8 +29,8 @@
                         <img src="@($"https://localhost:7211{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
                         <div class="book-info">
                             <p class="book-title">@book.title</p>
-                            <p class="book-downloads">Lượt tải: 0</p>
-                            <p class="book-author">Added by @book.publisher</p>
+                            <p class="book-downloads">Lượt xem: @lstStatistic.FirstOrDefault(s => s.documentid == book.id)!.views</p>
+                            <p class="book-author">Xuất bản bởi: @book.publisher</p>
                         </div>
                     </div>
                 }
@@ -59,8 +60,8 @@
                         <img src="@($"https://localhost:7211{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
                         <div class="book-info">
                             <p class="book-title">@book.title</p>
-                            <p class="book-downloads">Lượt tải: 0</p>
-                            <p class="book-author">Added by @book.publisher</p>
+                            <p class="book-downloads">Lượt xem: @lstStatistic.FirstOrDefault(s => s.documentid == book.id)!.views</p>
+                            <p class="book-author">Xuất bản bởi: @book.publisher</p>
                         </div>
                     </div>
                 }
@@ -90,8 +91,8 @@
                         <img src="@($"https://localhost:7211{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
                         <div class="book-info">
                             <p class="book-title">@book.title</p>
-                            <p class="book-downloads">Lượt tải: 0</p>
-                            <p class="book-author">Added by @book.publisher</p>
+                            <p class="book-downloads">Lượt xem: @lstStatistic.FirstOrDefault(s => s.documentid == book.id)!.views</p>
+                            <p class="book-author">Xuất bản bởi: @book.publisher</p>
                         </div>
                     </div>
                 }
@@ -110,6 +111,7 @@
 @code {
     private List<DocumentsDTO> filteredDocuments = new List<DocumentsDTO>();
     private List<DocumentsDTO> filteredDocumentCategory = new List<DocumentsDTO>();
+    private List<StatisticDTO> lstStatistic = new List<StatisticDTO>();
     private bool isLoggedIn = false;
     private bool isLoginFormVisible = false;
     private int category = 24;
@@ -126,6 +128,7 @@
         {
             filteredDocumentCategory = documentscategory;
         }
+        lstStatistic = await Statistic.GetStatisticAsync();
     }
 
     private void ShowLoginForm()

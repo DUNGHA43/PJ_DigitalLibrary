@@ -1,0 +1,225 @@
+﻿@using DigitalLibrary.Client.Services
+@layout ReadDocumentLayout
+@using DigitalLibrary.Shared.DTO
+@inject IJSRuntime JS
+@inject UserManagementServices UserManagement
+@inject ISnackbar Snackbar
+
+<div class="modal fade" id="UpdateUserDetail" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content user-edit-modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="editUserModalLabel">
+                    <i class="fas fa-user-edit me-2"></i>Cập nhật thông tin cá nhân
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Cột phải - Form thông tin -->
+                    <div class="col-md-8">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fas fa-user me-2"></i>Tên đăng nhập
+                                </label>
+                                <input type="text" class="form-control" @bind="editUser.username" disabled />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fas fa-envelope me-2"></i>Email
+                                </label>
+                                <input type="email" class="form-control" @bind="editUser.email" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fas fa-id-card me-2"></i>Họ và tên
+                                </label>
+                                <input type="text" class="form-control" @bind="editUser.fullname" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Giới tính:</label>
+                                <select class="form-select" @bind="stringGender">
+                                    <option value="">-- Chọn giới tính --</option>
+                                    <option value="true">Nam</option>
+                                    <option value="false">Nữ</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fas fa-birthday-cake me-2"></i>Ngày sinh
+                                </label>
+                                <input type="date" class="form-control" @bind="editUser.birthday"/>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fas fa-phone me-2"></i>Số điện thoại
+                                </label>
+                                <input type="tel" class="form-control" @bind="editUser.phonenumber" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fas fa-id-card-alt me-2"></i>Số CCCD/CMND
+                                </label>
+                                <input type="text" class="form-control" @bind="editUser.identification" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Địa chỉ
+                                </label>
+                                <input type="text" class="form-control" @bind="editUser.address" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary cancel-btn" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i>Hủy bỏ
+                </button>
+                <button type="button" class="btn btn-primary save-btn" @onclick="SaveUserAsync" data-bs-dismiss="modal">
+                    <i class="fas fa-save me-1"></i>Lưu thay đổi
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public UsersDTO? User { get; set; } = new UsersDTO();
+    [Parameter] public EventCallback<string> OnUserUpdateDetail { get; set; }
+
+    private IBrowserFile? imgFileEdit;
+    private UsersDTO editUser = new UsersDTO();
+    private string stringGender = "";
+    private bool? gender = null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (User != null)
+        {
+            editUser = new UsersDTO
+                {
+                    id = User.id,
+                    username = User.username,
+                    password = User.password,
+                    email = User.email,
+                    fullname = User.fullname,
+                    gender = User.gender,
+                    birthday = User.birthday,
+                    phonenumber = User.phonenumber,
+                    identification = User.identification,
+                    address = User.address,
+                    status = User.status,
+                    imageurl = User.imageurl
+                };
+
+            stringGender = editUser.gender.ToString().ToLower();
+        }
+    }
+
+    private async Task SaveUserAsync()
+    {
+        gender = null;
+
+        if (!string.IsNullOrEmpty(stringGender))
+        {
+            gender = bool.Parse(stringGender);
+            editUser.gender = gender ?? true;
+        }
+
+        var result = await UserManagement.UpdateUserAsync(editUser, imgFileEdit);
+        if (result)
+        {
+            await OnUserUpdateDetail.InvokeAsync("✅ Thay đổi mật khẩu thành công!");
+        }
+        else
+        {
+            await OnUserUpdateDetail.InvokeAsync("❌ Thay đổi mật khẩu thất bại!");
+        }
+    }
+}
+
+<style>
+    .user-edit-modal {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px 10px 0 0 !important;
+        border-bottom: none;
+        padding: 1.5rem;
+    }
+
+    .modal-title {
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-close {
+        filter: invert(1);
+        opacity: 0.8;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        border: 1px solid #ced4da;
+        transition: all 0.3s;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+        }
+
+    .cancel-btn {
+        padding: 0.5rem 1.25rem;
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    .save-btn {
+        padding: 0.5rem 1.25rem;
+        border-radius: 8px;
+        font-weight: 500;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+    }
+
+        .save-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+    .btn-outline-primary {
+        border: 1px solid #667eea;
+        color: #667eea;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: rgba(102, 126, 234, 0.1);
+        }
+</style>

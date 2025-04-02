@@ -11,6 +11,8 @@ namespace DigitalLibrary.Shared.DTO
         public int? planid { get; set; }
         public DateTime redate { get; set; }
         public DateTime exdate { get; set; }
-        public string status { get; set; }
+        public bool status { get; set; }
+        public SubscriptionPlansDTO? SubscriptionPlans { get; set; }
+        public UsersDTO? Users { get; set; }
     }
 }

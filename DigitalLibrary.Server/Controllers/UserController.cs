@@ -186,7 +186,7 @@ namespace DigitalLibrary.Server.Controllers
         }
 
         [HttpPut("edituser")]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public async Task<IActionResult> EditUserAsync([FromForm] UsersDTO userDTO, IFormFile? imgFile)
         {
             if (!ModelState.IsValid)

@@ -29,6 +29,36 @@ namespace DigitalLibrary.Server.Controllers
             return Ok(documents);
         }
 
+        [HttpGet("getdocumentfilter_noauthorize")]
+        public async Task<IActionResult> GetDocumentsByFilter(
+        [FromQuery] int? subjectId = null,
+        [FromQuery] int? authorId = null,
+        [FromQuery] int? categoryId = null,
+        [FromQuery] string? accessLevel = null,
+        [FromQuery] string? searchName = null,
+        [FromQuery] string? filterGroup = null,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
+        {
+            try
+            {
+                var documents = await _service.GetDocumentByFilterAsync(
+                    subjectId, authorId, categoryId, accessLevel, searchName, filterGroup, page, pageSize
+                );
+
+                if (documents == null || !documents.Any())
+                {
+                    return NotFound("Không tìm thấy tài liệu nào.");
+                }
+
+                return Ok(documents);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Lỗi server: {ex.Message}");
+            }
+        }
+
         [HttpGet("getallinfodocuments")]
         [Authorize]
         public async Task<IActionResult> GetAllInfoDocumentsAsync([FromQuery] int pageNumber = 1, int pageSize = 10, string searchName = "")
@@ -50,6 +80,20 @@ namespace DigitalLibrary.Server.Controllers
             };
 
             return Ok(response);
+        }
+
+        [HttpGet("getdocumentbyid")]
+        [Authorize]
+        public async Task<IActionResult> GetDocumentById([FromQuery] int documentId)
+        {
+            var document = await _service.FindDocumentDetailByIdAsync(documentId);
+
+            if(document == null)
+            {
+                return NotFound("document with id does not exist!");
+            }
+
+            return Ok(document);
         }
 
         [HttpGet("getimg/{id}")]
@@ -98,7 +142,6 @@ namespace DigitalLibrary.Server.Controllers
             }
 
             var imagePath = Path.Combine("wwwroot/UploadImages", document.fileurl);
-            Console.WriteLine($"🔍 Đường dẫn ảnh: {imagePath}");
 
             string fullPath = Path.Combine(_env.WebRootPath, imagePath.TrimStart('/').Replace("/", "\\"));
 
@@ -110,14 +153,14 @@ namespace DigitalLibrary.Server.Controllers
             try
             {
                 var fileBytes = await System.IO.File.ReadAllBytesAsync(fullPath);
-                return File(fileBytes, "application/pdf");
+                return File(fileBytes, "application/pdf", $"{document.title}.pdf");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Lỗi khi đọc tài liệu: {ex.Message}");
                 return StatusCode(500, "Lỗi khi tải tài liệu.");
             }
         }
+
 
         [HttpPost("adddocument")]
         [Authorize(Roles = "admin, stafflv1")]

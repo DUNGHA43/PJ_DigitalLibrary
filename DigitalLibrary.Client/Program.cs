@@ -83,4 +83,14 @@ builder.Services.AddHttpClient<UserPermissionServices>(client =>
     client.BaseAddress = new Uri("https://localhost:7211/");
 }).AddHttpMessageHandler<AuthInterceptorHandler>();
 
+builder.Services.AddHttpClient<StatisticServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
+builder.Services.AddHttpClient<UserSubscriptionServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
 await builder.Build().RunAsync();

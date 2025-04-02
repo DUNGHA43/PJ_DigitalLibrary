@@ -1,10 +1,13 @@
 ﻿@page "/admin/read/{documentId:int}"
 @using DigitalLibrary.Client.Services
 @using DigitalLibrary.Shared.DTO
+@using MudBlazor
 @layout AdminLayout
 @inject DocumentsServices Documents
 @inject IJSRuntime JS
 @inject NavigationManager Navigation
+@inject DocumentsServices Documents
+@inject ISnackbar Snackbar
 
 <div class="document-container">
     @if (!string.IsNullOrEmpty(PdfUrl))
@@ -20,9 +23,9 @@
         <button class="btn btn-secondary px-4" @onclick="GoBack">
             ⬅️ Quay lại
         </button>
-        <a href="@PdfUrl" class="btn btn-warning px-4" target="_blank" download>
+        <button class="btn btn-warning px-4" @onclick="() => DowloadPDF()">
             📥 Download
-        </a>
+        </button>
     </div>
 </div>
 
@@ -30,6 +33,7 @@
     [Parameter] public int documentId { get; set; }
     private string? PdfUrl;
     private bool IsBase64 = false;
+    private DocumentsDTO documentExisting = new DocumentsDTO();
 
     protected override async Task OnParametersSetAsync()
     {
@@ -38,6 +42,8 @@
         {
             IsBase64 = PdfUrl.StartsWith("data:application/pdf;base64,");
         }
+
+        documentExisting = await Documents.FindDocumentById(documentId);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -53,6 +59,28 @@
                 await JS.InvokeVoidAsync("loadPdfUrl", PdfUrl, "pdfViewer");
             }
         }
+    }
+
+    private async Task DowloadPDF()
+    {
+        try {
+            var pdfDataUrl = await Documents.GetPdfBlobUrlAsync(documentId);
+
+            if (string.IsNullOrEmpty(pdfDataUrl))
+            {
+                return;
+            }
+
+            await JS.InvokeVoidAsync("downloadPdf",
+                pdfDataUrl,
+                $"{documentExisting.title}.pdf");
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Lỗi khi tải tài liệu này", Severity.Error);
+        }
+
+        
     }
 
     private async Task GoBack()

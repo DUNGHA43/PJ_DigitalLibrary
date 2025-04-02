@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DigitalLibrary.Server.Model
 {
-    [Table("UserSubcriptions_HD")]
+    [Table("UserSubscriptions_HD")]
     public class UserSubcriptions
     {
         [Key]
@@ -15,7 +15,7 @@ namespace DigitalLibrary.Server.Model
 
         public DateTime redate { get; set; }
         public DateTime exdate { get; set; }
-        public string status { get; set; }
+        public bool status { get; set; }
 
         [ForeignKey("userid")]
         public Users user {  get; set; }

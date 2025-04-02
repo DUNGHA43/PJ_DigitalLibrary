@@ -447,6 +447,83 @@
         }
       }
     },
+    "/api/Document/getdocumentfilter_noauthorize": {
+      "get": {
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "authorId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "accessLevel",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "searchName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filterGroup",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Document/getallinfodocuments": {
       "get": {
         "tags": [
@@ -477,6 +554,28 @@
             "schema": {
               "type": "string",
               "default": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Document/getdocumentbyid": {
+      "get": {
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -583,6 +682,24 @@
                   "accesslevel": {
                     "type": "string"
                   },
+                  "Authors": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "Categories": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "Subjects": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
                   "dcmFile": {
                     "type": "string",
                     "format": "binary"
@@ -628,6 +745,15 @@
                   "style": "form"
                 },
                 "accesslevel": {
+                  "style": "form"
+                },
+                "Authors": {
+                  "style": "form"
+                },
+                "Categories": {
+                  "style": "form"
+                },
+                "Subjects": {
                   "style": "form"
                 },
                 "dcmFile": {
@@ -697,6 +823,24 @@
                   "accesslevel": {
                     "type": "string"
                   },
+                  "Authors": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "Categories": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "Subjects": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
                   "dcmFile": {
                     "type": "string",
                     "format": "binary"
@@ -742,6 +886,15 @@
                   "style": "form"
                 },
                 "accesslevel": {
+                  "style": "form"
+                },
+                "Authors": {
+                  "style": "form"
+                },
+                "Categories": {
+                  "style": "form"
+                },
+                "Subjects": {
                   "style": "form"
                 },
                 "dcmFile": {
@@ -1246,6 +1399,18 @@
       "get": {
         "tags": [
           "Role"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Statistics/GetStatistics_noauthozire": {
+      "get": {
+        "tags": [
+          "Statistics"
         ],
         "responses": {
           "200": {
@@ -1989,6 +2154,28 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserSubscriptions/getusersubscriptionsbyuserid": {
+      "get": {
+        "tags": [
+          "UserSubscriptions"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

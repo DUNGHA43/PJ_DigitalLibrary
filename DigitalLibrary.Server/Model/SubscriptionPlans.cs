@@ -12,7 +12,7 @@ namespace DigitalLibrary.Server.Model
         [Required]
         public string? nameplan { get; set; }
         public decimal? price { get; set; }
-        public int? durationsindays { get; set; }
+        public int? durationindays { get; set; }
         public string? description { get; set; }
         public DateTime? createdate { get; set; }
         public bool status { get; set; }

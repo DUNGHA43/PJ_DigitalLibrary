@@ -2,14 +2,370 @@
 @using DigitalLibrary.Client.Services
 @using DigitalLibrary.Shared.DTO
 @using MudBlazor
+@using System.IdentityModel.Tokens.Jwt
+@using ExtensionMethod;
 @inject NavigationManager NavigationManager
 @inject DocumentsServices Documents
+@inject StatisticServices Statistic
+@inject UserServices _userServices
+@inject UserSubscriptionServices _userSubscriptionServices
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
+@inject NavigationManager Navigation
 
+<div class="document-detail-container">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/documents">Tài liệu</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@documentExisting?.title</li>
+        </ol>
+    </nav>
 
-<h2>@document</h2>
+    @if (documentExisting != null)
+    {
+        <!-- Main Document Card -->
+        <div class="card document-card mb-4">
+            <div class="row g-0">
+                <!-- Document Cover -->
+                <div class="col-md-4">
+                    <div class="document-cover-container">
+                        <img src="@($"https://localhost:7211{documentExisting.imageurl}")" 
+                             class="img-fluid rounded-start document-cover" 
+                             alt="@documentExisting.title">
+                        <div class="document-badges">
+                            <span class="badge bg-primary">PDF</span>
+                            <span class="badge @GetAccessBadgeClass(documentExisting.accesslevel)">
+                                @documentExisting.accesslevel
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
-@code{
+                <!-- Document Info -->
+                <div class="col-md-8">
+                    <div class="card-body h-100 d-flex flex-column">
+                        <h1 class="card-title document-title">@documentExisting.title</h1>
+                        
+                        <div class="document-meta mb-3">
+                            <!-- Hiển thị nhiều tác giả -->
+                            <div class="meta-item multi-value">
+                                <i class="fas fa-users"></i>
+                                <div class="values-container">
+                                    <span class="meta-label">Tác giả:</span>
+                                    @if (documentExisting.Authors != null && documentExisting.Authors.Any())
+                                    {
+                                        foreach (var author in documentExisting.Authors)
+                                        {
+                                            <span class="value-chip">@author</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="value-chip">Không rõ</span>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="meta-item multi-value">
+                                <i class="fas fa-tags"></i>
+                                <div class="values-container">
+                                    <span class="meta-label">Thể loại:</span>
+                                    @if (documentExisting.Categories != null && documentExisting.Categories.Any())
+                                    {
+                                        foreach (var category in documentExisting.Categories)
+                                        {
+                                            <span class="value-chip">@category</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="value-chip">Chưa phân loại</span>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- Hiển thị nhiều chủ đề -->
+                            <div class="meta-item multi-value">
+                                <i class="fas fa-book-open"></i>
+                                <div class="values-container">
+                                    <span class="meta-label">Chủ đề:</span>
+                                    @if (documentExisting.Subjects != null && documentExisting.Subjects.Any())
+                                    {
+                                        foreach (var subject in documentExisting.Subjects)
+                                        {
+                                            <span class="value-chip">@subject</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="value-chip">Không có chủ đề</span>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="meta-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>Ngày đăng: <strong>@documentExisting.createdate</strong></span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-eye"></i>
+                                <span>Lượt xem: <strong>@statistic.FirstOrDefault(s => s.documentid == documentExisting.id)!.views</strong></span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-download"></i>
+                                <span>Lượt tải: <strong>@statistic.FirstOrDefault(s => s.documentid == documentExisting.id)!.dowloaded</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="card-text document-description mb-3">
+                            @documentExisting.description
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary flex-grow-1" @onclick="() => ReadDocument(documentExisting.id)">
+                                    <i class="fas fa-download me-2"></i>Đọc ngay
+                                </button>
+                                <button class="btn btn-warning flex-grow-1" @onclick="DownloadDocument">
+                                    <i class="fas fa-download me-2"></i>Tải xuống
+                                </button>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="far fa-bookmark me-2"></i>Lưu lại
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">Đang tải tài liệu...</div>
+    }
+</div>
+
+@code {
     [Parameter, SupplyParameterFromQuery] public int document { get; set; }
+    private DocumentsDTO documentExisting = new DocumentsDTO();
+    private List<DocumentsDTO> relatedDocuments = new();
+    private List<StatisticDTO> statistic = new();
+    private UserSubscriptionsDTO userSubscription = new UserSubscriptionsDTO();
+
+    protected override async Task OnInitializedAsync(){
+        statistic = await Statistic.GetStatisticAsync();
+    }
+
+    protected override async Task OnParametersSetAsync() {
+        documentExisting = await Documents.FindDocumentById(document);
+        
+        var token = await _userServices.GetToken();
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+        var userId = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value;
+
+        userSubscription = await _userSubscriptionServices.FindUserSubscriptionByUserId(int.Parse(userId));
+    }
+
+    private async Task DownloadDocument() {
+        try {
+
+            if(!userSubscription.SubscriptionPlans.nameplan.Trim().Equals("Basic")){
+                if (userSubscription.exdate < DateTime.UtcNow)
+                {
+                    Snackbar.Add("Gói đăng ký của bạn đã hết hạn", Severity.Warning);
+                }
+            }
+            bool canAccess = userSubscription.CanAccess(documentExisting.accesslevel.Trim()!);
+            if(!canAccess){
+                Snackbar.Add($"Bạn cần gói {documentExisting.accesslevel} để tải tài liệu này", Severity.Error);
+            }
+            else{
+                var pdfDataUrl = await Documents.GetPdfBlobUrlAsync(documentExisting.id);
+
+                if (string.IsNullOrEmpty(pdfDataUrl))
+                {
+                    return;
+                }
+
+                await JS.InvokeVoidAsync("downloadPdf",
+                    pdfDataUrl,
+                    $"{documentExisting.title}.pdf");
+            }
+        }
+        catch {
+            Snackbar.Add("Lỗi khi tải tài liệu", Severity.Error);
+        }
+    }
+
+    private async Task ReadDocument(int documentId)
+    {
+        try
+        {
+            if(!userSubscription.SubscriptionPlans.nameplan.Trim().Equals("Basic")){
+                if (userSubscription.exdate < DateTime.UtcNow)
+                {
+                    Snackbar.Add("Gói đăng ký của bạn đã hết hạn", Severity.Warning);
+                }
+            }
+            bool canAccess = userSubscription.CanAccess(documentExisting.accesslevel.Trim()!);
+            if(!canAccess){
+                Snackbar.Add($"Bạn cần gói {documentExisting.accesslevel} để đọc tài liệu này", Severity.Error);
+            }
+            else{
+                Navigation.NavigateTo($"/documents/read?documentId={documentId}");
+            }
+        }
+        catch
+        {
+            Snackbar.Add("Lỗi khi đọc tài liệu", Severity.Error);
+        }
+    }
+
+    private string GetAccessBadgeClass(string accessLevel) => accessLevel switch
+    {
+        "Basic" => "bg-success",
+        "Vip" => "bg-warning text-dark",
+        "Pro" => "bg-danger",
+        _ => "bg-info"
+    };
 }
+
+<style>
+    .document-detail-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .document-card {
+        border: none;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+
+    .document-cover-container {
+        position: relative;
+        height: 100%;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        background-color: #f8f9fa;
+    }
+
+    .document-cover {
+        max-height: 400px;
+        object-fit: contain;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+
+    .document-badges {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        display: flex;
+        gap: 5px;
+    }
+
+    .document-title {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    .document-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        color: #6c757d;
+    }
+
+    .document-description {
+        line-height: 1.6;
+    }
+
+    .document-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .document-preview {
+        border: none;
+        background: #f8f9fa;
+    }
+
+    .related-card {
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .related-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+
+    .related-img {
+        height: 150px;
+        object-fit: cover;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+    .related-title {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 0.9rem;
+    }
+
+    .related-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #000;
+        color: white;
+        padding: 3px 8px;
+        font-size: 0.7rem;
+        border-radius: 3px;
+        z-index: 1;
+    }
+
+    /* Metadata đa giá trị */
+    .multi-value {
+        align-items: flex-start !important;
+    }
+
+    .values-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .meta-label {
+        font-weight: normal;
+        color: #6c757d;
+        margin-right: 0.3rem;
+        white-space: nowrap;
+    }
+
+    .value-chip {
+        background-color: #f0f0f0;
+        padding: 0.25rem 0.5rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        color: #495057;
+        display: inline-flex;
+        align-items: center;
+        line-height: 1;
+    }
+</style>

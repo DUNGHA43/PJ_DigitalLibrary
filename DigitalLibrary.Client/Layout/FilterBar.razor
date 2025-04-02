@@ -9,7 +9,7 @@
 <nav class="filter-bar">
     <ul>
         <li class="relative group">
-            <NavLink href="/documents">Chủ đề</NavLink>
+            <NavLink href="/documents?filterGroup=subject">Chủ đề</NavLink>
             <ul class="dropdown-menu1">
                 @foreach (var subject in lstSubject)
                 {
@@ -18,7 +18,7 @@
             </ul>
         </li>
         <li class="relative group">
-            <NavLink href="/documents">Thể loại</NavLink>
+            <NavLink href="/documents?filterGroup=category">Thể loại</NavLink>
             <ul class="dropdown-menu1">
                 @foreach(var category in lstCategories)
                 {
@@ -27,7 +27,7 @@
             </ul>
         </li>
         <li class="relative group">
-            <NavLink href="/documents">Tác giả</NavLink>
+            <NavLink href="/documents?filterGroup=author">Tác giả</NavLink>
             <ul class="dropdown-menu1">
                 @foreach (var author in lstAuthor)
                 {
@@ -36,7 +36,7 @@
             </ul>
         </li>
         <li class="relative group">
-            <NavLink href="/documents">Hạng truy cập</NavLink>
+            <NavLink href="/documents?filterGroup=accesslevel">Hạng truy cập</NavLink>
             <ul class="dropdown-menu1">
                 <li><a href="/documents?accessLevel=Basic">Basic</a></li>
                 <li><a href="/documents?accessLevel=Vip">Vip</a></li>

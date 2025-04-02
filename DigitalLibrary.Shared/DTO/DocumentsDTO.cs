@@ -18,5 +18,8 @@ namespace DigitalLibrary.Shared.DTO
         public DateTime? createdate { get; set; }
         public bool status { get; set; }
         public string? accesslevel { get; set; }
+        public List<string> Authors { get; set; } = new List<string>();
+        public List<string> Categories { get; set; } = new List<string>();
+        public List<string> Subjects { get; set; } = new List<string>();
     }
 }

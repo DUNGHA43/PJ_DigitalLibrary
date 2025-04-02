@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\image-app\\DUNGHA_LIBRARY_LOGO-removebg.png"
     },
     {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\image-app\\icon_750x750.png",
+      "PackagePath": "staticwebassets\\image-app\\icon_750x750.png"
+    },
+    {
       "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },

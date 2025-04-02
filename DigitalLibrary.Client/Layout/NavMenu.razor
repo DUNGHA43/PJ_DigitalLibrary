@@ -1,10 +1,12 @@
 ﻿@using DigitalLibrary.Client.Services
 @inject NavigationManager Navigation
 @inject UserServices UserService
+@using DigitalLibrary.Shared.DTO
 @using Microsoft.AspNetCore.Components.Routing
 @using System.IdentityModel.Tokens.Jwt
 @inject UserManagementServices UserManagement
 @inject UserServices UserServices
+@inject UserSubscriptionServices UserSubscriptionServices
 
 
 <nav class="navbar">
@@ -20,7 +22,9 @@
             <div class="user-menu">
                 <img src="@ImageBase64" alt="Avatar" class="avatar" />
                 <div class="dropdown-menu">
-                    <NavLink href="/profile">⚙️ Trang cá nhân</NavLink>
+                    <p class="dropdown-user">👋 Hi! @UserSub.Users.fullname.Trim()</p>
+                    <p class="dropdown-plan">💳 Gói: @UserSub.SubscriptionPlans!.nameplan | kết thúc: @(UserSub.SubscriptionPlans!.nameplan.Trim().Equals("Basic") ? "Vĩnh viễn" : @UserSub.exdate.ToString("dd-MM-yyyy")) </p>
+                    <NavLink @onclick="() => ShowUserProfile()" >⚙️ Trang cá nhân</NavLink>
                     <NavLink href="/subsplans">💳 Gói đăng ký</NavLink>
                     <a href="#" @onclick="Logout">🚪 Đăng xuất</a>
                 </div>
@@ -28,7 +32,7 @@
         }
         else
         {
-            <li @onclick="ShowLoginForm"><NavLink href="#">🔑 Đăng nhập</NavLink></li>
+            <li @onclick="ShowLoginForm"><NavLink>🔑 Đăng nhập</NavLink></li>
         }
     </ul>
 </nav>
@@ -43,6 +47,8 @@
     private bool isLoggedIn = false;
     private bool isLoginFormVisible = false;
     private string? ImageBase64;
+    private UserSubscriptionsDTO UserSub = new UserSubscriptionsDTO();
+    private int userId;
 
     private void ShowLoginForm()
     {
@@ -58,15 +64,22 @@
             var token = await UserService.GetToken();
             var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token);
-            var userId = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value;
+            userId = int.Parse(jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value);
 
-            ImageBase64 = await UserManagement.GetImageAsync(int.Parse(userId));
+
+            ImageBase64 = await UserManagement.GetImageAsync(userId);
+            UserSub = await UserSubscriptionServices.FindUserSubscriptionByUserId(userId);
         }
     }
 
     private void CloseLoginForm()
     {
         isLoginFormVisible = false;
+    }
+
+    private async Task ShowUserProfile()
+    {
+        Navigation.NavigateTo($"/profile?userId={userId}");
     }
 
     private async Task Logout()
@@ -135,12 +148,12 @@
     .dropdown-menu {
         display: none;
         position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
+        right: 0;
+        transform: translateX(30%);
         background: white;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
-        min-width: 150px;
+        min-width: 250px;
         overflow: hidden;
         z-index: 1000;
     }
@@ -160,5 +173,19 @@
         .dropdown-menu a:hover {
             background: #f1f1f1;
         }
+
+    .dropdown-user {
+        font-weight: bold;
+        font-size: 16px;
+        padding: 0 10px 10px 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .dropdown-plan {
+        font-size: 14px;
+        color: #555;
+        padding: 0 10px 10px 10px;
+        border-bottom: 1px solid #ddd;
+    }
 
 </style>

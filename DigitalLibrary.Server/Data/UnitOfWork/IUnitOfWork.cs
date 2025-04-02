@@ -19,6 +19,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         IRepository<Roles> Roles { get; }
         IRepository<UserPermissions> UserPermissions { get; }
         IRepository<Statistics> Statistics { get; }
+        IUserSubscriptionsRepository UserSubscriptions { get; }
         Task SaveChangeAsync();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DigitalLibrary.Server.Model;
+using DigitalLibrary.Shared.DTO;
 using Shared.DTO;
 
 namespace DigitalLibrary.Server.Services.Interface
@@ -14,5 +15,8 @@ namespace DigitalLibrary.Server.Services.Interface
         Task DeleteMultipleDocumentsAsync(List<int> documetnsIds);
         Task<List<Documents>> GetDocumentsByIdsAsync(List<int> documentIds);
         Task<IEnumerable<Documents>> GetDocumentHomePageAsync(int? subjectId = null, int? authorId = null, int? categoryId = null, string? accesslevel = null, string? searchName = null);
+        Task<IEnumerable<DocumentGroupDTO>> GetDocumentByFilterAsync(int? subjectId = null, int? authorId = null, int? categoryId = null,
+        string? accesslevel = null, string? searchName = null, string? filterGroup = null, int page = 1, int pageSize = 10);
+        Task<DocumentsDTO> FindDocumentDetailByIdAsync(int id);
     }
 }

@@ -131,7 +131,7 @@ namespace DigitalLibrary.Client.Services
             }
         }
 
-        public async Task<bool> UpdateUserAsync(UsersDTO user, IBrowserFile imgFile)
+        public async Task<bool> UpdateUserAsync(UsersDTO user, IBrowserFile? imgFile)
         {
             try
             {
