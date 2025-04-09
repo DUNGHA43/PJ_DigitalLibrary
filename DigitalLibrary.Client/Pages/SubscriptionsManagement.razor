@@ -1,0 +1,354 @@
+﻿@page "/subscriptions"
+@layout ReadDocumentLayout
+@using DigitalLibrary.Shared.DTO
+@using DigitalLibrary.Client.Services
+@using MudBlazor
+@using System.IdentityModel.Tokens.Jwt
+@using Net.payOS.Types
+@inject UserSubscriptionServices UserSubscription
+@inject UserServices UserServices
+@inject NavigationManager Navigation
+@inject UserManagementServices UserManagement
+@inject PaymentServices PaymentServices
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+
+<div class="subscription-management">
+    <!-- Phần gói hiện tại -->
+    <div class="current-plan">
+        <h2>Gói dịch vụ hiện tại</h2>
+        <div class="plan-info">
+            <div>
+                <p><strong>Tên gói:</strong> @userSubscription.SubscriptionPlans.nameplan.Trim()</p>
+                <p><strong>Ngày đăng ký:</strong> @userSubscription.redate.ToString("dd/MM/yyyy")</p>
+            </div>
+            <div>
+                <p><strong>Ngày hết hạn:</strong> @userSubscription.exdate.ToString("dd/MM/yyyy")</p>
+                <p>
+                    <strong>Trạng thái:</strong>
+                    <span class="status @(status.Equals("Đã hết hạn") ? "expired" : "active")">@status</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Danh sách gói -->
+    <div class="plans-container">
+        <!-- Gói Basic -->
+        <div class="plan-card basic @(userSubscription.SubscriptionPlans.nameplan.Trim().Equals("Basic") ? "current" : "")">
+            <h3 style="color: #27ae60 ">Basic</h3>
+            <div class="price">0đ <span>/tháng</span></div>
+            <ul class="features">
+                <li>✓ Truy cập cơ bản</li>
+                <li>✓ 5 lượt tải/ngày</li>
+                <li class="disabled">✗ Tính năng cao cấp</li>
+                <li class="disabled">✗ Hỗ trợ ưu tiên</li>
+            </ul>
+            <button class="plan-button" @onclick='() => SubscribeToPlan("BASIC", 0)'>@titleButtonBS</button>
+        </div>
+
+        <!-- Gói VIP -->
+        <div class="plan-card vip @(userSubscription.SubscriptionPlans.nameplan.Trim().Equals("VIP") ? "current" : "")">
+            <h3 style="color: #f1c40f">VIP</h3>
+            <div class="price">99.000đ <span>/tháng</span></div>
+            <ul class="features">
+                <li>✓ Truy cập đầy đủ</li>
+                <li>✓ 20 lượt tải/ngày</li>
+                <li>✓ Tính năng VIP</li>
+                <li class="disabled">✗ Hỗ trợ ưu tiên</li>
+            </ul>
+            <button class="plan-button" @onclick='() => SubscribeToPlan("VIP", 99000)'>@titleButtonVi</button>
+        </div>
+
+        <!-- Gói Pro -->
+        <div class="plan-card pro @(userSubscription.SubscriptionPlans.nameplan.Trim().Equals("Pro") ? "current" : "")">
+            <h3 style="color: #c0392b ">Pro</h3>
+            <div class="price">199.000đ <span>/tháng</span></div>
+            <ul class="features">
+                <li>✓ Truy cập không giới hạn</li>
+                <li>✓ Tải không giới hạn</li>
+                <li>✓ Tất cả tính năng</li>
+                <li>✓ Hỗ trợ ưu tiên</li>
+            </ul>
+            <button class="plan-button" @onclick='() => SubscribeToPlan("PRO", 199000)'>@titleButtonPr</button>
+        </div>
+    </div>
+</div>
+
+@code{
+    [Parameter, SupplyParameterFromQuery] public int? UserId { get; set; }
+    private UserSubscriptionsDTO userSubscription = new UserSubscriptionsDTO();
+    private int userId;
+    private int planId = 1;
+    private string titleButtonBS = "Đăng ký ngay";
+    private string titleButtonVi = "Đăng ký ngay";
+    private string titleButtonPr = "Đăng ký ngay";
+    private string status = "Đang hoạt động";
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var token = await UserServices.GetToken();
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+        userId = int.Parse(jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value);
+
+        userSubscription = await UserSubscription.FindUserSubscriptionByUserId(userId);
+
+        if(userSubscription.SubscriptionPlans.nameplan.Trim().Equals("Basic"))
+        {
+            titleButtonBS = "Đang sử dụng";
+        }
+        if (userSubscription.SubscriptionPlans.nameplan.Trim().Equals("Vip"))
+        {
+            titleButtonVi = "Đang sử dụng";
+            if (userSubscription.exdate < DateTime.UtcNow)
+            {
+                titleButtonVi = "Gia hạn ngay";
+            }
+        }
+        if (userSubscription.SubscriptionPlans.nameplan.Trim().Equals("Pro"))
+        {
+            titleButtonPr = "Đang sử dụng";
+            if (userSubscription.exdate < DateTime.UtcNow)
+            {
+                titleButtonPr = "Gia hạn ngay";
+            }
+        }
+        if (userSubscription.exdate < DateTime.UtcNow)
+        {
+            status = "Đã hết hạn";
+            if (userSubscription.SubscriptionPlans.nameplan.Trim().Equals("Basic"))
+            {
+                status = "Đang hoạt động";
+            }
+        }
+    }
+
+    private async Task SubscribeToPlan(string planName, int price)
+    {
+        try
+        {
+            if(planName.ToLower().Equals("PRO".ToLower()))
+            {
+                planId = 3;
+            }
+            if (planName.ToLower().Equals("VIP".ToLower()))
+            {
+                planId = 2;
+            }
+
+            var result = await PaymentServices.CreatePaymentLink(
+            productName: planName,
+            description: $"Đăng ký gói {planName}",
+            price: price,
+            userId: userId,
+            planId: planId
+        );
+            if (result.error == 0 && result.data is CreatePaymentResult paymentResult)
+            {
+                Navigation.NavigateTo(paymentResult.checkoutUrl, forceLoad: true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Có lỗi khi tạo link thanh toán: {ex.Message}", Severity.Error);
+        }
+    }
+}
+
+<style>
+    /* Tông màu chính */
+    :root {
+        --cream: #faf9f5;
+        --white: #ffffff;
+        --light-gray: #f1f1f1;
+        --text-color: #333333;
+        --border-color: #e0e0e0;
+        --basic-color: #6c757d;
+        --vip-color: #495057;
+        --pro-color: #343a40;
+        --active-color: #28a745;
+        --expired-color: #dc3545;
+    }
+
+    /* Layout chung */
+    .subscription-management {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        background-color: var(--cream);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text-color);
+        margin-top: 20px;
+    }
+
+    /* Phần gói hiện tại */
+    .current-plan {
+        background-color: var(--white);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+        .current-plan h2 {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--light-gray);
+            padding-bottom: 0.5rem;
+        }
+
+    .plan-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+        .plan-info div {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .plan-info p {
+            margin-bottom: 0.8rem;
+        }
+
+        .plan-info strong {
+            display: inline-block;
+            width: 120px;
+            color: var(--basic-color);
+        }
+
+    .status {
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-weight: 500;
+    }
+
+        .status.active {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--active-color);
+        }
+
+        .status.expired {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--expired-color);
+        }
+
+    /* Danh sách gói */
+    .plans-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: center;
+    }
+
+    .plan-card {
+        background-color: var(--white);
+        border-radius: 8px;
+        padding: 1.5rem;
+        width: 300px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease;
+        position: relative;
+        border: 1px solid var(--border-color);
+    }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .plan-card.current {
+            border: 2px solid var(--active-color);
+        }
+
+        .plan-card h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+    .basic h3 {
+        color: var(--basic-color);
+    }
+
+    .vip h3 {
+        color: var(--vip-color);
+    }
+
+    .pro h3 {
+        color: var(--pro-color);
+    }
+
+    .price {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: var(--text-color);
+    }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--basic-color);
+            font-weight: normal;
+        }
+
+    .features {
+        list-style: none;
+        margin-bottom: 1.5rem;
+        padding: 0;
+    }
+
+        .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+        }
+
+            .features li.disabled {
+                color: var(--basic-color);
+                opacity: 0.6;
+            }
+
+    .plan-button {
+        width: 100%;
+        padding: 0.8rem;
+        border: none;
+        border-radius: 4px;
+        background-color: var(--light-gray);
+        color: var(--text-color);
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .basic .plan-button {
+        background-color: var(--basic-color);
+        color: white;
+    }
+
+    .vip .plan-button {
+        background-color: var(--vip-color);
+        color: white;
+    }
+
+    .pro .plan-button {
+        background-color: var(--pro-color);
+        color: white;
+    }
+
+    .plan-button:hover {
+        opacity: 0.9;
+    }
+
+    .plan-card.current .plan-button {
+        background-color: transparent;
+        color: var(--active-color);
+        border: 1px solid var(--active-color);
+    }
+</style>

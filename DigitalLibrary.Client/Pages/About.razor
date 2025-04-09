@@ -1,5 +1,9 @@
 ﻿@page "/about"
-
+@using System.IdentityModel.Tokens.Jwt
+@using DigitalLibrary.Client.Services
+@inject NavigationManager Navigation
+@inject UserServices UserServices
+@inject ISnackbar Snackbar
 <style>
     p {
         color: #6c757d !important;
@@ -64,7 +68,32 @@
     <section class="text-center mt-5">
         <h2>Tham gia ngay</h2>
         <p>Hãy tham gia thư viện số để có trải nghiệm đọc sách tuyệt vời nhất!</p>
-        <button class="btn btn-primary btn-lg">Đăng ký ngay</button>
+        <button class="btn btn-primary btn-lg" @onclick="() => ShowSubscriptionsManagement()">Đăng ký ngay</button>
     </section>
 </div>
+
+@code {
+    private int userId;
+    private string token = string.Empty;
+
+    protected override async Task OnInitializedAsync(){
+        token = await UserServices.GetToken();
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+        userId = int.Parse(jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value);
+    }
+
+    private void ShowSubscriptionsManagement()
+    {
+        if (string.IsNullOrEmpty(token))
+        {
+            Snackbar.Add("Bạn phải đăng nhập mới có thể tham gia!", Severity.Warning);
+        }
+        else
+        {
+            Navigation.NavigateTo($"/subscriptions?userId={userId}");
+        }
+        
+    }
+}
 

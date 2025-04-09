@@ -15,6 +15,12 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
             _context = context;
         }
 
+        public async Task<UserSubcriptions> FindUserSubscriptionsByPlanId(int planId)
+        {
+            var query = _dbSet.Where(us => us.planid == planId).AsQueryable();
+            return await query.FirstOrDefaultAsync();
+        }
+
         public async Task<UserSubscriptionsDTO> FindUserSubscriptionsByUserId(int userId)
         {
             var query = _dbSet.Where(us => us.userid == userId).AsQueryable();

@@ -18,7 +18,7 @@ namespace DigitalLibrary.Server.Controllers
         }
 
         [HttpGet("getall-noqueries")]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public async Task<IActionResult> GetAllUserPermission()
         {
             var result = await _userPermissionService.GetAllUserPermission();

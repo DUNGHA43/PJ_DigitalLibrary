@@ -9,6 +9,7 @@
 @inject StatisticServices Statistic
 @inject UserServices _userServices
 @inject UserSubscriptionServices _userSubscriptionServices
+@inject UserPermissionServices _userPermissionServices
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
 @inject NavigationManager Navigation
@@ -31,8 +32,8 @@
                 <div class="col-md-4">
                     <div class="document-cover-container">
                         <img src="@($"https://localhost:7211{documentExisting.imageurl}")" 
-                             class="img-fluid rounded-start document-cover" 
-                             alt="@documentExisting.title">
+                        class="img-fluid rounded-start document-cover" 
+                        alt="@documentExisting.title">
                         <div class="document-badges">
                             <span class="badge bg-primary">PDF</span>
                             <span class="badge @GetAccessBadgeClass(documentExisting.accesslevel)">
@@ -46,7 +47,7 @@
                 <div class="col-md-8">
                     <div class="card-body h-100 d-flex flex-column">
                         <h1 class="card-title document-title">@documentExisting.title</h1>
-                        
+
                         <div class="document-meta mb-3">
                             <!-- Hiển thị nhiều tác giả -->
                             <div class="meta-item multi-value">
@@ -152,8 +153,12 @@
     private List<DocumentsDTO> relatedDocuments = new();
     private List<StatisticDTO> statistic = new();
     private UserSubscriptionsDTO userSubscription = new UserSubscriptionsDTO();
+    private List<UserPermissionsDTO> lstUserPermission = new List<UserPermissionsDTO>();
+    private int userId;
+    private UserPermissionsDTO userPermission = new UserPermissionsDTO();
 
     protected override async Task OnInitializedAsync(){
+        lstUserPermission = await _userPermissionServices.GetUserPermissionAsync();
         statistic = await Statistic.GetStatisticAsync();
     }
 
@@ -163,9 +168,10 @@
         var token = await _userServices.GetToken();
         var handler = new JwtSecurityTokenHandler();
         var jwtToken = handler.ReadJwtToken(token);
-        var userId = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value;
+        userId = int.Parse(jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value);
 
-        userSubscription = await _userSubscriptionServices.FindUserSubscriptionByUserId(int.Parse(userId));
+        userSubscription = await _userSubscriptionServices.FindUserSubscriptionByUserId(userId);
+        userPermission = lstUserPermission.FirstOrDefault(up => up.userid == userId);
     }
 
     private async Task DownloadDocument() {
@@ -182,16 +188,23 @@
                 Snackbar.Add($"Bạn cần gói {documentExisting.accesslevel} để tải tài liệu này", Severity.Error);
             }
             else{
-                var pdfDataUrl = await Documents.GetPdfBlobUrlAsync(documentExisting.id);
-
-                if (string.IsNullOrEmpty(pdfDataUrl))
+                if (userPermission.candowload == true || documentExisting.accesslevel.Trim().Equals("Basic"))
                 {
-                    return;
-                }
+                    var pdfDataUrl = await Documents.GetPdfBlobUrlAsync(document);
 
-                await JS.InvokeVoidAsync("downloadPdf",
-                    pdfDataUrl,
-                    $"{documentExisting.title}.pdf");
+                    if (string.IsNullOrEmpty(pdfDataUrl))
+                    {
+                        return;
+                    }
+
+                    await JS.InvokeVoidAsync("downloadPdf",
+                        pdfDataUrl,
+                        $"{documentExisting.title}.pdf");
+                }
+                else
+                {
+                    Snackbar.Add("HIện tại tài liệu này đang bị cấm tải!", Severity.Warning);
+                }
             }
         }
         catch {

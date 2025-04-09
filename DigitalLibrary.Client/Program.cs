@@ -93,4 +93,9 @@ builder.Services.AddHttpClient<UserSubscriptionServices>(client =>
     client.BaseAddress = new Uri("https://localhost:7211/");
 }).AddHttpMessageHandler<AuthInterceptorHandler>();
 
+builder.Services.AddHttpClient<PaymentServices>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7211/");
+}).AddHttpMessageHandler<AuthInterceptorHandler>();
+
 await builder.Build().RunAsync();

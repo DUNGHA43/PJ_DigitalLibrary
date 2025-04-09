@@ -27,16 +27,26 @@ namespace DigitalLibrary.Client.Services
 
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
-                var newToken = await _authService.RefreshTokenAsync();
-
-                if (!string.IsNullOrEmpty(newToken))
+                try
                 {
-                    var newRequest = CloneHttpRequestMessage(request);
-                    newRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", newToken);
+                    var newToken = await _authService.RefreshTokenAsync();
 
-                    response.Dispose();
-                    return await base.SendAsync(newRequest, cancellationToken);
+                    if (!string.IsNullOrEmpty(newToken))
+                    {
+                        var newRequest = CloneHttpRequestMessage(request);
+                        newRequest.Headers.Authorization = new AuthenticationHeaderValue("Bearer", newToken);
+
+                        response.Dispose();
+                        return await base.SendAsync(newRequest, cancellationToken);
+                    }
                 }
+                catch (Exception e)
+                {
+                    await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "accessToken");
+                    await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "refreshToken");
+                    return response;
+                }
+                
             }
 
             return response;

@@ -22,6 +22,7 @@ namespace DigitalLibrary.Server.Data.DatabaseContext
         public DbSet<UserPermissions> userPermissions { get; set; }
         public DbSet<Users> users { get; set; }
         public DbSet<UserSubcriptions> userSubcriptions { get; set; }
+        public DbSet<PaymentHistory> paymentHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

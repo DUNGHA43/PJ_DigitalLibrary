@@ -23,6 +23,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         public IRepository<UserPermissions> UserPermissions { get; private set; }
         public IRepository<Statistics> Statistics { get; private set; }
         public IUserSubscriptionsRepository UserSubscriptions { get; private set; }
+        public IRepository<PaymentHistory> PaymentHistory { get; private set; }
 
         public UnitOfWork(DbDigitalLibraryContext context)
         {
@@ -41,6 +42,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
             UserPermissions = new Repository<UserPermissions>(_context);
             Statistics = new Repository<Statistics>(_context);
             UserSubscriptions = new UserSubscriptionsRepository(_context);
+            PaymentHistory = new Repository<PaymentHistory>(_context);
         }
 
         public void Dispose()

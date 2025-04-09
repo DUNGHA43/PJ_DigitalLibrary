@@ -4,14 +4,14 @@ using DigitalLibrary.Server.Services.Interface;
 using DigitalLibrary.Server.Services.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Net.payOS;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS Configuration
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -19,12 +19,15 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("https://localhost:7236")
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // Thêm dòng này nếu sử dụng credentials
         });
 });
 
+
 builder.Services.AddDbContext<DbDigitalLibraryContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings.GetValue<string>("Secret");
@@ -35,7 +38,6 @@ if (string.IsNullOrEmpty(secretKey))
 }
 
 var keyBytes = Encoding.UTF8.GetBytes(secretKey);
-
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -74,8 +76,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorization();
 
+var payOsSettings = builder.Configuration.GetSection("PayOSSettings");
+
+PayOS payOS = new PayOS(
+    payOsSettings.GetValue<string>("PAYOS_CLIENT_ID") ?? throw new Exception("PAYOS_CLIENT_ID is missing"),
+    payOsSettings.GetValue<string>("PAYOS_API_KEY") ?? throw new Exception("PAYOS_API_KEY is missing"),
+    payOsSettings.GetValue<string>("PAYOS_CHECKSUM_KEY") ?? throw new Exception("PAYOS_CHECKSUM_KEY is missing")
+);
+
+
+builder.Services.AddSingleton(payOS);
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserServices, UserServices>();
@@ -93,15 +104,15 @@ builder.Services.AddScoped<IRolesServices, RolesServices>();
 builder.Services.AddScoped<IUserPermissionServices, UserPermissionServices>();
 builder.Services.AddScoped<IStatisticsServices, StatisticServices>();
 builder.Services.AddScoped<IUserSubscriptionServices, UserSubscriptionServices>();
+builder.Services.AddScoped<IPaymentHistoryServices, PaymentHistoryServices>();
 
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
-app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {
@@ -110,11 +121,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
+app.UseRouting();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthentication();
-app.UseRouting();
-app.UseCors("_myAllowSpecificOrigins");
 app.UseAuthorization();
 
 app.MapControllers();

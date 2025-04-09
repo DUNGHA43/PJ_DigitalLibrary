@@ -39,8 +39,13 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
 
         public Users ValidateUser(string username, string password)
         {
-            var user = _context.users.Include(us => us.role)
-                .FirstOrDefault(us => us.username!.Trim() == username.Trim());
+            var normalizedInput = username?.Trim().ToLower();
+            var user = _context.users
+                .Include(us => us.role)
+                .AsNoTracking()
+                .FirstOrDefault(us =>
+                    us.username!.Trim().ToLower() == normalizedInput ||
+                    us.email!.Trim().ToLower() == normalizedInput);
 
             if (user == null || !password.Trim().Equals(user.password!.Trim()))
             {

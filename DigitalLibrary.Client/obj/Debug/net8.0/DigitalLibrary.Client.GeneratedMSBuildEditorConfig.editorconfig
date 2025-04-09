@@ -79,6 +79,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aG9yc1xFZGl0QXV0aG9yLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/CancelPayment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FuY2VsUGF5bWVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/Categories/AddCategory.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2F0ZWdvcmllc1xBZGRDYXRlZ29yeS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -155,6 +159,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvd0ZpbHRlckRvY3VtZW50cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/Statistic/AdminStatistic.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RhdGlzdGljXEFkbWluU3RhdGlzdGljLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/Subjects/AddSubject.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3ViamVjdHNcQWRkU3ViamVjdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -165,6 +173,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/Subjects/EditSubject.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3ViamVjdHNcRWRpdFN1YmplY3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/SubscriptionsManagement.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3Vic2NyaXB0aW9uc01hbmFnZW1lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/SubscriptionsPlansPayment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3Vic2NyaXB0aW9uc1BsYW5zUGF5bWVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/SuccessPayment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3VjY2Vzc1BheW1lbnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/UpdateUserDetail.razor]
@@ -206,6 +226,10 @@ build_metadata.AdditionalFiles.CssScope = b-gtwv4oveko
 [C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Layout/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-vug59nvnid
+
+[C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Layout/NullLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE51bGxMYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-3glv8cbwu0
 
 [C:/Users/dungha/Documents/Đồ án tốt nghiệp/PROJECT/DigitalLibrary/DigitalLibrary.Client/Layout/ReadDocumentLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XFJlYWREb2N1bWVudExheW91dC5yYXpvcg==

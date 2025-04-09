@@ -11,6 +11,7 @@
 @inject IJSRuntime JS
 @inject NavigationManager Navigation
 @inject ISnackbar Snackbar
+@inject UserPermissionServices _userPermissionServices
 
 <div class="document-container">
     <div class="text-center mt-3 button-pdfview">
@@ -28,7 +29,7 @@
     }
     else
     {
-        <p class="text-danger text-center">Không có tài liệu PDF để hiển thị.</p>
+        <p class="text-danger text-center">Đang tải tài liệu...</p>
     }
 </div>
 
@@ -38,6 +39,12 @@
     private bool IsBase64 = false;
     private UserSubscriptionsDTO userSubscription = new UserSubscriptionsDTO();
     private DocumentsDTO documentExisting = new DocumentsDTO();
+    private List<UserPermissionsDTO> lstUserPermission = new List<UserPermissionsDTO>();
+    private int userId;
+
+    protected override async Task OnInitializedAsync() { 
+        lstUserPermission = await _userPermissionServices.GetUserPermissionAsync();
+    }
 
     protected override async Task OnParametersSetAsync()
     {
@@ -50,10 +57,10 @@
         var token = await _userServices.GetToken();
         var handler = new JwtSecurityTokenHandler();
         var jwtToken = handler.ReadJwtToken(token);
-        var userId = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value;
+        userId = int.Parse(jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value);
 
         documentExisting = await Documents.FindDocumentById(documentId);
-        userSubscription = await _userSubscriptionServices.FindUserSubscriptionByUserId(int.Parse(userId));
+        userSubscription = await _userSubscriptionServices.FindUserSubscriptionByUserId(userId);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -90,16 +97,24 @@
             }
             else
             {
-                var pdfDataUrl = await Documents.GetPdfBlobUrlAsync(documentId);
-
-                if (string.IsNullOrEmpty(pdfDataUrl))
+                if(lstUserPermission.FirstOrDefault(up => up.userid == userId)!.candowload == false 
+                & documentExisting.accesslevel.Trim().Equals("Basic"))
                 {
-                    return;
-                }
+                    var pdfDataUrl = await Documents.GetPdfBlobUrlAsync(documentId);
 
-                await JS.InvokeVoidAsync("downloadPdf",
-                    pdfDataUrl,
-                    $"{documentExisting.title}.pdf");
+                    if (string.IsNullOrEmpty(pdfDataUrl))
+                    {
+                        return;
+                    }
+
+                    await JS.InvokeVoidAsync("downloadPdf",
+                        pdfDataUrl,
+                        $"{documentExisting.title}.pdf");
+                }
+                else
+                {
+                    Snackbar.Add("HIện tại tài liệu này đang bị cấm tải!", Severity.Warning);
+                }
             }
         }
         catch

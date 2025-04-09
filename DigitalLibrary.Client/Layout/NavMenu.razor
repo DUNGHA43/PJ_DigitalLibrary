@@ -25,7 +25,7 @@
                     <p class="dropdown-user">👋 Hi! @UserSub.Users.fullname.Trim()</p>
                     <p class="dropdown-plan">💳 Gói: @UserSub.SubscriptionPlans!.nameplan | kết thúc: @(UserSub.SubscriptionPlans!.nameplan.Trim().Equals("Basic") ? "Vĩnh viễn" : @UserSub.exdate.ToString("dd-MM-yyyy")) </p>
                     <NavLink @onclick="() => ShowUserProfile()" >⚙️ Trang cá nhân</NavLink>
-                    <NavLink href="/subsplans">💳 Gói đăng ký</NavLink>
+                    <NavLink @onclick="() => ShowUserSubsCriptionsManager()">💳 Gói đăng ký</NavLink>
                     <a href="#" @onclick="Logout">🚪 Đăng xuất</a>
                 </div>
             </div>
@@ -75,6 +75,11 @@
     private void CloseLoginForm()
     {
         isLoginFormVisible = false;
+    }
+
+    private async Task ShowUserSubsCriptionsManager()
+    {
+        Navigation.NavigateTo($"/subscriptions?userId={userId}");
     }
 
     private async Task ShowUserProfile()
