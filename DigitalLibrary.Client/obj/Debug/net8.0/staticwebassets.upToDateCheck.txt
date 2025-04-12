@@ -4,7 +4,10 @@ wwwroot\icon-192.png
 wwwroot\image-app\DUNGHA_LIBRARY_LOGO-removebg.png
 wwwroot\image-app\icon_750x750.png
 wwwroot\index.html
+wwwroot\js\chart.js
 wwwroot\js\pdf-viewer.js
+wwwroot\js\revenueChart.js
+wwwroot\js\viewdowloadChart.js
 wwwroot\readpdfjs\generic\build\pdf.js
 wwwroot\readpdfjs\generic\build\pdf.js.map
 wwwroot\readpdfjs\generic\build\pdf.sandbox.js

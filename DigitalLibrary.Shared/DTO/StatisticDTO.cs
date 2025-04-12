@@ -10,5 +10,6 @@ namespace DigitalLibrary.Shared.DTO
         public int? documentid {  get; set; }
         public long? views { get; set; }
         public long? dowloaded { get; set; }
+        public DocumentsDTO? Document { get; set; }
     }
 }

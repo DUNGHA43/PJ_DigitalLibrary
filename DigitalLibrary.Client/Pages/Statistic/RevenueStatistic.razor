@@ -1,0 +1,341 @@
+﻿@layout AdminLayout
+@page "/admin/revenue-statistics"
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@inject PaymentServices PaymentServices
+@inject IJSRuntime JS
+
+<h3 class="text-center mb-5 text-white fw-bold">💰 Thống kê doanh thu</h3>
+
+<div class="container bg-white rounded-3 shadow-lg p-4" style="max-width: 1200px;">
+    <!-- Filter Section -->
+    <div class="row mb-4 g-3">
+        <div class="col-md-3">
+            <div class="form-floating">
+                <input type="number" class="form-control border-2 border-primary" id="dayInput" placeholder="Ngày" @bind="day" />
+                <label for="dayInput" class="text-muted">Ngày (1-31)</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-floating">
+                <input type="number" class="form-control border-2 border-primary" id="monthInput" placeholder="Tháng" @bind="month" />
+                <label for="monthInput" class="text-muted">Tháng (1-12)</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-floating">
+                <input type="number" class="form-control border-2 border-primary" id="yearInput" placeholder="Năm" @bind="year" />
+                <label for="yearInput" class="text-muted">Năm (ví dụ: 2025)</label>
+            </div>
+        </div>
+        <div class="col-md-3 d-flex">
+            <button class="btn btn-primary w-100 shadow-sm py-3 fw-bold" @onclick="LoadRevenueFix">
+                <i class="fas fa-filter me-2"></i>Lọc thống kê
+            </button>
+        </div>
+    </div>
+
+    <!-- Statistics Content -->
+    @if (planRevenues.Any())
+    {
+        <!-- Summary Cards -->
+        <div class="row mb-4 g-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 bg-gradient-primary text-white">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><i class="fas fa-money-bill-wave me-2"></i>Tổng doanh thu</h5>
+                        <p class="card-text display-6 fw-bold">
+                            @string.Format("{0:N0} VNĐ", planRevenues.Sum(p => p.TotalRevenue))
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 bg-gradient-success text-white">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><i class="fas fa-exchange-alt me-2"></i>Tổng giao dịch</h5>
+                        <p class="card-text display-6 fw-bold">
+                            @planRevenues.Sum(p => p.TotalTransactions)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 bg-gradient-info text-white">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><i class="fas fa-boxes me-2"></i>Số gói</h5>
+                        <p class="card-text display-6 fw-bold">
+                            @planRevenues.Count
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-responsive mb-4">
+            <table class="table table-hover align-middle">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th class="py-3 rounded-start">Tên gói</th>
+                        <th class="py-3">Số giao dịch</th>
+                        <th class="py-3 rounded-end">Tổng doanh thu (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in planRevenues)
+                    {
+                        <tr class="border-bottom">
+                            <td class="fw-bold">@item.PlanName</td>
+                            <td>@item.TotalTransactions</td>
+                            <td class="text-success fw-bold">@string.Format("{0:N0} VNĐ", item.TotalRevenue)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0 py-3">
+                <h5 class="card-title text-center text-primary fw-bold mb-0">
+                    <i class="fas fa-chart-line me-2"></i>Biểu đồ doanh thu theo tháng trong năm
+                </h5>
+            </div>
+            <div class="card-body p-3" style="height: 420px;">
+                <canvas id="monthlyRevenueChart" style="height: 100%; width: 100% !important;"></canvas>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0 py-3">
+                <h5 class="card-title text-center text-primary fw-bold mb-0">
+                    <i class="fas fa-chart-line me-2"></i>Biểu đồ doanh thu theo gói
+                </h5>
+            </div>
+            <div class="card-body p-3" style="height: 420px;">
+                <canvas id="revenueChart" style="height: 100%; width: 100% !important;"></canvas>
+            </div>
+        </div>
+
+
+    }
+    else if (hasLoaded)
+    {
+        <div class="text-center py-5">
+            <div class="empty-state">
+                <i class="fas fa-chart-pie fa-4x text-muted mb-3"></i>
+                <h5 class="text-muted">Không có dữ liệu thống kê phù hợp</h5>
+                <p class="text-muted">Vui lòng thử với bộ lọc khác</p>
+            </div>
+        </div>
+    }
+
+    @if (isLoading)
+    {
+        <div class="text-center py-5">
+            <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-primary fw-bold">Đang tải dữ liệu...</p>
+        </div>
+    }
+</div>
+@code {
+    private int? day;
+    private int? month;
+    private int? year;
+    private List<PlanRevenueDTO> planRevenues = new();
+    private List<MonthlyPlanRevenueDTO> monthlyPlanRevenues = new();
+    private bool isLoading = false;
+    private bool hasLoaded = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadRevenueFix();
+    }
+
+    private async Task LoadRevenueFix(){
+        await LoadRevenue();
+        await LoadRevenue();
+    }
+
+    private async Task LoadRevenue()
+    {
+        isLoading = true;
+        StateHasChanged();
+
+        try
+        {
+            planRevenues = await PaymentServices.GetPaymentHistoryAsync(day, month, year);
+            monthlyPlanRevenues = await PaymentServices.GetMonthlyRevenueByYearAsync(year);
+            hasLoaded = true;
+
+            if (planRevenues.Any())
+            {
+                await UpdateChart();
+            }
+            if (monthlyPlanRevenues.Any())
+            {
+                await UpdateMonthlyChart();
+            }
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task UpdateChart()
+    {
+        try
+        {
+            if (planRevenues.Any())
+            {
+                var labels = planRevenues.Select(p => p.PlanName).ToList();
+                var data = planRevenues.Select(p => p.TotalRevenue).ToList();
+
+                var canvasExists = await JS.InvokeAsync<bool>("checkCanvasExists", "revenueChart");
+                if (canvasExists)
+                {
+                    await JS.InvokeVoidAsync("renderRevenueChart", labels, data);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error rendering chart: {ex.Message}");
+        }
+    }
+
+    private async Task UpdateMonthlyChart()
+    {
+        try
+        {
+            if (monthlyPlanRevenues.Any()){
+                var labels = Enumerable.Range(1, 12).Select(m => $"Tháng {m}").ToList();
+                var plans = monthlyPlanRevenues.Select(m => m.PlanName).Distinct().ToList();
+
+                var colors = new[]
+                {
+                    "rgba(52, 152, 219, 0.7)",
+                    "rgba(231, 76, 60, 0.7)",
+                    "rgba(241, 196, 15, 0.7)",
+                    "rgba(46, 204, 113, 0.7)",
+                    "rgba(155, 89, 182, 0.7)",
+                    "rgba(230, 126, 34, 0.7)"
+                };
+
+                var datasets = plans.Select((plan, index) => new
+                {
+                    label = plan,
+                    backgroundColor = colors[index % colors.Length],
+                    data = Enumerable.Range(1, 12).Select(month =>
+                    {
+                        var match = monthlyPlanRevenues.FirstOrDefault(r =>
+                            r.PlanName.Trim() == plan && r.Month == month);
+                        return new
+                        {
+                            revenue = match?.TotalRevenue ?? 0,
+                            transaction = match?.TotalTransactions ?? 0
+                        };
+                    }).ToList()
+                }).ToList();
+
+                var canvasExists = await JS.InvokeAsync<bool>("checkCanvasExists", "monthlyRevenueChart");
+                if (canvasExists)
+                {
+                    await JS.InvokeVoidAsync("renderMonthlyRevenueChart", labels, datasets);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error rendering chart: {e.Message}");
+        }
+    }
+}
+<style>
+    body {
+        background: linear-gradient(135deg, #2a5779, #bebebe);
+        min-height: 100vh;
+    }
+
+    .container {
+        background-color: white;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        height: calc(3rem + 2px);
+    }
+
+    .form-floating label {
+        padding: 1rem;
+    }
+
+    .btn-primary {
+        background-color: #2980b9;
+        border: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #3498db, #2980b9);
+    }
+
+    .bg-gradient-success {
+        background: linear-gradient(45deg, #2ecc71, #27ae60);
+    }
+
+    .bg-gradient-info {
+        background: linear-gradient(45deg, #9b59b6, #8e44ad);
+    }
+
+    .table thead th {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+        transform: scale(1.01);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        transition: all 0.2s ease;
+    }
+
+    .empty-state {
+        opacity: 0.7;
+    }
+
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .card-body .display-6 {
+            font-size: 1.5rem;
+        }
+
+        .form-control {
+            height: calc(2.5rem + 2px);
+        }
+    }
+</style>
+

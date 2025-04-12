@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 using Shared.DTO;
+using System.Numerics;
 
 namespace DigitalLibrary.Client.Services
 {
@@ -120,28 +121,53 @@ namespace DigitalLibrary.Client.Services
             }
         }
 
-        public async Task<List<PaymentHistoryDTO>> GetPaymentHistoryAsync()
+        public async Task<List<PlanRevenueDTO>> GetPaymentHistoryAsync(int? day = null, int? month = null, int? year = null)
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, $"api/PaymentHistory/getall");
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/PaymentHistory/getrevenue?day={day}&month={month}&year={year}");
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
 
                 var response = await _httpClient.SendAsync(request);
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    return new List<PaymentHistoryDTO>();
+                    return new List<PlanRevenueDTO>();
                 }
                 response.EnsureSuccessStatusCode();
 
-                var result = await response.Content.ReadFromJsonAsync<List<PaymentHistoryDTO>>();
-                return result ?? new List<PaymentHistoryDTO>();
+                var result = await response.Content.ReadFromJsonAsync<List<PlanRevenueDTO>>();
+                return result ?? new List<PlanRevenueDTO>();
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Lỗi khi gọi API: {e.Message}");
-                return new List<PaymentHistoryDTO>();
+                return new List<PlanRevenueDTO>();
+            }
+        }
+
+        public async Task<List<MonthlyPlanRevenueDTO>> GetMonthlyRevenueByYearAsync(int? year = null)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/PaymentHistory/getmonthlyrevenue?year={year}");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return new List<MonthlyPlanRevenueDTO>();
+                }
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<List<MonthlyPlanRevenueDTO>>();
+                return result ?? new List<MonthlyPlanRevenueDTO>();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi gọi API: {e.Message}");
+                return new List<MonthlyPlanRevenueDTO>();
             }
         }
 

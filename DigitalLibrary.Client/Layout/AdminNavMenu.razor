@@ -25,7 +25,18 @@
         </li>
 
         <li><NavLink href="/admin/reviews">⭐ Đánh giá</NavLink></li>
-        <li><NavLink href="/admin/statistics">📊 Thống kê</NavLink></li>
+
+        <li class="dropdown">
+            <span @onclick="ToggleDropdownST" class="dropdown-toggle">📊 Thống kê</span>
+            @if (isDropdownOpenST)
+            {
+                <ul class="dropdown-menu show">
+                    <li><NavLink href="/admin/revenue-statistics">💰 Doanh thu</NavLink></li>
+                    <li><NavLink href="/admin/viewandowload-statistics">📥 Lượt xem và lượt tải</NavLink></li>
+                    <li><NavLink href="">🌐 Lượng truy cập</NavLink></li>
+                </ul>
+            }
+        </li>
         <li @onclick="Logout"><NavLink href="#">🚪 Đăng xuất</NavLink></li>
     </ul>
     <div class="sidebar-footer">
@@ -44,12 +55,17 @@
     }
 
     private bool isDropdownOpen = false;
+    private bool isDropdownOpenST = false;
 
     private void ToggleDropdown()
     {
         isDropdownOpen = !isDropdownOpen;
     }
 
+    private void ToggleDropdownST()
+    {
+        isDropdownOpenST = !isDropdownOpenST;
+    }
 }
 
 <style>

@@ -157,6 +157,10 @@
       "PackagePath": "staticwebassets\\UploadImages\\f51f3b69-d119-4963-8e27-57daff16f94d.png"
     },
     {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\fef601f5-4b9a-4960-94e3-6134ae013583.jpg",
+      "PackagePath": "staticwebassets\\UploadImages\\fef601f5-4b9a-4960-94e3-6134ae013583.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.DigitalLibrary.Server.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },

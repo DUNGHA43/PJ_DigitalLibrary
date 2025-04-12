@@ -1404,10 +1404,58 @@
         }
       }
     },
-    "/api/PaymentHistory/getall": {
+    "/api/PaymentHistory/getrevenue": {
       "get": {
         "tags": [
           "PaymentHistory"
+        ],
+        "parameters": [
+          {
+            "name": "day",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "month",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/PaymentHistory/getmonthlyrevenue": {
+      "get": {
+        "tags": [
+          "PaymentHistory"
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -1599,6 +1647,18 @@
       }
     },
     "/api/Statistics/GetStatistics_noauthozire": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Statistics/getviewanddowloadstatistic": {
       "get": {
         "tags": [
           "Statistics"

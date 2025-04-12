@@ -1,0 +1,86 @@
+﻿@page "/admin/viewandowload-statistics"
+@layout AdminLayout
+@inject StatisticServices StatisticServices
+@inject IJSRuntime JS
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+
+<h3 class="text-center mb-5 text-white fw-bold">📥 Thống kê lượt xem và lượt tải</h3>
+
+@if (statisticResponse != null)
+{
+    <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-white shadow p-4 rounded-2xl">
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">👁️ Tổng lượt xem</h5>
+            <p class="text-2xl font-bold text-blue-600">@statisticResponse.TotalViews</p>
+        </div>
+        <div class="bg-white shadow p-4 rounded-2xl">
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">⬇️ Tổng lượt tải</h5>
+            <p class="text-2xl font-bold text-green-600">@statisticResponse.TotalDownloads</p>
+        </div>
+    </div>
+
+    <div class="bg-white shadow rounded-2xl p-4 mb-6">
+        <h5 class="text-lg font-semibold mb-4 text-center">📊 Top 10 tài liệu được xem nhiều nhất</h5>
+        <div class="card-body p-3" style="height: 420px;">
+            <canvas id="viewDownloadChart" style="height: 100%; width: 100% !important;"></canvas>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+        <div class="bg-white shadow rounded-2xl p-4">
+            <h5 class="font-semibold text-gray-700 mb-3">🔥 Top 5 tài liệu lượt xem cao nhất</h5>
+            <ul class="space-y-2">
+                @foreach (var doc in statisticResponse.TopViewsDocuments)
+                {
+                    <li>
+                        <span class="font-semibold">@doc.Document.title</span> — 👁️ @doc.views lượt xem
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="bg-white shadow rounded-2xl p-4">
+            <h5 class="font-semibold text-gray-700 mb-3">⬇️ Top 5 tài liệu lượt tải cao nhất</h5>
+            <ul class="space-y-2">
+                @foreach (var doc in statisticResponse.TopDowloadedDocuments)
+                {
+                    <li>
+                        <span class="font-semibold">@doc.Document.title</span> — ⬇️ @doc.dowloaded lượt tải
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <p class="text-white">Đang tải dữ liệu thống kê...</p>
+}
+
+@code {
+    private ViewAndDowloadStatisticResponse? statisticResponse;
+
+    protected override async Task OnInitializedAsync()
+    {
+        statisticResponse = await StatisticServices.GetViewAndDowloadStatisticAsync();
+        await LoadChart();
+        await LoadChart();
+    }
+
+    private async Task LoadChart()
+    {
+        StateHasChanged();
+        try
+        {
+            var canvasExists = await JS.InvokeAsync<bool>("checkCanvasExists", "viewDownloadChart");
+            if (canvasExists)
+            {
+                await JS.InvokeVoidAsync("renderViewDownloadChart", statisticResponse!.ChartData);
+            }
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+}

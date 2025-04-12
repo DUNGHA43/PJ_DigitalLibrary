@@ -39,6 +39,11 @@ public class AuthService
 
             return result.AccessToken;
         }
+        else
+        {
+            await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "accessToken");
+            await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "refreshToken");
+        }
 
         return null;
     }

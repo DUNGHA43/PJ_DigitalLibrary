@@ -33,8 +33,20 @@
       "PackagePath": "staticwebassets\\index.html"
     },
     {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\js\\chart.js",
+      "PackagePath": "staticwebassets\\js\\chart.js"
+    },
+    {
       "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\js\\pdf-viewer.js",
       "PackagePath": "staticwebassets\\js\\pdf-viewer.js"
+    },
+    {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\js\\revenueChart.js",
+      "PackagePath": "staticwebassets\\js\\revenueChart.js"
+    },
+    {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\js\\viewdowloadChart.js",
+      "PackagePath": "staticwebassets\\js\\viewdowloadChart.js"
     },
     {
       "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\readpdfjs\\README.md",

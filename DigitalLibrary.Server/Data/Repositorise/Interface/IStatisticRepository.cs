@@ -1,11 +1,10 @@
 ﻿using DigitalLibrary.Server.Model;
 using DigitalLibrary.Shared.DTO;
 
-namespace DigitalLibrary.Server.Services.Interface
+namespace DigitalLibrary.Server.Data.Repositorise.Interface
 {
-    public interface IStatisticsServices
+    public interface IStatisticRepository : IRepository<Statistics>
     {
-        Task<IEnumerable<Statistics>> GetStatisticsAsync();
         Task<ViewAndDowloadStatisticResponse> GetViewAndDowloadStatisticAsync();
     }
 }

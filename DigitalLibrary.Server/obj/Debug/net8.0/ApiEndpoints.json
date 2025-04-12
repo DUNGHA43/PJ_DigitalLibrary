@@ -766,12 +766,44 @@
   },
   {
     "ContainingType": "DigitalLibrary.Server.Controllers.PaymentHistoryController",
-    "Method": "GetAllPaymentHistorysAsync",
-    "RelativePath": "api/PaymentHistory/getall",
+    "Method": "GetMonthlyRevenueByYearAsync",
+    "RelativePath": "api/PaymentHistory/getmonthlyrevenue",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "year",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.PaymentHistoryController",
+    "Method": "GetStatisticRevenueAsync",
+    "RelativePath": "api/PaymentHistory/getrevenue",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "day",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "month",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "year",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -878,6 +910,16 @@
     "ContainingType": "DigitalLibrary.Server.Controllers.StatisticsController",
     "Method": "GetStatistics",
     "RelativePath": "api/Statistics/GetStatistics_noauthozire",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.StatisticsController",
+    "Method": "GetViewAndDowloadStatisticAsync",
+    "RelativePath": "api/Statistics/getviewanddowloadstatistic",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

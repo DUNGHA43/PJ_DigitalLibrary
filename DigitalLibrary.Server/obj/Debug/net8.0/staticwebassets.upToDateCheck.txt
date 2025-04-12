@@ -37,3 +37,4 @@ wwwroot\UploadImages\ef4f8036-1159-4b35-80c8-182c6e0bdd44.png
 wwwroot\UploadImages\f19807b8-b619-423b-bde9-89b75e494e3f.png
 wwwroot\UploadImages\f3946718-9f4f-4488-a646-3301bf433078.jpg
 wwwroot\UploadImages\f51f3b69-d119-4963-8e27-57daff16f94d.png
+wwwroot\UploadImages\fef601f5-4b9a-4960-94e3-6134ae013583.jpg

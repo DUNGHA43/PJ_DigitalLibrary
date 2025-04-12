@@ -15,16 +15,27 @@ namespace DigitalLibrary.Server.Controllers
             _services = services;
         }
 
-        [HttpGet("getall")]
+        [HttpGet("getrevenue")]
         [Authorize(Roles = "admin, stafflv1")]
-        public async Task<IActionResult> GetAllPaymentHistorysAsync()
+        public async Task<IActionResult> GetStatisticRevenueAsync([FromQuery] int? day = null, int? month = null, int? year = null)
         {
-            var paymentHistorys = await _services.GetAllPaymentHistorysAsync();
+            var paymentHistorys = await _services.GetStatisticRevenueAsync(day, month, year);
             if (paymentHistorys == null || !paymentHistorys.Any())
             {
                 return NotFound("No payment history found.");
             }
             return Ok(paymentHistorys); 
+        }
+        [HttpGet("getmonthlyrevenue")]
+        [Authorize(Roles = "admin, stafflv1")]
+        public async Task<IActionResult> GetMonthlyRevenueByYearAsync([FromQuery] int? year)
+        {
+            var paymentHistorys = await _services.GetMonthlyRevenueByYearAsync(year);
+            if (paymentHistorys == null || !paymentHistorys.Any())
+            {
+                return NotFound("No payment history found.");
+            }
+            return Ok(paymentHistorys);
         }
 
         [HttpPost("addhistoryandupdateplan")]

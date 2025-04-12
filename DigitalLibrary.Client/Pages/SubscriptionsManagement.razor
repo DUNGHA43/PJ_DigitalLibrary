@@ -40,11 +40,11 @@
             <div class="price">0đ <span>/tháng</span></div>
             <ul class="features">
                 <li>✓ Truy cập cơ bản</li>
-                <li>✓ 5 lượt tải/ngày</li>
+                <li>✓ Đọc các tài liệu Basic</li>
                 <li class="disabled">✗ Tính năng cao cấp</li>
                 <li class="disabled">✗ Hỗ trợ ưu tiên</li>
             </ul>
-            <button class="plan-button" @onclick='() => SubscribeToPlan("BASIC", 0)'>@titleButtonBS</button>
+            <button class="plan-button" @onclick='() => Snackbar.Add($"Bạn đang sử dụng gói {userSubscription.SubscriptionPlans.nameplan}", Severity.Info)'>@titleButtonBS</button>
         </div>
 
         <!-- Gói VIP -->
@@ -53,7 +53,6 @@
             <div class="price">99.000đ <span>/tháng</span></div>
             <ul class="features">
                 <li>✓ Truy cập đầy đủ</li>
-                <li>✓ 20 lượt tải/ngày</li>
                 <li>✓ Tính năng VIP</li>
                 <li class="disabled">✗ Hỗ trợ ưu tiên</li>
             </ul>
@@ -66,7 +65,6 @@
             <div class="price">199.000đ <span>/tháng</span></div>
             <ul class="features">
                 <li>✓ Truy cập không giới hạn</li>
-                <li>✓ Tải không giới hạn</li>
                 <li>✓ Tất cả tính năng</li>
                 <li>✓ Hỗ trợ ưu tiên</li>
             </ul>

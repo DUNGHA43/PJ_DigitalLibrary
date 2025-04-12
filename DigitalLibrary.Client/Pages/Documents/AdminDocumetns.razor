@@ -5,6 +5,7 @@
 @layout AdminLayout
 @inject NavigationManager Navigation
 @inject DocumentsServices Documents
+@inject StatisticServices Statistic
 @inject ISnackbar Snackbar
 @inject IDialogService DialogService
 
@@ -39,6 +40,7 @@ OnConfirm="DeleteDocument" />
             <th class="text-center">Nhà xuất bản</th>
             <th class="text-center">Đăng bởi</th>
             <th class="text-center">Ngày tạo</th>
+            <th class="text-center">Lượt xem</th>
             <th class="text-center">Gói áp dụng</th>
             <th class="text-center">Trạng thái</th>
             <th class="text-center">Thao tác</th>
@@ -55,6 +57,7 @@ OnConfirm="DeleteDocument" />
                     <td class="text-center">@document.publisher</td>
                     <td class="text-center">@document.uploadedby</td>
                     <td class="text-center">@document.createdate</td>
+                    <td class="text-center">@lstStatistic.FirstOrDefault(s => s.documentid == document.id)!.views</td>
                     <td class="text-center">@document.accesslevel</td>
                     <td class="text-center">
                         @if (document.status)
@@ -100,6 +103,7 @@ OnConfirm="DeleteDocument" />
     private int selectedId;
     private ConfirmDialog? confirmDialog;
     private DocumentsDTO selectedDocument = new DocumentsDTO();
+    private List<StatisticDTO> lstStatistic = new List<StatisticDTO>();
     private string searchName = "";
     private List<int> selectedIds = new List<int>();
 
@@ -118,6 +122,7 @@ OnConfirm="DeleteDocument" />
     private async Task LoadData()
     {
         var response = await Documents.GetDocumentsAsync(currentPage, pageSize, searchName);
+        lstStatistic = await Statistic.GetStatisticAsync();
 
         if (response != null)
         {

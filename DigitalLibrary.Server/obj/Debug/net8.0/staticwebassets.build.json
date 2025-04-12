@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "png9hQrdC/uMu1YsQ9dX2onrnMCRClNfBcKISSfGz/s=",
+  "Hash": "mwCpw17w4Pegg7DfJll1Pz18Q0xvakq+833QN1zzZ+U=",
   "Source": "DigitalLibrary.Server",
   "BasePath": "_content/DigitalLibrary.Server",
   "Mode": "Default",
@@ -834,6 +834,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\UploadImages\\f51f3b69-d119-4963-8e27-57daff16f94d.png"
+    },
+    {
+      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\fef601f5-4b9a-4960-94e3-6134ae013583.jpg",
+      "SourceId": "DigitalLibrary.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\",
+      "BasePath": "_content/DigitalLibrary.Server",
+      "RelativePath": "UploadImages/fef601f5-4b9a-4960-94e3-6134ae013583#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "x2kjzoru3g",
+      "Integrity": "aX9jMpTK+LxsE0l7Jlx1xM5Y7h+tYhntoy5UKLBAIDo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadImages\\fef601f5-4b9a-4960-94e3-6134ae013583.jpg"
     }
   ],
   "Endpoints": [
@@ -4032,6 +4053,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-QeFpVcLCJZFml0EK3zyUjSEmwXN9ypH2vWbsa6zKMuA="
+        }
+      ]
+    },
+    {
+      "Route": "UploadImages/fef601f5-4b9a-4960-94e3-6134ae013583.jpg",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\fef601f5-4b9a-4960-94e3-6134ae013583.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8100"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aX9jMpTK+LxsE0l7Jlx1xM5Y7h+tYhntoy5UKLBAIDo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 12 Apr 2025 08:25:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-aX9jMpTK+LxsE0l7Jlx1xM5Y7h+tYhntoy5UKLBAIDo="
+        }
+      ]
+    },
+    {
+      "Route": "UploadImages/fef601f5-4b9a-4960-94e3-6134ae013583.x2kjzoru3g.jpg",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\fef601f5-4b9a-4960-94e3-6134ae013583.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8100"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aX9jMpTK+LxsE0l7Jlx1xM5Y7h+tYhntoy5UKLBAIDo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 12 Apr 2025 08:25:07 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "x2kjzoru3g"
+        },
+        {
+          "Name": "label",
+          "Value": "UploadImages/fef601f5-4b9a-4960-94e3-6134ae013583.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-aX9jMpTK+LxsE0l7Jlx1xM5Y7h+tYhntoy5UKLBAIDo="
         }
       ]
     }

@@ -1,6 +1,7 @@
 ﻿using DigitalLibrary.Server.Data.UnitOfWork;
 using DigitalLibrary.Server.Model;
 using DigitalLibrary.Server.Services.Interface;
+using DigitalLibrary.Shared.DTO;
 
 namespace DigitalLibrary.Server.Services.Service
 {
@@ -57,6 +58,16 @@ namespace DigitalLibrary.Server.Services.Service
         public async Task<IEnumerable<PaymentHistory>> GetAllPaymentHistorysAsync()
         {
             return await _unitOfWork.PaymentHistory.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<MonthlyPlanRevenueDTO>> GetMonthlyRevenueByYearAsync(int? year)
+        {
+            return await _unitOfWork.PaymentHistory.GetMonthlyRevenueByYearAsync(year);
+        }
+
+        public async Task<IEnumerable<PlanRevenueDTO>> GetStatisticRevenueAsync(int? day = null, int? month = null, int? year = null)
+        {
+            return await _unitOfWork.PaymentHistory.GetStatisticRevenueAsync(day, month, year);
         }
 
         public Task UpdatePaymentHistoryAsync(PaymentHistory paymentHistory)
