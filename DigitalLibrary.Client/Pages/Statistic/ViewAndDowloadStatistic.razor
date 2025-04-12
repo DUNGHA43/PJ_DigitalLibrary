@@ -5,57 +5,91 @@
 @using DigitalLibrary.Client.Services
 @using DigitalLibrary.Shared.DTO
 
-<h3 class="text-center mb-5 text-white fw-bold">📥 Thống kê lượt xem và lượt tải</h3>
-
-@if (statisticResponse != null)
-{
-    <div class="grid grid-cols-2 gap-4 mb-6">
-        <div class="bg-white shadow p-4 rounded-2xl">
-            <h5 class="text-lg font-semibold text-gray-700 mb-2">👁️ Tổng lượt xem</h5>
-            <p class="text-2xl font-bold text-blue-600">@statisticResponse.TotalViews</p>
-        </div>
-        <div class="bg-white shadow p-4 rounded-2xl">
-            <h5 class="text-lg font-semibold text-gray-700 mb-2">⬇️ Tổng lượt tải</h5>
-            <p class="text-2xl font-bold text-green-600">@statisticResponse.TotalDownloads</p>
-        </div>
+<div class="admin-statistics-page">
+    <div class="page-header">
+        <h3>📊 Thống kê lượt xem và tải tài liệu</h3>
+        <p class="subtitle">Phân tích hiệu suất tài liệu trên hệ thống</p>
     </div>
 
-    <div class="bg-white shadow rounded-2xl p-4 mb-6">
-        <h5 class="text-lg font-semibold mb-4 text-center">📊 Top 10 tài liệu được xem nhiều nhất</h5>
-        <div class="card-body p-3" style="height: 420px;">
-            <canvas id="viewDownloadChart" style="height: 100%; width: 100% !important;"></canvas>
-        </div>
-    </div>
+    @if (statisticResponse != null)
+    {
+        <div class="summary-cards">
+            <div class="summary-card view-card">
+                <div class="card-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="card-content">
+                    <span class="card-label">Tổng lượt xem</span>
+                    <span class="card-value">@statisticResponse.TotalViews</span>
+                </div>
+            </div>
 
-    <div class="grid grid-cols-2 gap-4">
-        <div class="bg-white shadow rounded-2xl p-4">
-            <h5 class="font-semibold text-gray-700 mb-3">🔥 Top 5 tài liệu lượt xem cao nhất</h5>
-            <ul class="space-y-2">
-                @foreach (var doc in statisticResponse.TopViewsDocuments)
-                {
-                    <li>
-                        <span class="font-semibold">@doc.Document.title</span> — 👁️ @doc.views lượt xem
-                    </li>
-                }
-            </ul>
+            <div class="summary-card download-card">
+                <div class="card-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <div class="card-content">
+                    <span class="card-label">Tổng lượt tải</span>
+                    <span class="card-value">@statisticResponse.TotalDownloads</span>
+                </div>
+            </div>
         </div>
-        <div class="bg-white shadow rounded-2xl p-4">
-            <h5 class="font-semibold text-gray-700 mb-3">⬇️ Top 5 tài liệu lượt tải cao nhất</h5>
-            <ul class="space-y-2">
-                @foreach (var doc in statisticResponse.TopDowloadedDocuments)
-                {
-                    <li>
-                        <span class="font-semibold">@doc.Document.title</span> — ⬇️ @doc.dowloaded lượt tải
-                    </li>
-                }
-            </ul>
+
+        <div class="chart-section">
+            <div class="section-header">
+                <h4>Top 10 tài liệu được xem và tải nhiều nhất</h4>
+            </div>
+            <div class="chart-container">
+                <canvas id="viewDownloadChart"></canvas>
+            </div>
         </div>
-    </div>
-}
-else
-{
-    <p class="text-white">Đang tải dữ liệu thống kê...</p>
-}
+
+        <div class="top-lists">
+            <div class="top-list">
+                <div class="section-header">
+                    <h4><i class="fas fa-fire"></i> Top 5 tài liệu xem nhiều</h4>
+                </div>
+                <div class="list-container">
+                    @foreach (var (doc, index) in statisticResponse.TopViewsDocuments.Select((doc, i) => (doc, i)))
+                    {
+                        <div class="list-item">
+                            <span class="item-rank">@(index + 1)</span>
+                            <div class="item-details">
+                                <span class="item-title">@doc.Document.title</span>
+                                <span class="item-count"><i class="fas fa-eye"></i> @doc.views lượt</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="top-list">
+                <div class="section-header">
+                    <h4><i class="fas fa-download"></i> Top 5 tài liệu tải nhiều</h4>
+                </div>
+                <div class="list-container">
+                    @foreach (var (doc, index) in statisticResponse.TopDowloadedDocuments.Select((doc, i) => (doc, i)))
+                    {
+                        <div class="list-item">
+                            <span class="item-rank">@(index + 1)</span>
+                            <div class="item-details">
+                                <span class="item-title">@doc.Document.title</span>
+                                <span class="item-count"><i class="fas fa-download"></i> @doc.dowloaded lượt</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="loading-state">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Đang tải dữ liệu thống kê...</span>
+        </div>
+    }
+</div>
 
 @code {
     private ViewAndDowloadStatisticResponse? statisticResponse;
@@ -84,3 +118,226 @@ else
         }
     }
 }
+
+<style>
+    body {
+        background: linear-gradient(135deg, #2a5779, #bebebe);
+        min-height: 100vh;
+    }
+
+    .admin-statistics-page {
+        padding: 2rem;
+        color: #333;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        margin-bottom: 2.5rem;
+        text-align: center;
+    }
+
+        .page-header h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header .subtitle {
+            color: white;
+            font-size: 1rem;
+        }
+
+    .summary-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .summary-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .summary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+    .card-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.2rem;
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    .view-card .card-icon {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+    }
+
+    .download-card .card-icon {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+    }
+
+    .card-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-label {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+        margin-bottom: 0.3rem;
+    }
+
+    .card-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    .view-card .card-value {
+        color: #3498db;
+    }
+
+    .download-card .card-value {
+        color: #2ecc71;
+    }
+
+    .chart-section {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+    }
+
+    .section-header {
+        margin-bottom: 1.5rem;
+    }
+
+        .section-header h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+    .chart-container {
+        height: 400px;
+        width: 100%;
+        position: relative;
+    }
+
+    .top-lists {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .top-list {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .list-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .list-item {
+        display: flex;
+        align-items: center;
+        padding: 0.8rem;
+        border-radius: 8px;
+        background: #f8f9fa;
+        transition: background 0.2s;
+    }
+
+        .list-item:hover {
+            background: #e9ecef;
+        }
+
+    .item-rank {
+        width: 30px;
+        height: 30px;
+        background: #2c3e50;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+    .item-details {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .item-title {
+        font-weight: 500;
+        margin-bottom: 0.2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .item-count {
+        font-size: 0.85rem;
+        color: #7f8c8d;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .loading-state {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        padding: 2rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        font-size: 1.1rem;
+        color: #7f8c8d;
+    }
+
+        .loading-state i {
+            font-size: 1.3rem;
+        }
+
+    @@media (max-width: 768px) {
+        .admin-statistics-page {
+            padding: 1rem;
+        }
+
+        .top-lists {
+            grid-template-columns: 1fr;
+        }
+
+        .chart-container {
+            height: 300px;
+        }
+    }
+</style>

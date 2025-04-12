@@ -124,13 +124,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\viewdowloadChart.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-OqLnLl\u002BndzdLRSC9oz3yHeFuHy85VmECReBDKcqm6Uw="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1184"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022OqLnLl\u002BndzdLRSC9oz3yHeFuHy85VmECReBDKcqm6Uw=\u0022"},{"Name":"Last-Modified","Value":"Sat, 12 Apr 2025 17:15:45 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1184"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022OqLnLl\u002BndzdLRSC9oz3yHeFuHy85VmECReBDKcqm6Uw=\u0022"},{"Name":"Last-Modified","Value":"Sat, 12 Apr 2025 18:03:34 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="js/viewdowloadChart.uzn3mcwape.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\viewdowloadChart.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"uzn3mcwape"},{"Name":"integrity","Value":"sha256-OqLnLl\u002BndzdLRSC9oz3yHeFuHy85VmECReBDKcqm6Uw="},{"Name":"label","Value":"js/viewdowloadChart.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1184"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022OqLnLl\u002BndzdLRSC9oz3yHeFuHy85VmECReBDKcqm6Uw=\u0022"},{"Name":"Last-Modified","Value":"Sat, 12 Apr 2025 17:15:45 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1184"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022OqLnLl\u002BndzdLRSC9oz3yHeFuHy85VmECReBDKcqm6Uw=\u0022"},{"Name":"Last-Modified","Value":"Sat, 12 Apr 2025 18:03:34 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="readpdfjs/generic/build/pdf.06mqy2u6bu.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\readpdfjs\generic\build\pdf.js'))</AssetFile>

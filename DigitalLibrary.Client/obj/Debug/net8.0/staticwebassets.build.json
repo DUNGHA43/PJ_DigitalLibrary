@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "P9oroaKH0xNXoqvi2RLjb8G9fekUkdu3z9xzqyeZzYU=",
+  "Hash": "548SoTGNjv8zsKZJ9+Lo0oJ0jDfCxnm/lHhXDNdNEC8=",
   "Source": "DigitalLibrary.Client",
   "BasePath": "/",
   "Mode": "Root",
@@ -73,8 +73,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "WasmResource",
       "AssetTraitValue": "manifest",
-      "Fingerprint": "c94dwgn8sm",
-      "Integrity": "0CYYIvoGMpZEyn17ClhUnZh43ex4GTEOfUCumeAb384=",
+      "Fingerprint": "s6m1cy9zht",
+      "Integrity": "lMqNfII0TW9LcTmhM1sEQsE1NOviP0KVH5e8xYiTQHw=",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "obj\\Debug\\net8.0\\blazor.boot.json"
@@ -115,8 +115,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "WasmResource",
       "AssetTraitValue": "symbol",
-      "Fingerprint": "ctr23y6k48",
-      "Integrity": "sPtr6mL5747R5KaOj9Q+gJXQDbnOZshF1xyCYKLrdZY=",
+      "Fingerprint": "us53i9cob7",
+      "Integrity": "4ulu6eMlowWWjVb5RtkEIBeozWySA/5P3chM90T4pfk=",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "obj\\Debug\\net8.0\\DigitalLibrary.Client.pdb"
@@ -136,8 +136,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "WasmResource",
       "AssetTraitValue": "runtime",
-      "Fingerprint": "5q1dq8d6j7",
-      "Integrity": "A+yeIXwx+zvol1w7OEAG8jdxhwSG8bE0cXAruo3mBkI=",
+      "Fingerprint": "rtlnml96uy",
+      "Integrity": "Pyhnvbelwk1ySyYjo0m3fuVkALZdXqhW0+KPGyHBHas=",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\webcil\\DigitalLibrary.Client.wasm"
@@ -8165,7 +8165,7 @@
       "OriginalItemSpec": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.IO.Compression.ZipFile.wasm"
     },
     {
-      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\qpef9yty32-c94dwgn8sm.gz",
+      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\qpef9yty32-s6m1cy9zht.gz",
       "SourceId": "DigitalLibrary.Client",
       "SourceType": "Computed",
       "ContentRoot": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\",
@@ -8179,8 +8179,8 @@
       "RelatedAsset": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.boot.json",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "0l576h5l7d",
-      "Integrity": "/K1qSIRJMbWg44q3P1dEkS0Xkkprk38S9ES2bLJoTDY=",
+      "Fingerprint": "prc7nz36ih",
+      "Integrity": "Zc9PpyqKAYooNf/y0BkqsIQcV7a0a3x9Hfs6iNfXUwY=",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.boot.json"
@@ -8858,7 +8858,7 @@
       "OriginalItemSpec": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\Microsoft.Bcl.Memory.wasm"
     },
     {
-      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\vs9kcmf25i-ctr23y6k48.gz",
+      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\vs9kcmf25i-us53i9cob7.gz",
       "SourceId": "DigitalLibrary.Client",
       "SourceType": "Computed",
       "ContentRoot": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\",
@@ -8872,8 +8872,8 @@
       "RelatedAsset": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\DigitalLibrary.Client.pdb",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "pnetlxsweq",
-      "Integrity": "i/fNCG/eqlvW/ukBWM0Qw5ApnVqjXRf0GAHBlFHa7iI=",
+      "Fingerprint": "s79r4gqwe0",
+      "Integrity": "mDROzd13m1fvk6sEqKZOUzWdV3j9ZNSOTULESnW5Dzk=",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\DigitalLibrary.Client.pdb"
@@ -8984,7 +8984,7 @@
       "OriginalItemSpec": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\System.Net.wasm"
     },
     {
-      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\x2etluuf0t-5q1dq8d6j7.gz",
+      "Identity": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\x2etluuf0t-rtlnml96uy.gz",
       "SourceId": "DigitalLibrary.Client",
       "SourceType": "Computed",
       "ContentRoot": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\",
@@ -8998,8 +8998,8 @@
       "RelatedAsset": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\DigitalLibrary.Client.wasm",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "d2edwz9gfn",
-      "Integrity": "i1t3L9FmZ+adW0j9wcqEaTrdbJrH4+TzhNHN3yRevkc=",
+      "Fingerprint": "580jpztqbn",
+      "Integrity": "5fzQiZqIrp1k7SH+VGQBJZPxNn/S+xIVmWLhepKCqDo=",
       "CopyToOutputDirectory": "PreserveNewest",
       "CopyToPublishDirectory": "Never",
       "OriginalItemSpec": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\bin\\Debug\\net8.0\\wwwroot\\_framework\\DigitalLibrary.Client.wasm"
@@ -22272,11 +22272,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"0CYYIvoGMpZEyn17ClhUnZh43ex4GTEOfUCumeAb384=\""
+          "Value": "\"lMqNfII0TW9LcTmhM1sEQsE1NOviP0KVH5e8xYiTQHw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:25:14 GMT"
+          "Value": "Sat, 12 Apr 2025 18:12:38 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22286,18 +22286,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-0CYYIvoGMpZEyn17ClhUnZh43ex4GTEOfUCumeAb384="
+          "Value": "sha256-lMqNfII0TW9LcTmhM1sEQsE1NOviP0KVH5e8xYiTQHw="
         }
       ]
     },
     {
       "Route": "_framework/blazor.boot.json",
-      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\qpef9yty32-c94dwgn8sm.gz",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\qpef9yty32-s6m1cy9zht.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000104438642"
+          "Quality": "0.000104427736"
         }
       ],
       "ResponseHeaders": [
@@ -22307,15 +22307,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "9574"
+          "Value": "9575"
         },
         {
           "Name": "ETag",
-          "Value": "\"/K1qSIRJMbWg44q3P1dEkS0Xkkprk38S9ES2bLJoTDY=\""
+          "Value": "\"Zc9PpyqKAYooNf/y0BkqsIQcV7a0a3x9Hfs6iNfXUwY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:20:11 GMT"
+          "Value": "Sat, 12 Apr 2025 18:10:43 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22335,19 +22335,19 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"0CYYIvoGMpZEyn17ClhUnZh43ex4GTEOfUCumeAb384=\""
+          "Value": "W/\"lMqNfII0TW9LcTmhM1sEQsE1NOviP0KVH5e8xYiTQHw=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-0CYYIvoGMpZEyn17ClhUnZh43ex4GTEOfUCumeAb384="
+          "Value": "sha256-lMqNfII0TW9LcTmhM1sEQsE1NOviP0KVH5e8xYiTQHw="
         }
       ]
     },
     {
       "Route": "_framework/blazor.boot.json.gz",
-      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\qpef9yty32-c94dwgn8sm.gz",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\qpef9yty32-s6m1cy9zht.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -22356,7 +22356,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "9574"
+          "Value": "9575"
         },
         {
           "Name": "Content-Type",
@@ -22364,11 +22364,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"/K1qSIRJMbWg44q3P1dEkS0Xkkprk38S9ES2bLJoTDY=\""
+          "Value": "\"Zc9PpyqKAYooNf/y0BkqsIQcV7a0a3x9Hfs6iNfXUwY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:20:11 GMT"
+          "Value": "Sat, 12 Apr 2025 18:10:43 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22386,7 +22386,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-/K1qSIRJMbWg44q3P1dEkS0Xkkprk38S9ES2bLJoTDY="
+          "Value": "sha256-Zc9PpyqKAYooNf/y0BkqsIQcV7a0a3x9Hfs6iNfXUwY="
         }
       ]
     },
@@ -22538,7 +22538,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "269924"
+          "Value": "271592"
         },
         {
           "Name": "Content-Type",
@@ -22546,11 +22546,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"sPtr6mL5747R5KaOj9Q+gJXQDbnOZshF1xyCYKLrdZY=\""
+          "Value": "\"4ulu6eMlowWWjVb5RtkEIBeozWySA/5P3chM90T4pfk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:25:13 GMT"
+          "Value": "Sat, 12 Apr 2025 18:12:37 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22560,18 +22560,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-sPtr6mL5747R5KaOj9Q+gJXQDbnOZshF1xyCYKLrdZY="
+          "Value": "sha256-4ulu6eMlowWWjVb5RtkEIBeozWySA/5P3chM90T4pfk="
         }
       ]
     },
     {
       "Route": "_framework/DigitalLibrary.Client.pdb",
-      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\vs9kcmf25i-ctr23y6k48.gz",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\vs9kcmf25i-us53i9cob7.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000004960219"
+          "Quality": "0.000004929435"
         }
       ],
       "ResponseHeaders": [
@@ -22581,15 +22581,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "201603"
+          "Value": "202862"
         },
         {
           "Name": "ETag",
-          "Value": "\"i/fNCG/eqlvW/ukBWM0Qw5ApnVqjXRf0GAHBlFHa7iI=\""
+          "Value": "\"mDROzd13m1fvk6sEqKZOUzWdV3j9ZNSOTULESnW5Dzk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:20:11 GMT"
+          "Value": "Sat, 12 Apr 2025 18:10:42 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22609,19 +22609,19 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"sPtr6mL5747R5KaOj9Q+gJXQDbnOZshF1xyCYKLrdZY=\""
+          "Value": "W/\"4ulu6eMlowWWjVb5RtkEIBeozWySA/5P3chM90T4pfk=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-sPtr6mL5747R5KaOj9Q+gJXQDbnOZshF1xyCYKLrdZY="
+          "Value": "sha256-4ulu6eMlowWWjVb5RtkEIBeozWySA/5P3chM90T4pfk="
         }
       ]
     },
     {
       "Route": "_framework/DigitalLibrary.Client.pdb.gz",
-      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\vs9kcmf25i-ctr23y6k48.gz",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\vs9kcmf25i-us53i9cob7.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -22630,7 +22630,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "201603"
+          "Value": "202862"
         },
         {
           "Name": "Content-Type",
@@ -22638,11 +22638,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"i/fNCG/eqlvW/ukBWM0Qw5ApnVqjXRf0GAHBlFHa7iI=\""
+          "Value": "\"mDROzd13m1fvk6sEqKZOUzWdV3j9ZNSOTULESnW5Dzk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:20:11 GMT"
+          "Value": "Sat, 12 Apr 2025 18:10:42 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22660,7 +22660,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-i/fNCG/eqlvW/ukBWM0Qw5ApnVqjXRf0GAHBlFHa7iI="
+          "Value": "sha256-mDROzd13m1fvk6sEqKZOUzWdV3j9ZNSOTULESnW5Dzk="
         }
       ]
     },
@@ -22675,7 +22675,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "578325"
+          "Value": "590101"
         },
         {
           "Name": "Content-Type",
@@ -22683,11 +22683,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"A+yeIXwx+zvol1w7OEAG8jdxhwSG8bE0cXAruo3mBkI=\""
+          "Value": "\"Pyhnvbelwk1ySyYjo0m3fuVkALZdXqhW0+KPGyHBHas=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:25:13 GMT"
+          "Value": "Sat, 12 Apr 2025 18:12:37 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22697,18 +22697,18 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-A+yeIXwx+zvol1w7OEAG8jdxhwSG8bE0cXAruo3mBkI="
+          "Value": "sha256-Pyhnvbelwk1ySyYjo0m3fuVkALZdXqhW0+KPGyHBHas="
         }
       ]
     },
     {
       "Route": "_framework/DigitalLibrary.Client.wasm",
-      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\x2etluuf0t-5q1dq8d6j7.gz",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\x2etluuf0t-rtlnml96uy.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000006673117"
+          "Quality": "0.000006607726"
         }
       ],
       "ResponseHeaders": [
@@ -22718,15 +22718,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "149854"
+          "Value": "151337"
         },
         {
           "Name": "ETag",
-          "Value": "\"i1t3L9FmZ+adW0j9wcqEaTrdbJrH4+TzhNHN3yRevkc=\""
+          "Value": "\"5fzQiZqIrp1k7SH+VGQBJZPxNn/S+xIVmWLhepKCqDo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:20:11 GMT"
+          "Value": "Sat, 12 Apr 2025 18:10:42 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22746,19 +22746,19 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"A+yeIXwx+zvol1w7OEAG8jdxhwSG8bE0cXAruo3mBkI=\""
+          "Value": "W/\"Pyhnvbelwk1ySyYjo0m3fuVkALZdXqhW0+KPGyHBHas=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-A+yeIXwx+zvol1w7OEAG8jdxhwSG8bE0cXAruo3mBkI="
+          "Value": "sha256-Pyhnvbelwk1ySyYjo0m3fuVkALZdXqhW0+KPGyHBHas="
         }
       ]
     },
     {
       "Route": "_framework/DigitalLibrary.Client.wasm.gz",
-      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\x2etluuf0t-5q1dq8d6j7.gz",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\Debug\\net8.0\\compressed\\x2etluuf0t-rtlnml96uy.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -22767,7 +22767,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "149854"
+          "Value": "151337"
         },
         {
           "Name": "Content-Type",
@@ -22775,11 +22775,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"i1t3L9FmZ+adW0j9wcqEaTrdbJrH4+TzhNHN3yRevkc=\""
+          "Value": "\"5fzQiZqIrp1k7SH+VGQBJZPxNn/S+xIVmWLhepKCqDo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:20:11 GMT"
+          "Value": "Sat, 12 Apr 2025 18:10:42 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -22797,7 +22797,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-i1t3L9FmZ+adW0j9wcqEaTrdbJrH4+TzhNHN3yRevkc="
+          "Value": "sha256-5fzQiZqIrp1k7SH+VGQBJZPxNn/S+xIVmWLhepKCqDo="
         }
       ]
     },
@@ -53592,7 +53592,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:15:45 GMT"
+          "Value": "Sat, 12 Apr 2025 18:03:34 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -53629,7 +53629,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 12 Apr 2025 17:15:45 GMT"
+          "Value": "Sat, 12 Apr 2025 18:03:34 GMT"
         },
         {
           "Name": "Cache-Control",
