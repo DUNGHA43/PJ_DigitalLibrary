@@ -35,5 +35,19 @@ namespace DigitalLibrary.Server.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("getstats")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetStatsAsync()
+        {
+            var result = await _services.GetStatsAsync("day");
+
+            if (result == null)
+            {
+                return NotFound("No data statistics!");
+            }
+
+            return Ok(result);
+        }
     }
 }

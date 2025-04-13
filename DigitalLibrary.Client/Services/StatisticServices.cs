@@ -68,5 +68,30 @@ namespace DigitalLibrary.Client.Services
                 return new ViewAndDowloadStatisticResponse();
             }
         }
+
+        public async Task<TrafficStatsDTO> GetStatsStatisticAsync()
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, "api/Statistics/getstats");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return new TrafficStatsDTO();
+                }
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<TrafficStatsDTO>();
+                return result ?? new TrafficStatsDTO();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi gọi API: {ex.Message}");
+                return new TrafficStatsDTO();
+            }
+        }
     }
 }

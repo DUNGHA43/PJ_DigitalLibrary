@@ -918,6 +918,16 @@
   },
   {
     "ContainingType": "DigitalLibrary.Server.Controllers.StatisticsController",
+    "Method": "GetStatsAsync",
+    "RelativePath": "api/Statistics/getstats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.StatisticsController",
     "Method": "GetViewAndDowloadStatisticAsync",
     "RelativePath": "api/Statistics/getviewanddowloadstatistic",
     "HttpMethod": "GET",
@@ -1024,6 +1034,32 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.TrafficLogController",
+    "Method": "GetIp",
+    "RelativePath": "api/TrafficLog/get-ip",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.TrafficLogController",
+    "Method": "LogTraffic",
+    "RelativePath": "api/TrafficLog/log",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "log",
+        "Type": "DigitalLibrary.Shared.DTO.TrafficLogDTO",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

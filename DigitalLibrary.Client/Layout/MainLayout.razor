@@ -1,5 +1,7 @@
-﻿@inherits LayoutComponentBase
-
+﻿@using DigitalLibrary.Client.Services
+@inherits LayoutComponentBase
+@inject IJSRuntime JS
+@inject TrafficLogServices TrafficLogServices
 
 <NavMenu />
 <FilterBar />
@@ -9,3 +11,16 @@
 </div>
 
 <Footer />
+
+
+@code{
+    private bool _hasLogged = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender){
+        
+        if (firstRender && !_hasLogged)
+        {
+            _hasLogged = await TrafficLogServices.LogTraffic();
+        }
+    }
+}

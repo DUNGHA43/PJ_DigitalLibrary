@@ -21,6 +21,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         IStatisticRepository Statistics { get; }
         IUserSubscriptionsRepository UserSubscriptions { get; }
         IPaymentHistoryRepository PaymentHistory { get; }
+        IRepository<TrafficLog> TrafficLog { get; }
         Task SaveChangeAsync();
     }
 }

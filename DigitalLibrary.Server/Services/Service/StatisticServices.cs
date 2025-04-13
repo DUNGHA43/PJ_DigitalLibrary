@@ -19,6 +19,11 @@ namespace DigitalLibrary.Server.Services.Service
             return await _unitOfWork.Statistics.GetAllAsync();
         }
 
+        public Task<TrafficStatsDTO> GetStatsAsync(string period = "day")
+        {
+            return _unitOfWork.Statistics.GetStatsAsync(period);
+        }
+
         public Task<ViewAndDowloadStatisticResponse> GetViewAndDowloadStatisticAsync()
         {
             return _unitOfWork.Statistics.GetViewAndDowloadStatisticAsync();

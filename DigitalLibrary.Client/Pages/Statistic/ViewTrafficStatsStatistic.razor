@@ -1,0 +1,323 @@
+﻿@page "/admin/trafficstats-statistics"
+@layout AdminLayout
+@inject StatisticServices StatisticServices
+@inject IJSRuntime JS
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using System.Text.Json
+
+<div class="traffic-stats-container">
+    <h3 class="page-title">📊 Thống kê truy cập</h3>
+
+    @if (statisticTraffic == null)
+    {
+        <div class="loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <span>Đang tải dữ liệu...</span>
+        </div>
+    }
+    else
+    {
+        <div class="summary-cards">
+            <div class="stat-card">
+                <div class="stat-icon total">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Tổng truy cập</span>
+                    <span class="stat-value">@statisticTraffic.TotalVisits</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon today">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Hôm nay</span>
+                    <span class="stat-value">@statisticTraffic.TodayVisits</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon month">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Tháng này</span>
+                    <span class="stat-value">@statisticTraffic.ThisMonthVisits</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <h4 class="section-title">Lượt truy cập 30 ngày gần nhất</h4>
+            <div class="chart-container">
+                <canvas id="dailyTrafficChart"></canvas>
+            </div>
+        </div>
+
+        <div class="top-pages-section">
+            <h4 class="section-title">Top trang được xem nhiều nhất</h4>
+            <div class="top-pages-list">
+                @foreach (var page in statisticTraffic.TopPages)
+                {
+                    <div class="page-item">
+                        <div class="page-url">@GetShortUrl(page.pageUrl)</div>
+                        <div class="page-stats">
+                            <span class="view-count">@(page.viewCount) lượt</span>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: @((page.viewCount * 100 / statisticTraffic.TopPages[0].viewCount))%"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private TrafficStatsDTO? statisticTraffic;
+
+    protected override async Task OnInitializedAsync()
+    {
+        statisticTraffic = await StatisticServices.GetStatsStatisticAsync();
+        await LoadChart();
+    }
+
+
+    private async Task LoadChart()
+    {
+        StateHasChanged();
+        try
+        {
+            var canvasExists = await JS.InvokeAsync<bool>("checkCanvasExists", "dailyTrafficChart");
+            if (canvasExists)
+            {
+                var dailyGrouped = statisticTraffic.DailyStats
+                    .GroupBy(x => x.date.Date)
+                    .OrderBy(g => g.Key)
+                    .Select(g => new
+                    {
+                        Date = g.Key.ToString("dd/MM"),
+                        Visit = g.Sum(x => x.visit)
+                    })
+                    .ToList();
+
+                var chartData = new ChartDataDTO
+                    {
+                        Labels = dailyGrouped.Select(x => x.Date).ToArray(),
+                        Data = dailyGrouped.Select(x => x.Visit).ToArray()
+                    };
+
+                var json = JsonSerializer.Serialize(chartData, new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                    });
+
+                await JS.InvokeVoidAsync("renderDailyTrafficChart", JsonDocument.Parse(json).RootElement);
+            }
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+
+    private string GetShortUrl(string fullUrl)
+    {
+        var uri = new Uri(fullUrl);
+        return uri.PathAndQuery;
+    }
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #2a5779, #bebebe);
+        min-height: 100vh;
+        padding-top: 0px !important;
+    }
+
+    .traffic-stats-container {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .page-title {
+        color: white;
+        margin-bottom: 2rem;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .loading-spinner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        height: 300px;
+    }
+
+    .summary-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        transition: transform 0.2s;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.5rem;
+        font-size: 1.5rem;
+        color: white;
+    }
+
+        .stat-icon.total {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+
+        .stat-icon.today {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+
+        .stat-icon.month {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+
+    .stat-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+        margin-bottom: 0.3rem;
+    }
+
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #2c3e50;
+    }
+
+    .chart-section {
+        background: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 1.2rem;
+    }
+
+    .chart-container {
+        height: 400px;
+        position: relative;
+    }
+
+    .top-pages-section {
+        background: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .top-pages-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .page-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .page-url {
+        font-weight: 500;
+        color: #2c3e50;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-right: 1rem;
+    }
+
+    .page-stats {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        width: 300px;
+    }
+
+    .view-count {
+        font-weight: 600;
+        color: #3498db;
+        min-width: 80px;
+        text-align: right;
+    }
+
+    .progress {
+        height: 8px;
+        width: 100%;
+        background: #ecf0f1;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
+        transition: width 0.5s ease;
+    }
+
+    @@media (max-width: 768px) {
+        .page-item
+
+    {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .page-stats {
+        width: 100%;
+    }
+
+    }
+</style>

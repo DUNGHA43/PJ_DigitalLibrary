@@ -24,6 +24,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         public IStatisticRepository Statistics { get; private set; }
         public IUserSubscriptionsRepository UserSubscriptions { get; private set; }
         public IPaymentHistoryRepository PaymentHistory { get; private set; }
+        public IRepository<TrafficLog> TrafficLog { get; private set; }
 
         public UnitOfWork(DbDigitalLibraryContext context)
         {
@@ -43,6 +44,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
             Statistics = new StatisticRepository(_context);
             UserSubscriptions = new UserSubscriptionsRepository(_context);
             PaymentHistory = new PaymentHistoryRepository(_context);
+            TrafficLog = new Repository<TrafficLog>(_context);
         }
 
         public void Dispose()

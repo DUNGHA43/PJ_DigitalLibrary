@@ -1,6 +1,686 @@
 ﻿@page "/admin"
 @layout AdminLayout
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@inject StatisticServices StatisticService
+@inject DocumentsServices Documents
+@inject UserManagementServices UserManagement
+@inject PaymentServices PaymentServices
 
+<div class="admin-dashboard">
+    <!-- Header -->
+    <div class="dashboard-header">
+        <h2><i class="fas fa-tachometer-alt me-2"></i>Bảng điều khiển</h2>
+        <div class="header-meta">
+            <span class="welcome-badge"><i class="fas fa-user-shield me-1"></i>Quản trị viên</span>
+            <span class="last-update"><i class="far fa-clock me-1"></i>@DateTime.Now.ToString("HH:mm dd/MM/yyyy")</span>
+        </div>
+    </div>
 
-<h3>Chào mừng đến với trang quản trị thư viện số!</h3>
-<p>Đây là bảng điều khiển</p>
+    <!-- Summary Cards -->
+    <div class="summary-grid">
+        <!-- Thẻ Tổng tài liệu -->
+        <div class="summary-card card-documents">
+            <div class="card-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <div class="card-content">
+                <span class="card-label">Tổng tài liệu</span>
+                <span class="card-value">@lstDocuments.Count</span>
+                <div class="card-actions">
+                    <a href="/admin/documents" class="btn-action">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thẻ Tổng người dùng -->
+        <div class="summary-card card-users">
+            <div class="card-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="card-content">
+                <span class="card-label">Người dùng</span>
+                <span class="card-value">@lstUsers.Count</span>
+                <div class="card-actions">
+                    <a href="/admin/users" class="btn-action">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thẻ Lượt truy cập -->
+        <div class="summary-card card-traffic">
+            <div class="card-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="card-content">
+                <span class="card-label">Truy cập hôm nay</span>
+                <span class="card-value">@(trafficStats?.TodayVisits ?? 0)</span>
+                <div class="card-actions">
+                    <a href="/admin/trafficstats-statistics" class="btn-action">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue Cards -->
+    <div class="revenue-grid">
+        <div class="revenue-card revenue-total">
+            <div class="card-body">
+                <i class="fas fa-money-bill-wave card-bg-icon"></i>
+                <h5 class="card-title">Tổng doanh thu</h5>
+                <p class="card-value-price">@string.Format("{0:N0} VNĐ", planRevenues.Sum(p => p.TotalRevenue))</p>
+            </div>
+        </div>
+
+        <div class="revenue-card revenue-transactions">
+            <div class="card-body">
+                <i class="fas fa-exchange-alt card-bg-icon"></i>
+                <h5 class="card-title">Tổng giao dịch</h5>
+                <p class="card-value-price">@planRevenues.Sum(p => p.TotalTransactions)</p>
+            </div>
+        </div>
+
+        <div class="revenue-card revenue-plans">
+            <div class="card-body">
+                <i class="fas fa-boxes card-bg-icon"></i>
+                <h5 class="card-title">Số gói</h5>
+                <p class="card-value-price">@planRevenues.Count</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Two Columns Layout -->
+    <div class="dashboard-layout">
+        <!-- Left Column -->
+        <div class="dashboard-column">
+            <!-- Thống kê truy cập -->
+            <div class="stats-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-chart-pie me-2"></i>Thống kê truy cập</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon today">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Hôm nay</span>
+                            <span class="stat-value">@(trafficStats?.TodayVisits ?? 0)</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon week">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Tuần này</span>
+                            <span class="stat-value">@(trafficStats?.DailyStats.Sum(x => x.visit) ?? 0)</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon month">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Tháng này</span>
+                            <span class="stat-value">@(trafficStats?.ThisMonthVisits ?? 0)</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-item">
+                        <div class="stat-icon total">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">Tổng lượt</span>
+                            <span class="stat-value">@(trafficStats?.TotalVisits ?? 0)</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-card-view-dowload view-card">
+                        <div class="card-icon-view-dowload">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-label">Tổng lượt xem</span>
+                            <span class="card-value">@statisticResponse.TotalViews</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-card-view-dowload download-card">
+                        <div class="card-icon-view-dowload">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-label">Tổng lượt tải</span>
+                            <span class="card-value">@statisticResponse.TotalDownloads</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="dashboard-column">
+            <!-- Top trang truy cập -->
+            <div class="top-pages-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-trophy me-2"></i>Trang phổ biến</h3>
+                </div>
+                <div class="top-pages-list">
+                    @if (trafficStats?.TopPages != null)
+                    {
+                        var rank = 1;
+                        foreach (var page in trafficStats.TopPages)
+                        {
+                            <div class="page-item">
+                                <span class="page-rank">@(rank++)</span>
+                                <div class="page-info">
+                                    <a href="@(page.pageUrl)" class="page-title" title="@(page.pageUrl)">
+                                        @GetPageTitle(page.pageUrl)
+                                    </a>
+                                    <div class="page-stats">
+                                        <span class="page-views">@(page.viewCount) lượt</span>
+                                        <div class="progress">
+                                            <div class="progress-bar" 
+                                                 style="width: @((page.viewCount * 100 / trafficStats.TopPages[0].viewCount))%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private TrafficStatsDTO? trafficStats;
+    private List<DocumentsDTO> lstDocuments = new();
+    private List<UsersDTO> lstUsers = new();
+    private List<PlanRevenueDTO> planRevenues = new();
+    private ViewAndDowloadStatisticResponse? statisticResponse;
+
+    protected override async Task OnInitializedAsync()
+    {
+        trafficStats = await StatisticService.GetStatsStatisticAsync();
+        var responseD = await Documents.GetDocumentsAsync(1, 100000, "");
+        var responseU = await UserManagement.GetUsersAsync(1, 1000000);
+        planRevenues = await PaymentServices.GetPaymentHistoryAsync();
+        statisticResponse = await StatisticService.GetViewAndDowloadStatisticAsync();
+        lstDocuments = responseD.Data;
+        lstUsers = responseU.Data;
+    }
+
+    private string GetPageTitle(string url)
+    {
+        var uri = new Uri(url);
+        return uri.PathAndQuery.Split('/').Last().Replace("-", " ");
+    }
+}
+
+<style>
+    /* Base Styles */
+    :root {
+        --primary: #4e73df;
+        --secondary: #858796;
+        --success: #1cc88a;
+        --info: #36b9cc;
+        --warning: #f6c23e;
+        --danger: #e74a3b;
+        --light: #f8f9fc;
+        --dark: #5a5c69;
+        --white: #ffffff;
+        --gray-100: #f8f9fa;
+        --gray-200: #e9ecef;
+        --gray-300: #dee2e6;
+        --gray-400: #ced4da;
+        --gray-500: #adb5bd;
+        --gray-600: #6c757d;
+        --gray-700: #495057;
+        --gray-800: #343a40;
+        --gray-900: #212529;
+    }
+
+    body {
+        background: linear-gradient(135deg, #2a5779, #bebebe);
+        font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        padding-top: 0px !important;
+    }
+
+    .admin-dashboard {
+        padding: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* Header Styles */
+    .dashboard-header {
+        margin-bottom: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .dashboard-header h2 {
+        color: var(--gray-100);
+        font-weight: 700;
+        margin: 0;
+        font-size: 1.75rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .header-meta {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .welcome-badge {
+        background-color: var(--primary);
+        color: white;
+        padding: 0.35rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .last-update {
+        color: var(--gray-100);
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* Summary Cards */
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .summary-card-view-dowload {
+        background: var(--gray-100);
+        padding: 1.5rem;
+        display: flex;
+    }
+    .summary-card {
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        padding: 1.5rem;
+        display: flex;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .summary-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.2);
+    }
+
+    .summary-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+    }
+
+    .card-documents::before { background: var(--primary); }
+    .card-users::before { background: var(--success); }
+    .card-traffic::before { background: var(--info); }
+   
+
+    .card-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.5rem;
+        font-size: 1.75rem;
+        color: var(--white);
+    }
+
+    .card-icon-view-dowload {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.2rem;
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    .view-card .card-icon-view-dowload {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+    }
+
+    .download-card .card-icon-view-dowload {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+    }
+
+    .card-documents .card-icon { background: var(--primary); }
+    .card-users .card-icon { background: var(--success); }
+    .card-traffic .card-icon { background: var(--info); }
+
+    .card-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-label {
+        color: var(--gray-600);
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        text-transform: uppercase;
+    }
+
+    .card-value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--gray-700);
+        margin-bottom: 0.5rem;
+    }
+
+    .card-value-price {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--gray-100);
+        margin-bottom: 0.5rem;
+    }
+
+    .card-actions {
+        margin-top: auto;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btn-action {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gray-600);
+        background: var(--gray-100);
+        transition: all 0.3s ease;
+    }
+
+    .btn-action:hover {
+        background: var(--primary);
+        color: var(--white);
+        text-decoration: none;
+    }
+
+    /* Revenue Cards */
+    .revenue-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .revenue-card {
+        border-radius: 12px;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        overflow: hidden;
+        position: relative;
+        transition: transform 0.3s ease;
+        color: var(--white);
+    }
+
+    .revenue-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .revenue-total { background: linear-gradient(135deg, var(--primary), #6a11cb); }
+    .revenue-transactions { background: linear-gradient(135deg, var(--success), #11998e); }
+    .revenue-plans { background: linear-gradient(135deg, var(--info), #1a2980); }
+
+    .card-bg-icon {
+        position: absolute;
+        right: 1.5rem;
+        top: 1.5rem;
+        font-size: 4rem;
+        opacity: 0.2;
+    }
+
+    .revenue-card .card-body {
+        padding: 1.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .revenue-card .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        opacity: 0.9;
+    }
+
+    .revenue-card .card-value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    /* Dashboard Layout */
+    .dashboard-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    @@media (max-width: 992px) {
+        .dashboard-layout {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Stats Section */
+    .stats-section {
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        padding: 1.5rem;
+        height: 100%;
+    }
+
+    .section-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .section-header h3 {
+        color: var(--dark);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .stat-item {
+        background: var(--gray-100);
+        border-radius: 8px;
+        padding: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        color: var(--white);
+    }
+
+    .stat-icon.today { background: var(--warning); }
+    .stat-icon.week { background: var(--info); }
+    .stat-icon.month { background: var(--success); }
+    .stat-icon.total { background: var(--primary); }
+
+    .stat-info {
+        flex: 1;
+    }
+
+    .stat-label {
+        color: var(--gray-600);
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin: 0;
+    }
+
+    /* Top Pages Section */
+    .top-pages-section {
+        background: var(--white);
+        border-radius: 12px;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        padding: 1.5rem;
+        height: 100%;
+    }
+
+    .top-pages-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .page-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem;
+        border-radius: 8px;
+        background: var(--gray-100);
+        transition: background 0.3s ease;
+    }
+
+    .page-item:hover {
+        background: var(--gray-200);
+    }
+
+    .page-rank {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .page-item:nth-child(1) .page-rank { background: var(--warning); }
+    .page-item:nth-child(2) .page-rank { background: var(--info); }
+    .page-item:nth-child(3) .page-rank { background: var(--success); }
+
+    .page-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .page-title {
+        font-weight: 600;
+        color: var(--dark);
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0.25rem;
+        text-decoration: none;
+    }
+
+    .page-title:hover {
+        color: var(--primary);
+        text-decoration: underline;
+    }
+
+    .page-stats {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .page-views {
+        font-size: 0.85rem;
+        color: var(--gray-600);
+        white-space: nowrap;
+    }
+
+    .progress {
+        height: 6px;
+        flex: 1;
+        background: var(--gray-300);
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary), var(--success));
+        transition: width 0.6s ease;
+    }
+
+    /* Responsive Adjustments */
+    @@media (max-width: 768px) {
+        .admin-dashboard {
+            padding: 1rem;
+        }
+        
+        .summary-grid,
+        .revenue-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .card-value,
+        .revenue-card .card-value {
+            font-size: 1.5rem;
+        }
+    }
+</style>

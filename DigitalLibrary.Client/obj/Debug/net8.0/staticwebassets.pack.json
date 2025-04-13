@@ -45,6 +45,14 @@
       "PackagePath": "staticwebassets\\js\\revenueChart.js"
     },
     {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\js\\tracking.js",
+      "PackagePath": "staticwebassets\\js\\tracking.js"
+    },
+    {
+      "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\js\\trafficChart.js",
+      "PackagePath": "staticwebassets\\js\\trafficChart.js"
+    },
+    {
       "Id": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\js\\viewdowloadChart.js",
       "PackagePath": "staticwebassets\\js\\viewdowloadChart.js"
     },

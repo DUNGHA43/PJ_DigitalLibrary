@@ -10,6 +10,7 @@ using Net.payOS;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient();
 // CORS Configuration
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
@@ -20,7 +21,7 @@ builder.Services.AddCors(options =>
             policy.WithOrigins("https://localhost:7236")
                   .AllowAnyHeader()
                   .AllowAnyMethod()
-                  .AllowCredentials(); // Thêm dòng này nếu sử dụng credentials
+                  .AllowCredentials();
         });
 });
 
@@ -105,6 +106,7 @@ builder.Services.AddScoped<IUserPermissionServices, UserPermissionServices>();
 builder.Services.AddScoped<IStatisticsServices, StatisticServices>();
 builder.Services.AddScoped<IUserSubscriptionServices, UserSubscriptionServices>();
 builder.Services.AddScoped<IPaymentHistoryServices, PaymentHistoryServices>();
+builder.Services.AddScoped<ITrafficLogServices, TrafficLogServices>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
