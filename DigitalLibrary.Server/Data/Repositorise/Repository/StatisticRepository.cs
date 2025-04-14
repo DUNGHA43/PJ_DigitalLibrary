@@ -120,5 +120,13 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
                 .Take(topCount)
                 .ToListAsync();
         }
+
+        public async Task<Statistics> FindStatisticByDocumentIdAsync(int documentId)
+        {
+            var result = await _context.statistics
+                .Include(s => s.Document)
+                .FirstOrDefaultAsync(s => s.documentid == documentId);
+            return result ?? throw new ArgumentException($"Statistic for document with id {documentId} does not exist!");
+        }
     }
 }

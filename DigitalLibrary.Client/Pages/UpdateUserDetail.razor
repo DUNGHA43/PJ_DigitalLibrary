@@ -15,7 +15,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row" style="justify-content:center;">
                     <!-- Cột phải - Form thông tin -->
                     <div class="col-md-8">
                         <div class="row mb-3">
@@ -140,11 +140,11 @@
         var result = await UserManagement.UpdateUserAsync(editUser, imgFileEdit);
         if (result)
         {
-            await OnUserUpdateDetail.InvokeAsync("✅ Thay đổi mật khẩu thành công!");
+            await OnUserUpdateDetail.InvokeAsync("✅ Thay đổi thông tin thành công!");
         }
         else
         {
-            await OnUserUpdateDetail.InvokeAsync("❌ Thay đổi mật khẩu thất bại!");
+            await OnUserUpdateDetail.InvokeAsync("❌ Thay đổi thông tin thất bại!");
         }
     }
 }

@@ -173,15 +173,6 @@ namespace DigitalLibrary.Server.Controllers
 
             await _userService.AdduserAsync(user, imgFile);
 
-            var userPermission = new UserPermissions
-            {
-                userid = user.id,
-                canread = true,
-                candowload = false,
-            };
-
-            await _userPermissionServices.AddUserPermissionAsync(userPermission);
-
             return Ok(new { message = "Add user success!" });
         }
 

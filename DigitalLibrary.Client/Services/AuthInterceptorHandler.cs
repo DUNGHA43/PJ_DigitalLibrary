@@ -6,9 +6,9 @@ namespace DigitalLibrary.Client.Services
     public class AuthInterceptorHandler : DelegatingHandler
     {
         private readonly IJSRuntime _jsRuntime;
-        private readonly AuthService _authService;
+        private readonly AuthServices _authService;
 
-        public AuthInterceptorHandler(IJSRuntime jsRuntime, AuthService authService)
+        public AuthInterceptorHandler(IJSRuntime jsRuntime, AuthServices authService)
         {
             _jsRuntime = jsRuntime;
             _authService = authService;

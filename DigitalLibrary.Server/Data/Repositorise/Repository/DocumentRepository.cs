@@ -22,6 +22,11 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
             await DeleteMultipleAsync(documentIds, "id");
         }
 
+        public async Task<Documents> FindDocumentByTitleAsync(string title)
+        {
+            return await _dbSet.FirstOrDefaultAsync(c => c.title.Contains(title));
+        }
+
         public async Task<IEnumerable<Documents>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();

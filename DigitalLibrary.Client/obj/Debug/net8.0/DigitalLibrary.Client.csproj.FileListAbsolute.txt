@@ -53,6 +53,8 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\mscorlib.wasm
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\MudBlazor.wasm
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\netstandard.wasm
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\Newtonsoft.Json.wasm
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\payos-lib-backend-dotnet.wasm
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\Shared.pdb
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\Shared.wasm
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\System.AppContext.wasm
@@ -349,7 +351,9 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\System.Net.HttpListener.wasm.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\System.Text.RegularExpressions.wasm.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\System.Text.Encodings.Web.wasm.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\payos-lib-backend-dotnet.wasm.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\System.Text.Encoding.wasm.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\Newtonsoft.Json.wasm.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\System.Net.Mail.wasm.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\System.Security.Claims.wasm.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\System.Diagnostics.StackTrace.wasm.gz
@@ -476,6 +480,8 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\Microsoft.JSInterop.dll
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\Microsoft.JSInterop.WebAssembly.dll
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\MudBlazor.dll
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\payos-lib-backend-dotnet.dll
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\System.IO.Pipelines.dll
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\Microsoft.CSharp.dll
@@ -698,6 +704,8 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\Microsoft.JSInterop.wasm
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\Microsoft.JSInterop.WebAssembly.wasm
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\MudBlazor.wasm
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\Newtonsoft.Json.wasm
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\payos-lib-backend-dotnet.wasm
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\System.IdentityModel.Tokens.Jwt.wasm
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\System.IO.Pipelines.wasm
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\Microsoft.CSharp.wasm
@@ -872,6 +880,7 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\DigitalLibrary.Client.wasm
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\scopedcss\Layout\MainLayout.razor.rz.scp.css
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\scopedcss\Layout\NavMenu.razor.rz.scp.css
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\scopedcss\Layout\NullLayout.razor.rz.scp.css
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\scopedcss\Layout\ReadDocumentLayout.razor.rz.scp.css
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\scopedcss\bundle\DigitalLibrary.Client.styles.css
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\scopedcss\projectbundle\DigitalLibrary.Client.bundle.scp.css
@@ -912,6 +921,8 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\7ujc4fqa52-t5qsxd5ym3.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\0uthjxfkpm-sxn7b5wzyk.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\p0smsjd1h2-o6em7cgr0y.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\mpg9gbegqx-qkbufwhni2.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\m0fusg4z8w-wq8duugial.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\hx07wuzilp-ej9g67375p.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\5porskj9s4-iudrcw56e1.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\gjb37mswqq-e8asq7dbbt.gz
@@ -1092,6 +1103,8 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\3rmfbrv9rq-tptq2av103.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\o6xz5h9yw5-lfu7j35m59.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\tuld03zduh-oyz0vx2fzb.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\31h470g7gk-cwjeh7muin.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\4inslmw0ia-ky0nvjtas3.gz
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\staticwebassets.build.endpoints.json
@@ -1107,19 +1120,6 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\refint\DigitalLibrary.Client.dll
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\DigitalLibrary.Client.pdb
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\ref\DigitalLibrary.Client.dll
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\Newtonsoft.Json.wasm
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\payos-lib-backend-dotnet.wasm
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\payos-lib-backend-dotnet.wasm.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\wwwroot\_framework\Newtonsoft.Json.wasm.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\Newtonsoft.Json.dll
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\bin\Debug\net8.0\payos-lib-backend-dotnet.dll
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\Newtonsoft.Json.wasm
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\webcil\payos-lib-backend-dotnet.wasm
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\mpg9gbegqx-qkbufwhni2.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\m0fusg4z8w-wq8duugial.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\scopedcss\Layout\NullLayout.razor.rz.scp.css
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\31h470g7gk-cwjeh7muin.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\4inslmw0ia-ky0nvjtas3.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\x2etluuf0t-mjw75gc4i1.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\vs9kcmf25i-n2w05j7pn9.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\qpef9yty32-pdmvgx7gbm.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\x2etluuf0t-lkii4sskyk.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\vs9kcmf25i-orhxf6l1k4.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\qpef9yty32-k7u392d7dr.gz

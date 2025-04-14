@@ -7,5 +7,6 @@ namespace DigitalLibrary.Server.Data.Repositorise.Interface
     {
         Task<ViewAndDowloadStatisticResponse> GetViewAndDowloadStatisticAsync();
         Task<TrafficStatsDTO> GetStatsAsync(string period = "day");
+        Task<Statistics> FindStatisticByDocumentIdAsync(int documentId);
     }
 }

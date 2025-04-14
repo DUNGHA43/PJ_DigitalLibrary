@@ -28,5 +28,31 @@ namespace DigitalLibrary.Server.Services.Service
         {
             return _unitOfWork.Statistics.GetViewAndDowloadStatisticAsync();
         }
+
+        public async Task UpdateStatistic(int documentId, string? update = null)
+        {
+            var statistic = await _unitOfWork.Statistics.FindStatisticByDocumentIdAsync(documentId);
+
+            if (statistic == null)
+            {
+                throw new ArgumentException($"Statistic with documentId {documentId} does not exist!");
+            }
+
+            if (update == "view")
+            {
+                statistic.views++;
+            }
+            else if (update == "download")
+            {
+                statistic.dowloaded++;
+            }
+            else
+            {
+                throw new ArgumentException($"Invalid update type: {update}");
+            }
+
+            _unitOfWork.Statistics.EditAsync(statistic);
+            await _unitOfWork.SaveChangeAsync();
+        }
     }
 }

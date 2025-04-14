@@ -10,6 +10,7 @@
 @inject UserServices _userServices
 @inject UserSubscriptionServices _userSubscriptionServices
 @inject UserPermissionServices _userPermissionServices
+@inject StatisticServices _statisticServices
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
 @inject NavigationManager Navigation
@@ -200,6 +201,9 @@
                     await JS.InvokeVoidAsync("downloadPdf",
                         pdfDataUrl,
                         $"{documentExisting.title}.pdf");
+
+                    await _statisticServices.UpdateViewAndDownloadedAsync(document, "download");
+                    Navigation.NavigateTo($"/detaildocument?document={document}", forceLoad:true);
                 }
                 else
                 {
@@ -227,6 +231,7 @@
                 Snackbar.Add($"Bạn cần gói {documentExisting.accesslevel} để đọc tài liệu này", Severity.Error);
             }
             else{
+                await _statisticServices.UpdateViewAndDownloadedAsync(documentId, "view");
                 Navigation.NavigateTo($"/documents/read?documentId={documentId}");
             }
         }

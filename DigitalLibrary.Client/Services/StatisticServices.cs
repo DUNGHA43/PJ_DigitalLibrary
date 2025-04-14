@@ -93,5 +93,33 @@ namespace DigitalLibrary.Client.Services
                 return new TrafficStatsDTO();
             }
         }
+
+        public async Task<bool> UpdateViewAndDownloadedAsync(int documentId, string? update = null)
+        {
+            try
+            {
+                var query = $"?documentId={documentId}";
+                if (!string.IsNullOrEmpty(update))
+                {
+                    query += $"&update={Uri.EscapeDataString(update)}";
+                }
+
+                var response = await _httpClient.PutAsync($"api/Statistics/updateviewanddowloaded{query}", null);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+
+                var error = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"API error: {error}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception while calling API: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

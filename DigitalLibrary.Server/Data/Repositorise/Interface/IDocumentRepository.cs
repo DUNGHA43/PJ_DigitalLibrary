@@ -12,5 +12,6 @@ namespace DigitalLibrary.Server.Data.Repositorise.Interface
         Task<IEnumerable<DocumentGroupDTO>> GetDocumentByFilterAsync(int? subjectId = null, int? authorId = null, int? categoryId = null,
         string? accesslevel = null, string? searchName = null, string? filterGroup = null, int page = 1, int pageSize = 10);
         Task<DocumentsDTO> FindDocumentDetailByIdAsync(int id);
+        Task<Documents> FindDocumentByTitleAsync(string title);
     }
 }

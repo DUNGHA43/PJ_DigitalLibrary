@@ -49,5 +49,24 @@ namespace DigitalLibrary.Server.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("updateviewanddowloaded")]
+        [Authorize]
+        public async Task<IActionResult> UpdateViewAndDowloaded([FromQuery] int documentId, string? update = null)
+        {
+            try
+            {
+                await _services.UpdateStatistic(documentId, update);
+                return Ok("Update successfully!");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Server error: {ex.Message}");
+            }
+        }
     }
 }

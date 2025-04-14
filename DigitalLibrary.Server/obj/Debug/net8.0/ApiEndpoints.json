@@ -937,6 +937,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "DigitalLibrary.Server.Controllers.StatisticsController",
+    "Method": "UpdateViewAndDowloaded",
+    "RelativePath": "api/Statistics/updateviewanddowloaded",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "documentId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "update",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DigitalLibrary.Server.Controllers.SubjectController",
     "Method": "AddSubjectAsync",
     "RelativePath": "api/Subject/addsubject",

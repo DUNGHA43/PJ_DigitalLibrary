@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace DigitalLibrary.Server.Model
 {
@@ -15,6 +16,7 @@ namespace DigitalLibrary.Server.Model
         public long? dowloaded { get; set; }
 
         [ForeignKey("documentid")]
+        [JsonIgnore]
         public Documents Document { get; set; }
     }
 }

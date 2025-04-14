@@ -20,7 +20,7 @@ builder.Services.AddMudServices(config =>
 builder.Services.AddScoped(sp =>
     new HttpClient { BaseAddress = new Uri("https://localhost:7211/") });
 
-builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<AuthServices>();
 builder.Services.AddScoped<AuthInterceptorHandler>();
 
 builder.Services.AddHttpClient<UserServices>(client =>

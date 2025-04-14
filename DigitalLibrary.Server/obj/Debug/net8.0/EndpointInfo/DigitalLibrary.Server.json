@@ -1682,6 +1682,35 @@
         }
       }
     },
+    "/api/Statistics/updateviewanddowloaded": {
+      "put": {
+        "tags": [
+          "Statistics"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "update",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Subject/getall": {
       "get": {
         "tags": [

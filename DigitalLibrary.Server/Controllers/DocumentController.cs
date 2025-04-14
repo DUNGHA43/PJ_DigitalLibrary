@@ -152,6 +152,8 @@ namespace DigitalLibrary.Server.Controllers
 
             try
             {
+
+
                 var fileBytes = await System.IO.File.ReadAllBytesAsync(fullPath);
                 return File(fileBytes, "application/pdf", $"{document.title}.pdf");
             }
@@ -163,7 +165,7 @@ namespace DigitalLibrary.Server.Controllers
 
 
         [HttpPost("adddocument")]
-        [Authorize(Roles = "admin, stafflv1")]
+        //[Authorize(Roles = "admin, stafflv1")]
         public async Task<IActionResult> AddDocumentAsync([FromForm] DocumentsDTO documentDTO, IFormFile dcmFile, IFormFile? imgFile)
         {
             if (!ModelState.IsValid)

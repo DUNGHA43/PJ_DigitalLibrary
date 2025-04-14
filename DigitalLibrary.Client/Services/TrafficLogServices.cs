@@ -29,6 +29,13 @@ namespace DigitalLibrary.Client.Services
                 var info = await _jsRuntime.InvokeAsync<BrowserInfoDTO>("getBrowserInfo");
                 var ip = await _httpClient.GetStringAsync("https://localhost:7211/api/TrafficLog/get-ip");
 
+                var uri = new Uri(info.url);
+
+                if (uri.AbsolutePath == "/")
+                {
+                    info.url = uri.GetLeftPart(UriPartial.Authority) + "/home";
+                }
+
                 var log = new TrafficLogDTO
                 {
                     ipaddress = ip,

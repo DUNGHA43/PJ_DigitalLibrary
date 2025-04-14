@@ -8,6 +8,7 @@
 @inject DocumentsServices Documents
 @inject UserServices _userServices
 @inject UserSubscriptionServices _userSubscriptionServices
+@inject StatisticServices _statisticServices
 @inject IJSRuntime JS
 @inject NavigationManager Navigation
 @inject ISnackbar Snackbar
@@ -110,6 +111,8 @@
                     await JS.InvokeVoidAsync("downloadPdf",
                         pdfDataUrl,
                         $"{documentExisting.title}.pdf");
+
+                    await _statisticServices.UpdateViewAndDownloadedAsync(documentId, "download");
                 }
                 else
                 {

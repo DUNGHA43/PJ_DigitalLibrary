@@ -37,15 +37,23 @@ namespace DigitalLibrary.Server.Services.Service
             document.filepath = documentFile.filePath ?? "";
             document.fileurl = documentFile.fileUrl ?? "";
 
+            await _unitOfWork.Documents.AddAsync(document);
+            await _unitOfWork.SaveChangeAsync();
+
+            var documentAdded = await _unitOfWork.Documents.FindDocumentByTitleAsync(document.title);
+            if (documentAdded == null)
+            {
+                throw new ArgumentException($"Document with title {document.title} does not exist!");
+            }
+
             var statistics = new Statistics()
             {
-                documentid = document.id,
+                documentid = documentAdded.id,
                 views = 0,
                 dowloaded = 0,
             };
 
             await _unitOfWork.Statistics.AddAsync(statistics);
-            await _unitOfWork.Documents.AddAsync(document);
             await _unitOfWork.SaveChangeAsync();
         }
 

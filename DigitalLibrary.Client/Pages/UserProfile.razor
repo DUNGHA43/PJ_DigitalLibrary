@@ -229,6 +229,7 @@
 
     private async Task ReloadData(string message)
     {
+        UserSub = await UserSubscriptionServices.FindUserSubscriptionByUserId(userId);
         var severity = message.Contains("✅") ? Severity.Success : Severity.Error;
         Snackbar.Add(message, severity);
         StateHasChanged();

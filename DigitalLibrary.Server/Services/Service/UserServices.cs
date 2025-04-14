@@ -44,16 +44,32 @@ namespace DigitalLibrary.Server.Services.Service
             }
             user.imageurl = imageFile.fileUrl ?? "";
 
+            await _unitOfWork.User.AddAsync(user);
+            await _unitOfWork.SaveChangeAsync();
+
+            var UserAdded = await _unitOfWork.User.GetByEmailAsync(user.email!);
+            if (UserAdded == null)
+            {
+                throw new ArgumentException("user with this email does not exists!");
+            }
+
             var subscription = new UserSubcriptions
             {
-                userid = user.id,
+                userid = UserAdded.id,
                 planid = 1,
                 redate = DateTime.Now,
                 exdate = DateTime.Now,
                 status = true
             };
 
-            await _unitOfWork.User.AddAsync(user);
+            var userPermission = new UserPermissions
+            {
+                userid = UserAdded.id,
+                canread = true,
+                candowload = false,
+            };
+
+            await _unitOfWork.UserPermissions.AddAsync(userPermission);
             await _unitOfWork.UserSubscriptions.AddAsync(subscription);
             await _unitOfWork.SaveChangeAsync();
         }
@@ -65,8 +81,31 @@ namespace DigitalLibrary.Server.Services.Service
             {
                 throw new ArgumentException("user does not exits!");
             }
-            await _uploadService.DeleteFileAsync(user.imageurl!);
+            if (!string.IsNullOrEmpty(user.imageurl))
+            {
+                await _uploadService.DeleteFileAsync(user.imageurl!);
+            }
             _unitOfWork.User.DeleteAsync(user.id!);
+            await _unitOfWork.SaveChangeAsync();
+        }
+        public async Task DeleteMultipleUsersAsync(List<int> userIds)
+        {
+            var users = await _unitOfWork.User.GetUsersByIdsAsync(userIds);
+
+            if (users.Count != userIds.Count)
+            {
+                throw new ArgumentException("One or more users do not exist!");
+            }
+
+            foreach (var user in users)
+            {
+                if (!string.IsNullOrEmpty(user.imageurl))
+                {
+                    await _uploadService.DeleteFileAsync(user.imageurl!);
+                }
+            }
+
+            await _unitOfWork.User.DeleteMultipleUsersAsync(userIds);
             await _unitOfWork.SaveChangeAsync();
         }
 
@@ -145,26 +184,7 @@ namespace DigitalLibrary.Server.Services.Service
             return await _unitOfWork.User.GetAllUsersAsync(pageNumber, pageSize, searchName, searchEmail, searchRole, searchStatus);
         }
 
-        public async Task DeleteMultipleUsersAsync(List<int> userIds)
-        {
-            var users = await _unitOfWork.User.GetUsersByIdsAsync(userIds);
-
-            if (users.Count != userIds.Count)
-            {
-                throw new ArgumentException("One or more users do not exist!");
-            }
-
-            foreach (var user in users)
-            {
-                if (!string.IsNullOrEmpty(user.imageurl))
-                {
-                    await _uploadService.DeleteFileAsync(user.imageurl!);
-                }
-            }
-
-            await _unitOfWork.User.DeleteMultipleUsersAsync(userIds);
-            await _unitOfWork.SaveChangeAsync();
-        }
+        
 
         public async Task<List<Users>> GetUsersByIdsAsync(List<int> userIds)
         {
