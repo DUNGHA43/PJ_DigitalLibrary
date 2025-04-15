@@ -1,8 +1,10 @@
-﻿using DigitalLibrary.Server.Model;
+﻿using DigitalLibarary.Shared.DTO;
+using DigitalLibrary.Server.Model;
 using DigitalLibrary.Server.Services.Interface;
 using DigitalLibrary.Server.Services.Service;
 using DigitalLibrary.Shared.DTO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -13,25 +15,25 @@ namespace DigitalLibrary.Server.Controllers
     public class UserController : Controller
     {
         private readonly IUserServices _userService;
-        private readonly IUserPermissionServices _userPermissionServices;
+        private readonly IMailServices _emailSender;
         private readonly IConfiguration _config;
         private readonly TokenService _jwt;
         private readonly IWebHostEnvironment _env;
-        public UserController(IUserServices userService, IUserPermissionServices userPermissionServices, IConfiguration config, IWebHostEnvironment env)
+        public UserController(IUserServices userService, IMailServices emailSender, IConfiguration config, IWebHostEnvironment env)
         {
             _userService = userService;
-            _userPermissionServices = userPermissionServices;
             _config = config;
             _jwt = new TokenService(_config);
+            _emailSender = emailSender;
             _env = env;
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult>Login([FromBody] Login loginrequest) 
+        public async Task<IActionResult> Login([FromBody] Login loginrequest)
         {
             var user = _userService.ValidateUser(loginrequest.username, loginrequest.password);
 
-            if( user == null)
+            if (user == null)
             {
                 return Unauthorized("Wrong username or password!");
             }
@@ -78,6 +80,38 @@ namespace DigitalLibrary.Server.Controllers
             await _userService.UpdateUserAsync(user);
 
             return Ok(new { AccessToken = newAccessToken, RefreshToken = newRefreshToken });
+        }
+
+        [HttpPost("sendemail")]
+        public async Task<IActionResult> SendEmail([FromBody] EmailSenderDTO emailSender)
+        {
+            var existingUser = await _userService.GetByEmailAsync(emailSender.ToEmail);
+
+            if (existingUser == null)
+            {
+                return NotFound(new { message = "Email không tồn tại trong hệ thống!" });
+            }
+
+            var check = await _emailSender.SendEmailAsync(emailSender);
+            if (check)
+            {
+                return Ok(new { message = "Đã gửi mã xác nhận tới địa chỉ email!" });
+            }
+            else
+            {
+                return BadRequest(new { message = "Gửi mã xác nhận thất bại!" });
+            }
+        }
+
+        [HttpGet("getuserbyemail")]
+        public async Task<IActionResult> GetUserByEmailAsync([FromQuery] string email)
+        {
+            var user = await _userService.GetByEmailAsync(email);
+            if (user == null)
+            {
+                return NotFound(new { message = "Không tìm thấy người dùng với email này." });
+            }
+            return Ok(user);
         }
 
         [HttpGet("getall-noqueries")]
@@ -206,12 +240,19 @@ namespace DigitalLibrary.Server.Controllers
             return Ok(new { message = "Edit user success!" });
         }
 
+        [HttpPut("changepass")]
+        public async Task<IActionResult> ChangPassAsync([FromBody] ChangePassDTO changePassDTO)
+        {
+            await _userService.ChangePassAsync(changePassDTO);
+            return Ok(new { message = "Edit user success!" });
+        }
+
         [HttpDelete("deleteuser")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteUserAsync([FromBody] int id)
         {
             await _userService.DeleteUserAsync(id);
-            return Ok(new { message = "Delete Success!"});
+            return Ok(new { message = "Delete Success!" });
         }
 
         [HttpDelete("deletemulti-users")]

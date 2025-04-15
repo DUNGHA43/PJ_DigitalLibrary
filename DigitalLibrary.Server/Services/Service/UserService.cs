@@ -2,6 +2,7 @@
 using DigitalLibrary.Server.Data.UnitOfWork;
 using DigitalLibrary.Server.Model;
 using DigitalLibrary.Server.Services.Interface;
+using DigitalLibrary.Shared.DTO;
 using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 
@@ -73,6 +74,11 @@ namespace DigitalLibrary.Server.Services.Service
         {
             return await _unitOfWork.User.GetByIdAsync(id);
         }
+        public async Task<Users> FindUserByEmailAsync(string email)
+        {
+            return await _unitOfWork.User.GetByEmailAsync(email);
+        }
+
 
         public async Task UpdateUserAsync(Users user, IFormFile? imgFile)
         {
@@ -94,6 +100,27 @@ namespace DigitalLibrary.Server.Services.Service
             {
                 user.imageurl = imageFile.fileUrl;
             }
+
+            _unitOfWork.User.EditAsync(user);
+            await _unitOfWork.SaveChangeAsync();
+        }
+
+        public async Task ChangePassAsync(ChangePassDTO ChangePassUser)
+        {
+            
+            var user = await _unitOfWork.User.GetByEmailAsync(ChangePassUser.email);
+
+            if (user == null)
+            {
+                throw new ArgumentException("user does not exits!");
+            }
+
+            if(ChangePassUser.userid != user.id)
+            {
+                throw new ArgumentException("Authentication error!");
+            }
+
+            user.password = ChangePassUser.newPass;
 
             _unitOfWork.User.EditAsync(user);
             await _unitOfWork.SaveChangeAsync();

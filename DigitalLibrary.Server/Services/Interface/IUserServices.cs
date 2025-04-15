@@ -1,4 +1,5 @@
 ﻿using DigitalLibrary.Server.Model;
+using DigitalLibrary.Shared.DTO;
 
 namespace DigitalLibrary.Server.Services.Interface
 {
@@ -17,5 +18,7 @@ namespace DigitalLibrary.Server.Services.Interface
         Task<(IEnumerable<Users> Users, int TotalCount)> GetAllUsersAsync(int pageNumber, int pageSize, string searchName, string searchEmail, int? searchRole, bool? searchStatus);
         Task DeleteMultipleUsersAsync(List<int> userIds);
         Task<List<Users>> GetUsersByIdsAsync(List<int> userIds);
+
+        Task ChangePassAsync(ChangePassDTO ChangePassUser);
     }
 }

@@ -50,6 +50,31 @@ namespace DigitalLibrary.Client.Services
             }
         }
 
+        public async Task<UsersDTO> FindUserByEmailAsync(string email)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, $"api/User/getuserbyemail?email={email}");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return new UsersDTO();
+                }
+                response.EnsureSuccessStatusCode();
+
+                var result = await response.Content.ReadFromJsonAsync<UsersDTO>();
+                return result ?? new UsersDTO();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi gọi API: {e.Message}");
+                return new UsersDTO();
+            }
+        }
+
         public async Task<string?> GetImageAsync(int id)
         {
             try
@@ -175,6 +200,30 @@ namespace DigitalLibrary.Client.Services
             catch (Exception e)
             {
                 Console.WriteLine($"Lỗi khi sửa người dùng: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> ChangePassAsync(ChangePassDTO changePassDTO)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Put, "api/User/changepass");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
+                request.Content = JsonContent.Create(changePassDTO);
+
+                var response = await _httpClient.SendAsync(request);
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return false;
+                }
+
+                response.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi thay đổi mật khẩu: {e.Message}");
                 return false;
             }
         }

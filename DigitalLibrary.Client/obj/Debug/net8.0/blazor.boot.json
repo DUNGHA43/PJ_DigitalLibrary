@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "DigitalLibrary.Client",
   "resources": {
-    "hash": "sha256-MEd1B1xC35Hr4bNEkwnhbGEL4ODVa/3SDZG40xW3kkk=",
+    "hash": "sha256-rrka/sE5WFfOBAlL+e9iC0Low6JlkLF8UIR0VJ5oyG0=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-B6DNRvFeCUi3jbx9uKpuj+hV9cN0KG4RdZj1FgBZwj8="
     },
@@ -224,12 +224,12 @@
       "mscorlib.wasm": "sha256-QoC5hTKpDNO6efLnEvYwV9OJBXvYRq8/1yGhNZKiNCw=",
       "netstandard.wasm": "sha256-JT2F4bYWJpaSGq+iD0ITLpWxsDhMUjhqje9RpBtTg7w=",
       "System.Private.CoreLib.wasm": "sha256-fvIPBcvgvsRuWrKi2LGQsLYvcKUSnyIuBUsE3LJu/0Y=",
-      "Shared.wasm": "sha256-xJZSHX1e79uRjJB/dLk4s4c9Po1zBJZ5xJorvJx5JEA=",
-      "DigitalLibrary.Client.wasm": "sha256-e51dG3kEnmahywfkL6sKM3YyrgHR31GWA5i8gQ3w6E0="
+      "Shared.wasm": "sha256-j8ptMrAFOm+lD9ZyHtgEO8ng9zdppL4saOXwHz9PM9k=",
+      "DigitalLibrary.Client.wasm": "sha256-ScvSHewDrMvx0rexd500jnutv6SuuPwqOa6YziOX+7w="
     },
     "pdb": {
-      "Shared.pdb": "sha256-nF+gOdHUFgEjoWKcyY2mgp1FFfLQr1itv4Ub4QpwgD4=",
-      "DigitalLibrary.Client.pdb": "sha256-NK92Nmta/qlhZdh+3cIRBq5xi2z80cl1nnCrVQGZFFE="
+      "Shared.pdb": "sha256-gU/CuUQWio2UUpcDeeOBbi3ZJFI0rM8debvJ/gTz0RU=",
+      "DigitalLibrary.Client.pdb": "sha256-aCc4nMLC8Fd+JH2/WzJsz32uop8oLVOVosrIQfz3aJ0="
     }
   },
   "cacheBootResources": true,

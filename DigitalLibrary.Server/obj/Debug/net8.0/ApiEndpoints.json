@@ -1171,6 +1171,22 @@
   },
   {
     "ContainingType": "DigitalLibrary.Server.Controllers.UserController",
+    "Method": "ChangPassAsync",
+    "RelativePath": "api/User/changepass",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "changePassDTO",
+        "Type": "DigitalLibrary.Shared.DTO.ChangePassDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.UserController",
     "Method": "DeleteMultipleUsersAsync",
     "RelativePath": "api/User/deletemulti-users",
     "HttpMethod": "DELETE",
@@ -1356,6 +1372,22 @@
   },
   {
     "ContainingType": "DigitalLibrary.Server.Controllers.UserController",
+    "Method": "GetUserByEmailAsync",
+    "RelativePath": "api/User/getuserbyemail",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.UserController",
     "Method": "Login",
     "RelativePath": "api/User/login",
     "HttpMethod": "POST",
@@ -1381,6 +1413,22 @@
       {
         "Name": "request",
         "Type": "DigitalLibrary.Server.Model.RefreshTokenRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.UserController",
+    "Method": "SendEmail",
+    "RelativePath": "api/User/sendemail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "emailSender",
+        "Type": "DigitalLibarary.Shared.DTO.EmailSenderDTO",
         "IsRequired": true
       }
     ],

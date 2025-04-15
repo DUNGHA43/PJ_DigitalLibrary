@@ -3,56 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{96CE1359-12A7-48BB-BD1A-7BD2080C5952}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\digitallibrary.server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{96CE1359-12A7-48BB-BD1A-7BD2080C5952}|DigitalLibrary.Server\\DigitalLibrary.Server.csproj|solutionrelative:digitallibrary.server\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\pages\\loginform.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\pages\\loginform.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\services\\authinterceptorhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\services\\authinterceptorhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\services\\userservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\shared\\adminnavmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\shared\\adminnavmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\shared\\adminlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\shared\\adminlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\pages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\pages\\about.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\pages\\about.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\shared\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\shared\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\shared\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\shared\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\client\\shared\\footer.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{41B0DFF3-728F-4178-83DB-DCB8F251AA58}|Client\\DigitalLibrary.Client.csproj|solutionrelative:client\\shared\\footer.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{9909AAD8-B297-483B-B7CB-DB33C5967809}|DigitalLibrary.Client\\DigitalLibrary.Client.csproj|c:\\users\\dungha\\documents\\\u0111\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\project1\\digitallibrary\\digitallibrary.client\\services\\usermanagementservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9909AAD8-B297-483B-B7CB-DB33C5967809}|DigitalLibrary.Client\\DigitalLibrary.Client.csproj|solutionrelative:digitallibrary.client\\services\\usermanagementservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -67,170 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Program.cs",
-              "RelativeDocumentMoniker": "Client\\Program.cs",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Program.cs",
-              "RelativeToolTip": "Client\\Program.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAADwvxYAAABCAAAAAAAAAA==",
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\DigitalLibrary.Server\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Server\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\DigitalLibrary.Server\\Controllers\\UserController.cs",
+              "RelativeToolTip": "DigitalLibrary.Server\\Controllers\\UserController.cs",
+              "ViewState": "AgIAANkAAAAAAAAAAAAkwPIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-09T15:13:29.015Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AuthInterceptorHandler.cs",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Services\\AuthInterceptorHandler.cs",
-              "RelativeDocumentMoniker": "Client\\Services\\AuthInterceptorHandler.cs",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Services\\AuthInterceptorHandler.cs",
-              "RelativeToolTip": "Client\\Services\\AuthInterceptorHandler.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-09T15:10:38.095Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserServices.cs",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Services\\UserServices.cs",
-              "RelativeDocumentMoniker": "Client\\Services\\UserServices.cs",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Services\\UserServices.cs",
-              "RelativeToolTip": "Client\\Services\\UserServices.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-09T15:09:27.537Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AdminNavMenu.razor",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Shared\\AdminNavMenu.razor",
-              "RelativeDocumentMoniker": "Client\\Shared\\AdminNavMenu.razor",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Shared\\AdminNavMenu.razor",
-              "RelativeToolTip": "Client\\Shared\\AdminNavMenu.razor",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAUwGgAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-09T15:05:35.86Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AdminLayout.razor",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Shared\\AdminLayout.razor",
-              "RelativeDocumentMoniker": "Client\\Shared\\AdminLayout.razor",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Shared\\AdminLayout.razor",
-              "RelativeToolTip": "Client\\Shared\\AdminLayout.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-09T15:05:23.94Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "About.razor",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Pages\\About.razor",
-              "RelativeDocumentMoniker": "Client\\Pages\\About.razor",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Pages\\About.razor",
-              "RelativeToolTip": "Client\\Pages\\About.razor",
-              "ViewState": "AgIAABUAAAAAAAAAAAAUwD8AAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-09T14:48:29.093Z",
+              "WhenOpened": "2025-04-15T08:49:43.301Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "LoginForm.razor",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Pages\\LoginForm.razor",
-              "RelativeDocumentMoniker": "Client\\Pages\\LoginForm.razor",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Pages\\LoginForm.razor",
-              "RelativeToolTip": "Client\\Pages\\LoginForm.razor",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAUwFEAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-09T14:32:29.247Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Index.razor",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Pages\\Index.razor",
-              "RelativeDocumentMoniker": "Client\\Pages\\Index.razor",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Pages\\Index.razor",
-              "RelativeToolTip": "Client\\Pages\\Index.razor",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAUwBUAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-09T14:31:23.558Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "index.html",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\wwwroot\\index.html",
-              "RelativeDocumentMoniker": "Client\\wwwroot\\index.html",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\wwwroot\\index.html",
-              "RelativeToolTip": "Client\\wwwroot\\index.html",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-03-09T14:31:16.99Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "app.css",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\wwwroot\\css\\app.css",
-              "RelativeDocumentMoniker": "Client\\wwwroot\\css\\app.css",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\wwwroot\\css\\app.css",
-              "RelativeToolTip": "Client\\wwwroot\\css\\app.css",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAQwHAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-03-09T14:29:19.492Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "MainLayout.razor",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Shared\\MainLayout.razor",
-              "RelativeDocumentMoniker": "Client\\Shared\\MainLayout.razor",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Shared\\MainLayout.razor",
-              "RelativeToolTip": "Client\\Shared\\MainLayout.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-09T14:28:32.63Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Shared\\NavMenu.razor",
-              "RelativeDocumentMoniker": "Client\\Shared\\NavMenu.razor",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Shared\\NavMenu.razor",
-              "RelativeToolTip": "Client\\Shared\\NavMenu.razor",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAywCoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-09T14:27:41.643Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Footer.razor",
-              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Shared\\Footer.razor",
-              "RelativeDocumentMoniker": "Client\\Shared\\Footer.razor",
-              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\Client\\Shared\\Footer.razor",
-              "RelativeToolTip": "Client\\Shared\\Footer.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-03-09T14:27:05.149Z",
+              "Title": "UserManagementServices.cs",
+              "DocumentMoniker": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\DigitalLibrary.Client\\Services\\UserManagementServices.cs",
+              "RelativeDocumentMoniker": "DigitalLibrary.Client\\Services\\UserManagementServices.cs",
+              "ToolTip": "C:\\Users\\dungha\\Documents\\\u0110\u1ED3 \u00E1n t\u1ED1t nghi\u1EC7p\\PROJECT1\\DigitalLibrary\\DigitalLibrary.Client\\Services\\UserManagementServices.cs",
+              "RelativeToolTip": "DigitalLibrary.Client\\Services\\UserManagementServices.cs",
+              "ViewState": "AgIAALsAAAAAAAAAAAAUwBgAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-15T08:49:20.878Z",
               "EditorCaption": ""
             }
           ]

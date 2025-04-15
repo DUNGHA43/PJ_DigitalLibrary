@@ -1,9 +1,14 @@
 ﻿using DigitalLibrary.Shared.DTO;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using MudBlazor;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
+using System.Net;
 using System.Net.Http.Json;
 using System.Security.Claims;
+using System.Text.Json;
+using DigitalLibarary.Shared.DTO;
 
 namespace DigitalLibrary.Client.Services
 {
@@ -17,6 +22,38 @@ namespace DigitalLibrary.Client.Services
             _httpClient = httpClient;
             _jsRuntime = jSRuntime;
             _navigationManager = navigationManager;
+        }
+
+        public async Task<string> SendEmailAsync(EmailSenderDTO emailSenderDTO)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Post, "api/User/sendemail");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await GetToken());
+                request.Content = JsonContent.Create(emailSenderDTO);
+
+                var response = await _httpClient.SendAsync(request);
+
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return "Unauthorized";
+                }
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                var json = JsonSerializer.Deserialize<Dictionary<string, string>>(responseContent);
+                if (json != null && json.TryGetValue("message", out var message))
+                {
+                    return message;
+                }
+
+                return responseContent;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi gọi api: {e.Message}");
+                return $"Lỗi: {e.Message}";
+            }
         }
 
         public async Task<bool> LoginAsync(string username, string password)

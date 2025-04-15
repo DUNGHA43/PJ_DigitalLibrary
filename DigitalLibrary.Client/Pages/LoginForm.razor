@@ -27,10 +27,12 @@
         userRole = await UserService.GetUserRole();
         if (success)
         {
-            if(userRole == "reader"){
+            if (userRole == "reader")
+            {
                 Navigation.NavigateTo("/", forceLoad: true);
             }
-            else if (userRole == "admin"){
+            else if (userRole == "admin")
+            {
                 Navigation.NavigateTo("/admin", forceLoad: true);
             }
         }
@@ -86,7 +88,7 @@
                         @(isLoggingIn ? "Đang đăng nhập ..." : "Đăng nhập")
                     </button>
                     <div class="text-center mt-3">
-                        <a href="#" class="text-decoration-none">Quên mật khẩu?</a>
+                        <a href="/forgot-password" class="text-decoration-none">Quên mật khẩu?</a>
                     </div>
                     <div class="text-center mt-3">
                         <span>Chưa có tài khoản? <a href="#" class="text-decoration-none">Đăng ký</a></span>

@@ -29,6 +29,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<DbDigitalLibraryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+var brevoApiKey = builder.Configuration["BrevoKey:ApiKey"];
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var secretKey = jwtSettings.GetValue<string>("Secret");
@@ -107,6 +108,7 @@ builder.Services.AddScoped<IStatisticsServices, StatisticServices>();
 builder.Services.AddScoped<IUserSubscriptionServices, UserSubscriptionServices>();
 builder.Services.AddScoped<IPaymentHistoryServices, PaymentHistoryServices>();
 builder.Services.AddScoped<ITrafficLogServices, TrafficLogServices>();
+builder.Services.AddScoped<IMailServices, MailServices>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
