@@ -1,0 +1,407 @@
+﻿@page "/register"
+@using System.ComponentModel.DataAnnotations
+@using System.Timers
+@using DigitalLibarary.Shared.DTO
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@layout EmptyLayout
+@inject ISnackbar Snackbar
+@inject UserServices UserService
+@inject NavigationManager Navigation
+
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <img src="/image-app/DUNGHA_LIBRARY_LOGO-removebg.png" style="width:80px; height: 80px;" alt="Logo" class="auth-logo">
+            <h2>Tạo tài khoản mới</h2>
+            <p class="text-muted">Điền thông tin để bắt đầu trải nghiệm</p>
+        </div>
+
+        <EditForm Model="@registerModel" OnValidSubmit="@HandleRegistration" class="auth-form">
+            <DataAnnotationsValidator />
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="fullName" class="form-label">
+                        <i class="fas fa-user"></i> Họ và tên
+                    </label>
+                    <InputText id="fullName" @bind-Value="registerModel.FullName" class="form-control" placeholder="Nguyễn Văn A" />
+                    <ValidationMessage For="@(() => registerModel.FullName)" class="validation-message" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <InputText id="email" @bind-Value="registerModel.Email" class="form-control" placeholder="example@email.com" />
+                    <ValidationMessage For="@(() => registerModel.Email)" class="validation-message" />
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i> Mật khẩu
+                    </label>
+                    <InputText id="password" @bind-Value="registerModel.Password" type="password" class="form-control" placeholder="Ít nhất 6 ký tự" />
+                    <ValidationMessage For="@(() => registerModel.Password)" class="validation-message" />
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword" class="form-label">
+                        <i class="fas fa-lock"></i> Xác nhận mật khẩu
+                    </label>
+                    <InputText id="confirmPassword" @bind-Value="registerModel.ConfirmPassword" type="password" class="form-control" placeholder="Nhập lại mật khẩu" />
+                    <ValidationMessage For="@(() => registerModel.ConfirmPassword)" class="validation-message" />
+                </div>
+
+                <!-- Phần OTP luôn hiển thị -->
+                <div class="form-group otp-group">
+                    <label for="otp" class="form-label">
+                        <i class="fas fa-shield-alt"></i> Mã xác thực
+                    </label>
+                    <div class="otp-input-container">
+                        <InputText id="otp" @bind-Value="registerModel.OtpCode" class="form-control otp-input" placeholder="Nhập 6 số" />
+                        <button type="button" class="btn btn-resend-otp"
+                        disabled="@isResendDisabled"
+                        @onclick="SendOtp">
+                            @resendButtonText
+                        </button>
+                    </div>
+                    <div class="otp-note">Mã OTP sẽ được gửi tới số điện thoại/email của bạn</div>
+                    <ValidationMessage For="@(() => registerModel.OtpCode)" class="validation-message" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit" @onclick="HandleRegistration">
+                Đăng ký
+            </button>
+
+            <div class="auth-footer">
+                Đã có tài khoản? <a href="/home" class="auth-link">Đăng nhập ngay</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private RegisterModel registerModel = new();
+    private bool isResendDisabled = false;
+    private string resendButtonText = "Gửi mã OTP";
+    private Timer countdownTimer;
+    private int countdownSeconds = 120;
+    private int code = 0;
+    private EmailSenderDTO? emailSender;
+
+    private async Task HandleRegistration()
+    {
+        if (registerModel.OtpCode != code.ToString())
+        {
+            Snackbar.Add("Mã xác thực không chính xác!", Severity.Error);
+            return;
+        }
+
+        var newUser = new UsersDTO
+            {
+                fullname = registerModel.FullName,
+                email = registerModel.Email,
+                password = registerModel.Password,
+            };
+
+        var result = await UserService.RegisterAccountAsync(newUser);
+        if (result)
+        {
+            Snackbar.Add("Đăng ký người người dùng thành công!", Severity.Success);
+            await Task.Delay(2000);
+            Navigation.NavigateTo("/home");
+        }
+        else
+        {
+            Snackbar.Add("Đăng ký người dùng thất bại!", Severity.Error);
+        }
+
+
+    }
+
+    private async Task SendOtp()
+    {
+        // TODO: Gọi API gửi OTP
+        code = new Random().Next(100000, 999999);
+
+        emailSender = new EmailSenderDTO
+            {
+                Action = "Register",
+                ToEmail = registerModel.Email,
+                Code = code.ToString(),
+                FromName = "Thư viên số DungHa",
+                FromEmail = "dunghasonlla@gmail.com",
+                Subject = "Mã xác nhận đăng ký tài khoản",
+                Body = $"Vui lòng không chia sẽ với bất kỳ ai! Mã xác thực của bạn là"
+                
+            };
+
+        var message = await UserService.SendEmailAsync(emailSender);
+        Snackbar.Add(message, Severity.Info);
+        if (message.Equals("Đã gửi mã xác nhận tới địa chỉ email!"))
+        {
+            Snackbar.Add($"Nếu không thấy hãy kiểm tra mục tất cả thư!", Severity.Info);
+        }
+        
+
+        // Bắt đầu đếm ngược
+        isResendDisabled = true;
+        countdownSeconds = 120;
+        UpdateResendButtonText();
+
+        countdownTimer = new Timer(1000);
+        countdownTimer.Elapsed += (sender, e) => HandleCountdown();
+        countdownTimer.AutoReset = true;
+        countdownTimer.Start();
+    }
+
+    private void HandleCountdown()
+    {
+        countdownSeconds--;
+        UpdateResendButtonText();
+
+        if (countdownSeconds <= 0)
+        {
+            countdownTimer?.Stop();
+            isResendDisabled = false;
+            resendButtonText = "Gửi lại mã";
+            InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private void UpdateResendButtonText()
+    {
+        var minutes = countdownSeconds / 60;
+        var seconds = countdownSeconds % 60;
+        resendButtonText = $"Gửi lại sau ({minutes}:{seconds:D2})";
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        countdownTimer?.Dispose();
+    }
+
+    private class RegisterModel
+    {
+        [Required(ErrorMessage = "Vui lòng nhập họ tên")]
+        public string FullName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
+        [Phone(ErrorMessage = "Số điện thoại không hợp lệ")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập email")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu")]
+        [MinLength(6, ErrorMessage = "Mật khẩu phải có ít nhất 6 ký tự")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng xác nhận mật khẩu")]
+        [Compare(nameof(Password), ErrorMessage = "Mật khẩu không khớp")]
+        public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập mã OTP", AllowEmptyStrings = false)]
+        public string OtpCode { get; set; }
+    }
+}
+
+
+<style>
+    :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3f37c9;
+        --error-color: #f72585;
+        --success-color: #4cc9f0;
+        --text-color: #2b2d42;
+        --light-gray: #f8f9fa;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+        padding-top: 0 !important;
+        font-size: 14px;
+    }
+
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: var(--light-gray);
+        padding: 1rem;
+    }
+
+    .auth-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        width: 100%;
+        max-width: 420px;
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+
+    .auth-header {
+        text-align: center;
+    }
+
+        .auth-header h2 {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+    .text-muted {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .auth-form {
+        padding: 0 1.5rem 1.5rem;
+    }
+
+    .form-grid {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 0.5rem;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--text-color);
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+        .form-label i {
+            margin-right: 6px;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        font-size: 0.9rem;
+        height: 36px;
+    }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+
+    .btn-submit {
+        width: 100%;
+        padding: 0.6rem;
+        background-color: var(--primary-color);
+        border: none;
+        border-radius: var(--border-radius);
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-top: 1rem;
+    }
+
+        .btn-submit:hover {
+            background-color: var(--secondary-color);
+        }
+
+    .otp-group {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px dashed #eee;
+    }
+
+    .otp-input-container {
+        display: flex;
+        gap: 8px;
+    }
+
+    .otp-input {
+        flex: 1;
+    }
+
+    .btn-resend-otp {
+        padding: 0 0.75rem;
+        background-color: white;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        border-radius: var(--border-radius);
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+        .btn-resend-otp:hover:not(:disabled) {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-resend-otp:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            border-color: #ccc;
+            color: #666;
+        }
+
+    .otp-note {
+        font-size: 0.75rem;
+        color: #666;
+        margin-top: 4px;
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: 1rem;
+        color: #666;
+        font-size: 0.85rem;
+    }
+
+    .auth-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+        .auth-link:hover {
+            text-decoration: underline;
+        }
+
+    .validation-summary {
+        color: var(--error-color);
+        background-color: #fff5f7;
+        padding: 0.5rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 1rem;
+        border-left: 4px solid var(--error-color);
+        font-size: 0.85rem;
+    }
+
+    .validation-message {
+        color: var(--error-color);
+        font-size: 0.75rem;
+        margin-top: 2px;
+    }
+
+    /* Ẩn thanh cuộn nhưng vẫn cho phép cuộn khi cần */
+    .auth-card::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
+</style>

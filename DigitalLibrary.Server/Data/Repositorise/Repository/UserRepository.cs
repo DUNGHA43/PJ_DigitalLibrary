@@ -44,8 +44,8 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
                 .Include(us => us.role)
                 .AsNoTracking()
                 .FirstOrDefault(us =>
-                    us.username!.Trim().ToLower() == normalizedInput ||
-                    us.email!.Trim().ToLower() == normalizedInput);
+                    us.email!.Trim().ToLower() == normalizedInput ||
+                    us.username!.Trim().ToLower() == normalizedInput);
 
             if (user == null || !password.Trim().Equals(user.password!.Trim()))
             {

@@ -127,7 +127,7 @@ namespace DigitalLibrary.Client.Services
                 content.Add(new StringContent(user.phonenumber ?? ""), "phonenumber");
                 content.Add(new StringContent(user.identification ?? ""), "identification");
                 content.Add(new StringContent(user.address ?? ""), "address");
-                content.Add(new StringContent(user.status.ToString().ToLower()), "status");
+                content.Add(new StringContent(user.status.ToString().ToLower() ?? "true"), "status");
 
                 if (imgFile != null)
                 {
@@ -165,16 +165,16 @@ namespace DigitalLibrary.Client.Services
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var content = new MultipartFormDataContent();
-                content.Add(new StringContent(user.username!), "username");
+                content.Add(new StringContent(user.username ?? ""), "username");
                 content.Add(new StringContent(user.password!), "password");
                 content.Add(new StringContent(user.email!), "email");
                 content.Add(new StringContent(user.fullname!), "fullname");
                 content.Add(new StringContent(user.gender.ToString()!.ToLower()), "gender");
-                content.Add(new StringContent(user.birthday.ToString()!.ToLower()), "birthday");
+                content.Add(new StringContent(user.birthday.ToString()!.ToLower() ?? DateTime.Now.ToString()), "birthday");
                 content.Add(new StringContent(user.roleid.ToString()!.Trim()), "roleid");
-                content.Add(new StringContent(user.phonenumber!), "phonenumber");
-                content.Add(new StringContent(user.identification!), "identification");
-                content.Add(new StringContent(user.address!), "address");
+                content.Add(new StringContent(user.phonenumber! ?? ""), "phonenumber");
+                content.Add(new StringContent(user.identification! ?? ""), "identification");
+                content.Add(new StringContent(user.address! ?? ""), "address");
                 content.Add(new StringContent(user.status.ToString().ToLower()), "status");
 
                 if (imgFile != null)

@@ -27,7 +27,7 @@
 
         var success = await UserService.LoginAsync(username, password);
         userRole = await UserService.GetUserRole();
-        if (success)
+        if ("Đăng nhập thành công!".Equals(success))
         {
             if (userRole == "admin")
             {

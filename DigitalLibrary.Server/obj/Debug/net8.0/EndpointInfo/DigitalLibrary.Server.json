@@ -2277,6 +2277,37 @@
         }
       }
     },
+    "/api/User/register": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsersDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsersDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsersDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/User/edituser": {
       "put": {
         "tags": [
@@ -2761,6 +2792,10 @@
       "EmailSenderDTO": {
         "type": "object",
         "properties": {
+          "action": {
+            "type": "string",
+            "nullable": true
+          },
           "fromEmail": {
             "type": "string",
             "nullable": true
@@ -2908,6 +2943,69 @@
           },
           "candowload": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsersDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "roleid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullname": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "type": "boolean"
+          },
+          "birthday": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "phonenumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "identification": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "imageurl": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

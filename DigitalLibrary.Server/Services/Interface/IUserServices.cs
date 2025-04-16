@@ -7,8 +7,8 @@ namespace DigitalLibrary.Server.Services.Interface
     {
         Task<IEnumerable<Users>> GetAllUsersAsync();
         Task<Users> FindUserByIdAsync(int id);
-        Task AdduserAsync(Users user, IFormFile imgFile);
-        Task UpdateUserAsync(Users user, IFormFile imgFile);
+        Task AdduserAsync(Users user, IFormFile? imgFile);
+        Task UpdateUserAsync(Users user, IFormFile? imgFile);
         Task UpdateUserAsync(Users user);
         Task DeleteUserAsync(int id);
         Users ValidateUser(string username, string password);

@@ -38,10 +38,20 @@ namespace DigitalLibrary.Server.Controllers
                 return Unauthorized("Wrong username or password!");
             }
 
+            if (!user.status)
+            {
+                return Ok(new
+                {
+                    message = "Tài khoản của bạn hiện tại đang bị khóa hãy liên hệ đến email của chúng tôi để được hỗ trợ.",
+                    AccessToken = "",
+                    RefreshToken = ""
+                });
+            }
+
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.id.ToString()),
-                new Claim(ClaimTypes.Name, user.username),
+                new Claim(ClaimTypes.Name, user.fullname),
                 new Claim(ClaimTypes.Role, user.role.rolenameen)
             };
 
@@ -52,7 +62,7 @@ namespace DigitalLibrary.Server.Controllers
             user.refreshtokenexpirytime = DateTime.UtcNow.AddDays(7);
             await _userService.UpdateUserAsync(user);
 
-            return Ok(new { AccessToken = accessToken, RefreshToken = refreshToken });
+            return Ok(new { message = "Đăng nhập thành công!", AccessToken = accessToken, RefreshToken = refreshToken });
         }
 
         [HttpPost("refresh-token")]
@@ -85,11 +95,23 @@ namespace DigitalLibrary.Server.Controllers
         [HttpPost("sendemail")]
         public async Task<IActionResult> SendEmail([FromBody] EmailSenderDTO emailSender)
         {
+
             var existingUser = await _userService.GetByEmailAsync(emailSender.ToEmail);
 
-            if (existingUser == null)
+            if (emailSender.Action.Equals("ForgotPass"))
             {
-                return NotFound(new { message = "Email không tồn tại trong hệ thống!" });
+                if (existingUser == null)
+                {
+                    return NotFound(new { message = "Email không tồn tại trong hệ thống!" });
+                }
+            }
+
+            if (emailSender.Action.Equals("Register"))
+            {
+                if (existingUser != null)
+                {
+                    return BadRequest(new { message = "Email đã được đăng ký!" });
+                }
             }
 
             var check = await _emailSender.SendEmailAsync(emailSender);
@@ -210,6 +232,32 @@ namespace DigitalLibrary.Server.Controllers
             return Ok(new { message = "Add user success!" });
         }
 
+        [HttpPost("register")]
+        public async Task<IActionResult> AddUserAsync([FromBody] UsersDTO userDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new Users
+            {
+                roleid = 7,
+                password = userDTO.password,
+                email = userDTO.email,
+                fullname = userDTO.fullname,
+                createdate = DateTime.Now,
+                gender = true,
+                status = true,
+                refreshtoken = null,
+                refreshtokenexpirytime = null
+            };
+
+            await _userService.AdduserAsync(user, null);
+
+            return Ok(new { message = "Add user success!" });
+        }
+
         [HttpPut("edituser")]
         [Authorize]
         public async Task<IActionResult> EditUserAsync([FromForm] UsersDTO userDTO, IFormFile? imgFile)
@@ -219,7 +267,7 @@ namespace DigitalLibrary.Server.Controllers
                 return BadRequest(ModelState);
             }
 
-            var existingUser = await _userService.GetByUsernameAsync(userDTO.username!);
+            var existingUser = await _userService.GetByEmailAsync(userDTO.email!);
             if (existingUser == null)
             {
                 return NotFound($"user with {userDTO.username} not found!");

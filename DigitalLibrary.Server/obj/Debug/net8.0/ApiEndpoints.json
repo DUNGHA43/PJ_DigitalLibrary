@@ -1420,6 +1420,22 @@
   },
   {
     "ContainingType": "DigitalLibrary.Server.Controllers.UserController",
+    "Method": "AddUserAsync",
+    "RelativePath": "api/User/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userDTO",
+        "Type": "DigitalLibrary.Shared.DTO.UsersDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.UserController",
     "Method": "SendEmail",
     "RelativePath": "api/User/sendemail",
     "HttpMethod": "POST",

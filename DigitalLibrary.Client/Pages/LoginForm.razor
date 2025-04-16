@@ -3,6 +3,7 @@
 @inject IJSRuntime JS
 @inject UserServices UserService
 @inject NavigationManager Navigation
+@inject ISnackbar Snackbar
 
 @code {
     private string username = "";
@@ -25,7 +26,7 @@
 
         var success = await UserService.LoginAsync(username, password);
         userRole = await UserService.GetUserRole();
-        if (success)
+        if ("Đăng nhập thành công!".Equals(success))
         {
             if (userRole == "reader")
             {
@@ -38,7 +39,7 @@
         }
         else
         {
-            errorMessage = "Tên đăng nhập hoặc mật khẩu không đúng!";
+            Snackbar.Add(success, Severity.Error);
         }
 
         isLoggingIn = false;
@@ -88,10 +89,10 @@
                         @(isLoggingIn ? "Đang đăng nhập ..." : "Đăng nhập")
                     </button>
                     <div class="text-center mt-3">
-                        <a href="/forgot-password" class="text-decoration-none">Quên mật khẩu?</a>
+                        <a href="/forgot-password" @onclick="CloseLoginForm" class="text-decoration-none">Quên mật khẩu?</a>
                     </div>
                     <div class="text-center mt-3">
-                        <span>Chưa có tài khoản? <a href="#" class="text-decoration-none">Đăng ký</a></span>
+                        <span>Chưa có tài khoản? <a href="/register" @onclick="CloseLoginForm" class="text-decoration-none">Đăng ký</a></span>
                     </div>
                     <div class="text-center mt-3">
                         <span>Hoặc đăng nhập với:</span>

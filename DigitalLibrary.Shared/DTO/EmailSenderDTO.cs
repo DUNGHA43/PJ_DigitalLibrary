@@ -8,6 +8,7 @@ namespace DigitalLibarary.Shared.DTO
 {
     public class EmailSenderDTO
     {
+        public string Action { get; set; }
         public string FromEmail { get; set; }
         public string FromName { get; set; }
         public string ToEmail { get; set; }

@@ -1118,8 +1118,8 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\refint\DigitalLibrary.Client.dll
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\DigitalLibrary.Client.pdb
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\ref\DigitalLibrary.Client.dll
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\31h470g7gk-h88b3tgvec.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\4inslmw0ia-72rmu02erj.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\x2etluuf0t-bzkawz2skr.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\vs9kcmf25i-kt83k1ub2a.gz
-C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\qpef9yty32-b6foorgvdn.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\31h470g7gk-6cg8neucb3.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\4inslmw0ia-4jwmebaxfx.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\x2etluuf0t-3z9elj4aq6.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\vs9kcmf25i-koijkc5llz.gz
+C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\qpef9yty32-1ktq554z37.gz

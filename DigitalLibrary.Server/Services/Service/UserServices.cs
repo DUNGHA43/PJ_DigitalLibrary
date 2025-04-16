@@ -127,7 +127,7 @@ namespace DigitalLibrary.Server.Services.Service
 
         public async Task UpdateUserAsync(Users user, IFormFile? imgFile)
         {
-            var existingUser = await FindUserByIdAsync(user.id!);
+            var existingUser = await GetByEmailAsync(user.email!);
             if (existingUser == null)
             {
                 throw new ArgumentException("user does not exits!");

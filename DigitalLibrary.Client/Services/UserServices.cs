@@ -56,7 +56,30 @@ namespace DigitalLibrary.Client.Services
             }
         }
 
-        public async Task<bool> LoginAsync(string username, string password)
+        public async Task<bool> RegisterAccountAsync(UsersDTO user)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Post, "api/User/register");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await GetToken());
+                request.Content = JsonContent.Create(user);
+
+                var response = await _httpClient.SendAsync(request);
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    return false;
+                }
+                response.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Lỗi khi đăng ký tài khoản: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<string> LoginAsync(string username, string password)
         {
             var loginRequest = new { Username = username, Password = password };
 
@@ -64,7 +87,7 @@ namespace DigitalLibrary.Client.Services
 
             if (!response.IsSuccessStatusCode)
             {
-                return false;
+                return "Tên đăng nhập hoặc mật khẩu không đúng!";
             }
 
             var result = await response.Content.ReadFromJsonAsync<LoginReponseDTO>();
@@ -74,10 +97,10 @@ namespace DigitalLibrary.Client.Services
                 await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "accessToken", result.AccessToken);
                 await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "refreshToken", result.RefreshToken);
 
-                return true;
+                return result.message;
             }
 
-            return false;
+            return "Tên đăng nhập hoặc mật khẩu không đúng!";
         }
 
         public async Task<string> RefreshTokenAsync()
