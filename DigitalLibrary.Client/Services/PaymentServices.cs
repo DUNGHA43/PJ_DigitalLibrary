@@ -35,7 +35,7 @@ namespace DigitalLibrary.Client.Services
         {
             try
             {
-                // Tạo request
+                // Tạo request 
                 var request = new CreatePaymentLinkRequest(
                     productName: productName,
                     description: description,
@@ -61,18 +61,18 @@ namespace DigitalLibrary.Client.Services
                         if (result.data is JsonElement jsonElement)
                         {
                             var paymentResult = new CreatePaymentResult(
-                                bin: jsonElement.GetProperty("bin").GetString(),
-                                accountNumber: jsonElement.GetProperty("accountNumber").GetString(),
+                                bin: jsonElement.GetProperty("bin").GetString()!,
+                                accountNumber: jsonElement.GetProperty("accountNumber").GetString()!,
                                 amount: jsonElement.GetProperty("amount").GetInt32(),
-                                description: jsonElement.GetProperty("description").GetString(),
+                                description: jsonElement.GetProperty("description").GetString()!,
                                 orderCode: (int)jsonElement.GetProperty("orderCode").GetInt64(),
-                                currency: jsonElement.GetProperty("currency").GetString(),
-                                paymentLinkId: jsonElement.GetProperty("paymentLinkId").GetString(),
-                                status: jsonElement.GetProperty("status").GetString(),
+                                currency: jsonElement.GetProperty("currency").GetString()!,
+                                paymentLinkId: jsonElement.GetProperty("paymentLinkId").GetString()!,
+                                status: jsonElement.GetProperty("status").GetString()!,
                                 expiredAt: jsonElement.GetProperty("expiredAt").ValueKind == JsonValueKind.Null ?
                                     null : jsonElement.GetProperty("expiredAt").GetInt64(),
-                                checkoutUrl: jsonElement.GetProperty("checkoutUrl").GetString(),
-                                qrCode: jsonElement.GetProperty("qrCode").GetString()
+                                checkoutUrl: jsonElement.GetProperty("checkoutUrl").GetString()!,
+                                qrCode: jsonElement.GetProperty("qrCode").GetString()!
                             );
 
                             return new Response
@@ -89,7 +89,7 @@ namespace DigitalLibrary.Client.Services
                 {
                     error = -1,
                     message = "Không thể xử lý dữ liệu trả về",
-                    data = null
+                    data = null!
                 };
             }
             catch (HttpRequestException ex)
@@ -98,7 +98,7 @@ namespace DigitalLibrary.Client.Services
                 {
                     error = -1,
                     message = $"Lỗi kết nối: {ex.Message}",
-                    data = null
+                    data = null!
                 };
             }
             catch (JsonException ex)
@@ -107,7 +107,7 @@ namespace DigitalLibrary.Client.Services
                 {
                     error = -1,
                     message = $"Lỗi xử lý dữ liệu: {ex.Message}",
-                    data = null
+                    data = null!
                 };
             }
             catch (Exception ex)
@@ -116,7 +116,7 @@ namespace DigitalLibrary.Client.Services
                 {
                     error = -1,
                     message = $"Lỗi hệ thống: {ex.Message}",
-                    data = null
+                    data = null!
                 };
             }
         }

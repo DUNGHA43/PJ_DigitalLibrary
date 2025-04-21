@@ -10,11 +10,19 @@ namespace DigitalLibrary.Client.ExtensionMethod
 
             return subscription.SubscriptionPlans.nameplan!.Trim() switch
             {
-                "Pro" => true,
-                "Vip" => requiredAccessLevel == "Basic" || requiredAccessLevel == "Vip",
-                "Basic" => requiredAccessLevel == "Basic",
+                CONSTANT.Pro => true,
+                CONSTANT.Vip => CONSTANT.Basic.Equals(requiredAccessLevel) || CONSTANT.Vip.Equals(requiredAccessLevel),
+                CONSTANT.Basic => CONSTANT.Basic.Equals(requiredAccessLevel),
                 _ => false
             };
         }
+
+    }
+
+    public static class CONSTANT
+    {
+        public const string Basic = "Basic";
+        public const string Vip = "Vip";
+        public const string Pro = "Pro";
     }
 }

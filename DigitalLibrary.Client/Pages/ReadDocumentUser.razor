@@ -14,25 +14,44 @@
 @inject ISnackbar Snackbar
 @inject UserPermissionServices _userPermissionServices
 
-<div class="document-container">
-    <div class="text-center mt-3 button-pdfview">
-        <button class="btn btn-secondary px-4" @onclick="GoBack">
-            ⬅️ Quay lại
-        </button>
-        <button class="btn btn-warning px-4" @onclick="() => DowloadDocument(documentId)">
-            📥 Tải xuống
-        </button>
-    </div>
 
-    @if (!string.IsNullOrEmpty(PdfUrl))
-    {
-        <iframe id="pdfViewer" class="pdf-viewer"></iframe>
-    }
-    else
-    {
-        <p class="text-danger text-center">Đang tải tài liệu...</p>
-    }
-</div>
+@if (isLoading)
+{
+    <div class="text-center mt-5" style="height: 900px">
+        <p>Đang tải dữ liệu...</p>
+    </div>
+}
+else if (canRead)
+{
+    <div class="document-container" style="height: 900px">
+        <div class="text-center mt-3 button-pdfview">
+            <button class="btn btn-secondary px-4" @onclick="GoBack">
+                ⬅️ Quay lại
+            </button>
+            <button class="btn btn-warning px-4" @onclick="() => DowloadDocument(documentId)">
+                📥 Tải xuống
+            </button>
+        </div>
+
+        @if (!string.IsNullOrEmpty(PdfUrl))
+        {
+            <iframe id="pdfViewer" class="pdf-viewer"></iframe>
+        }
+        else
+        {
+            <p class="text-danger text-center">Đang tải tài liệu...</p>
+        }
+    </div>
+}
+else
+{
+    <div class="document-container" style="height: 900px">
+        <p class="text-danger text-center">
+            Gói đăng ký của bạn không thể đọc tài liệu này! Hãy nâng cấp gói cao hơn.
+        </p>
+    </div>
+}
+
 
 @code {
     [Parameter, SupplyParameterFromQuery] public int documentId { get; set; }
@@ -42,13 +61,17 @@
     private DocumentsDTO documentExisting = new DocumentsDTO();
     private List<UserPermissionsDTO> lstUserPermission = new List<UserPermissionsDTO>();
     private int userId;
+    private bool canRead = false;
+    private bool isLoading = false;
 
     protected override async Task OnInitializedAsync() { 
         lstUserPermission = await _userPermissionServices.GetUserPermissionAsync();
+        
     }
 
     protected override async Task OnParametersSetAsync()
     {
+        isLoading = true;
         PdfUrl = await Documents.GetPdfBlobUrlAsync(documentId);
         if (!string.IsNullOrEmpty(PdfUrl))
         {
@@ -59,9 +82,10 @@
         var handler = new JwtSecurityTokenHandler();
         var jwtToken = handler.ReadJwtToken(token);
         userId = int.Parse(jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value);
-
         documentExisting = await Documents.FindDocumentById(documentId);
         userSubscription = await _userSubscriptionServices.FindUserSubscriptionByUserId(userId);
+        canRead = userSubscription.CanAccess(documentExisting.accesslevel!.Trim()!);
+        isLoading = false;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
