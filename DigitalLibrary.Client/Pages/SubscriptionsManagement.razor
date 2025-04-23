@@ -126,22 +126,32 @@
     {
         try
         {
+            string? statusSub = null;
             if(planName.ToLower().Equals("PRO".ToLower()))
             {
                 planId = 3;
+                statusSub = titleButtonPr;
             }
             if (planName.ToLower().Equals("VIP".ToLower()))
             {
                 planId = 2;
+                statusSub = titleButtonVi;
+            }
+
+            if ("Đang sử dụng".Equals(statusSub))
+            {
+                Snackbar.Add($"Bạn đang sử dụng gói {planName} rồi!", Severity.Info);
+                return;
             }
 
             var result = await PaymentServices.CreatePaymentLink(
-            productName: planName,
-            description: $"Đăng ký gói {planName}",
-            price: price,
-            userId: userId,
-            planId: planId
-        );
+                productName: planName,
+                description: $"Đăng ký gói {planName}",
+                price: price,
+                userId: userId,
+                planId: planId
+            );
+
             if (result.error == 0 && result.data is CreatePaymentResult paymentResult)
             {
                 Navigation.NavigateTo(paymentResult.checkoutUrl, forceLoad: true);

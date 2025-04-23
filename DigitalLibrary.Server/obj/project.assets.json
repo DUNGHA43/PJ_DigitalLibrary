@@ -3102,11 +3102,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\DigitalLibrary.Server.csproj",
+      "projectUniqueName": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\DigitalLibrary.Server.csproj",
       "projectName": "DigitalLibrary.Server",
-      "projectPath": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\DigitalLibrary.Server.csproj",
+      "projectPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\DigitalLibrary.Server.csproj",
       "packagesPath": "C:\\Users\\dungha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\obj\\",
+      "outputPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3127,8 +3127,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj": {
-              "projectPath": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj"
+            "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj": {
+              "projectPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj"
             }
           }
         }

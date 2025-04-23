@@ -36,12 +36,13 @@ namespace DigitalLibrary.Client.Services
             try
             {
                 // Tạo request 
+                var baseUrl = _navigationManager.BaseUri;
                 var request = new CreatePaymentLinkRequest(
                     productName: productName,
                     description: description,
                     price: price,
-                    returnUrl: $"https://localhost:7236/payment-success?userId={userId}&planId={planId}",
-                    cancelUrl: "https://localhost:7236/payment-cancel"
+                    returnUrl: $"{baseUrl}payment-success?userId={userId}&planId={planId}",
+                    cancelUrl: $"{baseUrl}payment-cancel"
                 );
 
                 var response = await _httpClient.PostAsJsonAsync("Order/create", request);

@@ -58,6 +58,11 @@
 
     private async Task SaveCategory()
     {
+        if (string.IsNullOrWhiteSpace(editCate.catename))
+        {
+            Snackbar.Add("Tên thể loại không được để trống!", Severity.Error);
+            return;
+        }
         var result = await Categories.EditCategoryAsync(editCate);
         if (result)
         {

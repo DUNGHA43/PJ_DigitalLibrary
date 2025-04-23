@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj",
+      "projectUniqueName": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj",
       "projectName": "Shared",
-      "projectPath": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj",
+      "projectPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj",
       "packagesPath": "C:\\Users\\dungha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\obj\\",
+      "outputPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

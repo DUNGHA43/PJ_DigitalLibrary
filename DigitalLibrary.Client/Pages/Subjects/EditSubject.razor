@@ -57,6 +57,13 @@
 
     private async Task SaveSubject()
     {
+
+        if (string.IsNullOrWhiteSpace(editSubject.subjectname))
+        {
+            Snackbar.Add("Tên chủ đề không được để trống!", Severity.Error);
+            return;
+        }
+
         var result = await Subjects.EditSubjectAsync(editSubject);
         if (result)
         {

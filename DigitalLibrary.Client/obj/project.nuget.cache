@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Qhd69wB6TLk=",
+  "dgSpecHash": "1X7Zo8H1dHU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\dungha\\Documents\\Đồ án tốt nghiệp\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj",
+  "projectFilePath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dungha\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.13\\microsoft.aspnetcore.authorization.8.0.13.nupkg.sha512",
     "C:\\Users\\dungha\\.nuget\\packages\\microsoft.aspnetcore.components\\8.0.13\\microsoft.aspnetcore.components.8.0.13.nupkg.sha512",

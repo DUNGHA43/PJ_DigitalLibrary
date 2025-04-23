@@ -121,6 +121,15 @@
     private void HandleImgFileUpload(InputFileChangeEventArgs e)
     {
         imgFile = e.File;
+        if (!(
+            imgFile.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+            imgFile.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+            imgFile.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+            imgFile.Name.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)))
+        {
+            Snackbar.Add("Vui lòng chọn file ảnh!", Severity.Error);
+            return;
+        }
         selectedImgFileName = imgFile.Name;
     }
 

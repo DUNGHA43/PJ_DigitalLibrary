@@ -159,6 +159,15 @@
     private async Task HandleImgFileUpload(InputFileChangeEventArgs e)
     {
         imgFileEdit = e.File;
+        if (!(
+            imgFileEdit.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+            imgFileEdit.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+            imgFileEdit.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+            imgFileEdit.Name.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)))
+        {
+            Snackbar.Add("Vui lòng chọn file ảnh!", Severity.Error);
+            return;
+        }
         selectedImgFileName = imgFileEdit.Name;
 
         using var stream = imgFileEdit.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
@@ -179,6 +188,22 @@
         {
             gender = bool.Parse(stringGender);
             editUser.gender = gender ?? true;
+        }
+
+        if (string.IsNullOrEmpty(editUser.password))
+        {
+            Snackbar.Add("❌ Vui lòng nhập mật khẩu!", Severity.Error);
+            return;
+        }
+        else if (string.IsNullOrEmpty(editUser.email))
+        {
+            Snackbar.Add("❌ Vui lòng nhập email!", Severity.Error);
+            return;
+        }
+        else if (string.IsNullOrEmpty(editUser.fullname))
+        {
+            Snackbar.Add("❌ Vui lòng nhập họ tên người dùng!", Severity.Error);
+            return;
         }
 
         var result = await UserManagement.UpdateUserAsync(editUser, imgFileEdit!);

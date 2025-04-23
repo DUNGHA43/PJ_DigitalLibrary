@@ -41,6 +41,13 @@
     private CategoriesDTO newCate = new CategoriesDTO();
 
     private async Task SaveCategory(){
+
+        if (string.IsNullOrWhiteSpace(newCate.catename))
+        {
+            Snackbar.Add("Tên thể loại không được để trống!", Severity.Error);
+            return;
+        }
+
         var result = await Categories.AddCategoryAsync(newCate);
         if(result){
             await OnCategoryAdded.InvokeAsync("✅ Thêm thể loại thành công!");

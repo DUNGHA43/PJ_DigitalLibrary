@@ -79,17 +79,62 @@
     private void HandleDcmFileUpload(InputFileChangeEventArgs e)
     {
         dcmFile = e.File;
+        if (!dcmFile.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+        {
+            Snackbar.Add("Vui lòng chọn file PDF!", Severity.Error);
+            return;
+        }
         selectedPdfFileName = dcmFile.Name;
     }
 
     private void HandleImgFileUpload(InputFileChangeEventArgs e)
     {
         imgFile = e.File;
+        if (!(
+            imgFile.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+            imgFile.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+            imgFile.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+            imgFile.Name.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)))
+        {
+            Snackbar.Add("Vui lòng chọn file ảnh!", Severity.Error);
+            return;
+        }
         selectedImgFileName = imgFile.Name;
     }
 
     private async Task SaveCategory()
     {
+        if (string.IsNullOrWhiteSpace(newDocument.title))
+        {
+            Snackbar.Add("Tiêu đề không được để trống!", Severity.Error);
+            return;
+        }
+        if (dcmFile == null)
+        {
+            Snackbar.Add("Vui lòng chọn file PDF!", Severity.Error);
+            return;
+        }
+        if (imgFile == null)
+        {
+            Snackbar.Add("Vui lòng chọn file ảnh!", Severity.Error);
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(newDocument.publisher))
+        {
+            Snackbar.Add("Nhà xuất bản không được để trống!", Severity.Error);
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(newDocument.description))
+        {
+            Snackbar.Add("Mô tả không được để trống!", Severity.Error);
+            return;
+        }
+        if ("".Equals(newDocument.accesslevel))
+        {
+            Snackbar.Add("Gói áp dụng không được để trống!", Severity.Error);
+            return;
+        }
+
         var result = await Documents.AddDocumentAsync(newDocument, dcmFile!, imgFile!);
         if (result)
         {

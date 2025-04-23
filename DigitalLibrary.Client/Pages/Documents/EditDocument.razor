@@ -119,12 +119,26 @@
     private async Task HandleDcmFileUpload(InputFileChangeEventArgs e)
     {
         dcmFileEdit = e.File;
+        if (!dcmFileEdit.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+        {
+            Snackbar.Add("Vui lòng chọn file PDF!", Severity.Error);
+            return;
+        }
         selectedPdfFileName = dcmFileEdit.Name;
     }
 
     private async Task HandleImgFileUpload(InputFileChangeEventArgs e)
     {
         imgFileEdit = e.File;
+        if (!(
+            imgFileEdit.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+            imgFileEdit.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+            imgFileEdit.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+            imgFileEdit.Name.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)))
+        {
+            Snackbar.Add("Vui lòng chọn file ảnh!", Severity.Error);
+            return;
+        }
         selectedImgFileName = imgFileEdit.Name;
 
         using var stream = imgFileEdit.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
@@ -137,6 +151,37 @@
 
     private async Task SaveDocument()
     {
+        if (string.IsNullOrWhiteSpace(editDocument.title))
+        {
+            Snackbar.Add("Tiêu đề không được để trống!", Severity.Error);
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(editDocument.fileurl))
+        {
+            Snackbar.Add("Vui lòng chọn file PDF!", Severity.Error);
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(editDocument.imageurl))
+        {
+            Snackbar.Add("Vui lòng chọn file ảnh!", Severity.Error);
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(editDocument.publisher))
+        {
+            Snackbar.Add("Nhà xuất bản không được để trống!", Severity.Error);
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(editDocument.description))
+        {
+            Snackbar.Add("Mô tả không được để trống!", Severity.Error);
+            return;
+        }
+        if (string.IsNullOrEmpty(editDocument.accesslevel))
+        {
+            Snackbar.Add("Gói áp dụng không được để trống!", Severity.Error);
+            return;
+        }
+
         var result = await Documents.UpdateDocumentAsync(editDocument, dcmFileEdit!, imgFileEdit!);
         if (result)
         {

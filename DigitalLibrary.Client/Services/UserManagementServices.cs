@@ -169,7 +169,7 @@ namespace DigitalLibrary.Client.Services
                 content.Add(new StringContent(user.password!), "password");
                 content.Add(new StringContent(user.email!), "email");
                 content.Add(new StringContent(user.fullname!), "fullname");
-                content.Add(new StringContent(user.gender.ToString()!.ToLower()), "gender");
+                content.Add(new StringContent(user.gender.ToString()!.ToLower() ?? "true"), "gender");
                 content.Add(new StringContent(user.birthday.ToString()!.ToLower() ?? DateTime.Now.ToString()), "birthday");
                 content.Add(new StringContent(user.roleid.ToString()!.Trim()), "roleid");
                 content.Add(new StringContent(user.phonenumber! ?? ""), "phonenumber");

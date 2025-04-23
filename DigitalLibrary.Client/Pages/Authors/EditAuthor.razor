@@ -89,6 +89,22 @@
 
     private async Task SaveCategory()
     {
+        if (string.IsNullOrWhiteSpace(editAu.fullname))
+        {
+            Snackbar.Add("Tên tác giả không được để trống!", Severity.Error);
+            return;
+        }
+        if (editAu.nationalityid == 0)
+        {
+            Snackbar.Add("Quốc tịch không được để trống!", Severity.Error);
+            return;
+        }
+        if (editAu.birthday == DateTime.MinValue)
+        {
+            Snackbar.Add("Ngày sinh không được để trống!", Severity.Error);
+            return;
+        }
+
         var result = await Authors.EditAuthorAsync(editAu);
         if (result)
         {

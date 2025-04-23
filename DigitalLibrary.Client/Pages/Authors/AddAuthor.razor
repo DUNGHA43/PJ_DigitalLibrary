@@ -69,6 +69,22 @@
 
     private async Task SaveAuthor()
     {
+        if (string.IsNullOrWhiteSpace(newAu.fullname))
+        {
+            Snackbar.Add("Tên tác giả không được để trống!", Severity.Error);
+            return;
+        }
+        if (newAu.nationalityid == 0)
+        {
+            Snackbar.Add("Quốc tịch không được để trống!", Severity.Error);
+            return;
+        }
+        if (newAu.birthday == DateTime.MinValue)
+        {
+            Snackbar.Add("Ngày sinh không được để trống!", Severity.Error);
+            return;
+        }
+
         var result = await Authors.AddAuthorAsync(newAu);
         if (result)
         {
