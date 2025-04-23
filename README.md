@@ -1,78 +1,85 @@
-📚 Digital Library - Thư viện số
-Digital Library là một hệ thống thư viện số hiện đại, được phát triển với Blazor WebAssembly (Client) và ASP.NET Core Web API (Server).
-Dự án hỗ trợ quản lý, tra cứu tài liệu, thống kê lượt xem, lượt tải và lượng truy cập người dùng.
+# 📚 Digital Library - Thư viện số
 
-🛠 Công nghệ sử dụng
+![Digital Library Banner](https://via.placeholder.com/1200x400?text=Digital+Library+Banner) *(Thêm ảnh cover tại đây)*
 
-Client: Blazor WebAssembly (.NET 8)
+Một hệ thống thư viện số hiện đại được phát triển với Blazor WebAssembly (Client) và ASP.NET Core Web API (Server), hỗ trợ quản lý tài liệu, thống kê và truy cập an toàn.
 
-Server: ASP.NET Core Web API (.NET 8)
+## 🛠 Công nghệ sử dụng
 
-Entity Framework Core - Quản lý cơ sở dữ liệu
+### **Client Side**
+<p align="left">
+  <img src="https://img.shields.io/badge/Blazor-WebAssembly-blue?logo=blazor" alt="Blazor WASM">
+  <img src="https://img.shields.io/badge/.NET-8-512BD4?logo=dotnet" alt=".NET 8">
+</p>
 
-SQL Server - Lưu trữ dữ liệu
+### **Server Side**
+<p align="left">
+  <img src="https://img.shields.io/badge/ASP.NET_Core-Web_API-blueviolet?logo=.net" alt="ASP.NET Core">
+  <img src="https://img.shields.io/badge/SQL_Server-Database-CC2927?logo=microsoft-sql-server" alt="SQL Server">
+  <img src="https://img.shields.io/badge/EF_Core-ORM-blue?logo=.net" alt="EF Core">
+</p>
 
-Authentication: JWT Bearer Token
+### **Tích hợp**
+<p align="left">
+  <img src="https://img.shields.io/badge/JWT-Auth-black?logo=json-web-tokens" alt="JWT Auth">
+  <img src="https://img.shields.io/badge/Brevo-Email-orange?logo=mailgun" alt="Brevo Email">
+  <img src="https://img.shields.io/badge/PayOS-Payment-green" alt="PayOS">
+  <img src="https://img.shields.io/badge/ChartJS-Visualization-FF6384?logo=chart.js" alt="ChartJS">
+</p>
 
-Brevo API (SMTP) - Gửi email đến người dùng
+## 🚀 Tính năng chính
 
-PayOS - Thanh toán trực tuyến
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
 
-Chart Library (Recharts, ChartJS) - Thống kê dữ liệu trực quan
+### 🔐 Xác thực
+- Đăng ký/đăng nhập người dùng
+- Phân quyền (User/Admin)
+- Bảo mật JWT Token
+- Gửi email xác nhận
 
-ReadPDF.js - ReadOnly PDF
+### 📚 Tài liệu
+- Đọc online (ReadOnly PDF)
+- Tải xuống tài liệu
+- Tìm kiếm đa tiêu chí
+- Quản lý tài liệu (CRUD)
 
-🚀 Các tính năng nổi bật
+### 📊 Thống kê
+- Lượt xem/tải tài liệu
+- Doanh thu hệ thống
+- Lưu lượng truy cập
 
-🔒 Đăng ký, đăng nhập, phân quyền người dùng (User/Admin)
+### 💳 Thanh toán
+- Mua gói đọc trực tuyến
+- Tích hợp PayOS
 
-📚 Đọc online, tải về tài liệu
+</div>
 
-📚 Quản lý và tìm kiếm tài liệu theo nhiều tiêu chí
+## 📂 Cấu trúc dự án
 
-📈 Thống kê lượt xem và lượt tải tài liệu, doanh thu và lượng truy cập
-
-📤 Gửi email đến người dùng (sử dụng Brevo)
-
-🛒 Thanh toán gói đọc trực tuyến
-
-🔐 Xác thực bảo mật bằng Token
-
-🎨 Giao diện tối ưu cho trải nghiệm người dùng
-
-📂 Cấu trúc dự án
-arduino
-Copy
-Edit
+```bash
 DigitalLibrary/
 │
-├── DigitalLibrary.Client     // Frontend Blazor WebAssembly
-├── DigitalLibrary.Server     // Backend ASP.NET Core Web API
-├── DigitalLibrary.Shared     // Các models DTOs chung giữa Client và Server
-🧑‍💻 Hướng dẫn chạy dự án
-Clone dự án về máy
+├── DigitalLibrary.Client     # Frontend Blazor WebAssembly
+├── DigitalLibrary.Server     # Backend ASP.NET Core Web API
+└── DigitalLibrary.Shared     # Shared Models/DTOs
 
-bash
-Copy
-Edit
+🛠 Cài đặt
+Clone dự án
+
+```bash
 git clone https://github.com/DUNGHA43/PJ_DigitalLibrary.git
-Mở bằng Visual Studio 2022 hoặc chạy dòng lệnh:
-
-bash
-Copy
-Edit
 cd DigitalLibrary
-dotnet build
-dotnet run --project DigitalLibrary.Server
-Thiết lập database:
-
-Cấu hình chuỗi kết nối database trong appsettings.json của Server project.
 
 📬 Liên hệ
-GitHub: github.com/dungha43
+<div align="center">
+Phương thức	Liên kết
+GitHub	github.com/dungha43
+Email	dunghasonlla@outlook.com
+</div>
 
-Email: dunghasonlla@outlook.com
+Lưu ý: Đây là dự án cá nhân phục vụ mục đích học tập và nghiên cứu, có thể áp dụng cho hệ thống thư viện số tại Việt Nam.
 
-Note: Đây là dự án cá nhân, được xây dựng nhằm mục đích học tập, nghiên cứu và triển khai hệ thống thư viện số thực tế tại Việt Nam.
+<div align="center">
+License
 
-🚀 Cảm ơn bạn đã ghé thăm!
+</div> ```
