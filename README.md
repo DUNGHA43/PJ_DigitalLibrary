@@ -75,9 +75,10 @@ Cấu hình chạy đồng thời lần lượt Server side -> Client side.
 📬 Liên hệ
 <div align="left">
 Phương thức	Liên kết
-GitHub	github.com/dungha43
 <br>
-Email	dunghasonlla@outlook.com
+GitHub:	github.com/dungha43
+<br>
+Email:	dunghasonlla@outlook.com
 </div>
 
 Lưu ý: Đây là dự án cá nhân phục vụ mục đích học tập và nghiên cứu, có thể áp dụng cho hệ thống thư viện số tại Việt Nam.
