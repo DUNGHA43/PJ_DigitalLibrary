@@ -1,7 +1,5 @@
 # 📚 Digital Library - Thư viện số
 
-![Digital Library Banner](https://via.placeholder.com/1200x400?text=Digital+Library+Banner) *(Thêm ảnh cover tại đây)*
-
 Một hệ thống thư viện số hiện đại được phát triển với Blazor WebAssembly (Client) và ASP.NET Core Web API (Server), hỗ trợ quản lý tài liệu, thống kê và truy cập an toàn.
 
 ## 🛠 Công nghệ sử dụng
@@ -68,13 +66,17 @@ Clone dự án
 
 ```bash
 git clone https://github.com/DUNGHA43/PJ_DigitalLibrary.git
-cd DigitalLibrary
+Thiết lập database:
+Cấu hình chuỗi kết nối database trong appsettings.json của Server project.
+Run:
+Cấu hình chạy đồng thời lần lượt Server side -> Client side.
 ```
 
 📬 Liên hệ
 <div align="left">
 Phương thức	Liên kết
 GitHub	github.com/dungha43
+<br>
 Email	dunghasonlla@outlook.com
 </div>
 
@@ -82,7 +84,5 @@ Lưu ý: Đây là dự án cá nhân phục vụ mục đích học tập và n
 
 <div align="center">
 License
-
-
 </div>
 
