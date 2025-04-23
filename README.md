@@ -1,6 +1,7 @@
 # 📚 Digital Library - Thư viện số
-
+<div align="justify" style="text-align: justify; text-justify: inter-word;">
 Digital Library là một hệ thống thư viện số hiện đại được phát triển theo mô hình tách biệt Client-Server, sử dụng Blazor WebAssembly cho giao diện người dùng và ASP.NET Core Web API cho dịch vụ phía máy chủ. Dự án cho phép người dùng dễ dàng tìm kiếm, đọc trực tuyến hoặc tải xuống các tài liệu số, đồng thời hỗ trợ thanh toán trực tuyến để mua các gói truy cập tài liệu cao cấp. Ngoài ra, hệ thống tích hợp chức năng gửi email thông báo cho người dùng. Digital Library cũng cung cấp các công cụ thống kê mạnh mẽ, giúp quản trị viên theo dõi lượt xem, lượt tải và lượng truy cập của người dùng theo thời gian thực, từ đó quản lý nội dung hiệu quả và tối ưu hóa trải nghiệm người dùng. Với nền tảng công nghệ hiện đại và khả năng mở rộng cao, Digital Library hướng tới việc trở thành một giải pháp thư viện số toàn diện, phục vụ nhu cầu tra cứu và lưu trữ tài liệu số trong thời đại số hóa.
+</div>
 
 ## 🛠 Công nghệ sử dụng
 
