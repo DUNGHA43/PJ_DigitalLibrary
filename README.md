@@ -71,9 +71,8 @@ git clone https://github.com/DUNGHA43/PJ_DigitalLibrary.git
 cd DigitalLibrary
 ```
 
-```
 📬 Liên hệ
-<div align="center">
+<div align="left">
 Phương thức	Liên kết
 GitHub	github.com/dungha43
 Email	dunghasonlla@outlook.com
@@ -86,4 +85,4 @@ License
 
 
 </div>
-```
+
