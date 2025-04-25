@@ -97,8 +97,8 @@ C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\Digita
 C:\Users\dungha\Documents\Đồ án tốt nghiệp\PROJECT\DigitalLibrary\DigitalLibrary.Server\obj\Debug\net8.0\ref\DigitalLibrary.Server.dll
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\appsettings.json
-C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\DigitalLibrary.Server.staticwebassets.endpoints.json
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\DigitalLibrary.Server.staticwebassets.runtime.json
+C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\DigitalLibrary.Server.staticwebassets.endpoints.json
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\DigitalLibrary.Server.exe
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\DigitalLibrary.Server.deps.json
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Server\bin\Debug\net8.0\DigitalLibrary.Server.runtimeconfig.json

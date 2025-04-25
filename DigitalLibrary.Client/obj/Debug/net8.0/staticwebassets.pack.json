@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\js\\chart.js"
     },
     {
+      "Id": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\js\\login-google.js",
+      "PackagePath": "staticwebassets\\js\\login-google.js"
+    },
+    {
       "Id": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\wwwroot\\js\\pdf-viewer.js",
       "PackagePath": "staticwebassets\\js\\pdf-viewer.js"
     },

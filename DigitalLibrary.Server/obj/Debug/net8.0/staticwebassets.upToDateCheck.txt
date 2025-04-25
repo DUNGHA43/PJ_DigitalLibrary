@@ -22,6 +22,7 @@ wwwroot\UploadDocuments\c4a3e6eb-c812-49d6-a5f7-9ba7e07b480b.pdf
 wwwroot\UploadDocuments\cf629f4e-a5ce-47e5-93ee-bdf8368df5f8.pdf
 wwwroot\UploadDocuments\eb5a5dfc-e88f-4a72-a477-e1c7d044c5eb.pdf
 wwwroot\UploadDocuments\ec38482d-5001-4ac8-89a3-b0b3c4fe2d28.pdf
+wwwroot\UploadImages\027c0f3d-6046-4788-8c56-b8bb47618307.jpg
 wwwroot\UploadImages\0aa1c006-4581-4d13-ad0b-a983863e232c.jpg
 wwwroot\UploadImages\1358caf3-05f7-4ffc-b121-8f8a5d47a823.png
 wwwroot\UploadImages\1aeff97f-62ee-4619-806a-cf5b96fa251d.png

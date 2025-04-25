@@ -65,6 +65,31 @@ namespace DigitalLibrary.Server.Controllers
             return Ok(new { message = "Đăng nhập thành công!", AccessToken = accessToken, RefreshToken = refreshToken });
         }
 
+        [HttpPost("google-login")]
+        public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginDTO googleLoginRequest)
+        {
+            var user = await _userService.ValidateUserGoogle(googleLoginRequest.email, googleLoginRequest.name);
+            if (user == null)
+            {
+                return Unauthorized("Invalid Google token.");
+            }
+
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.id.ToString()),
+                new Claim(ClaimTypes.Name, user.fullname),
+                new Claim(ClaimTypes.Role, user.role.rolenameen)
+            };
+
+            var accessToken = _jwt.GenerateAccessToken(claims);
+            var refreshToken = _jwt.GenerateRefreshToken();
+            user.refreshtoken = refreshToken;
+            user.refreshtokenexpirytime = DateTime.UtcNow.AddDays(7);
+
+            await _userService.UpdateUserAsync(user);
+            return Ok(new { message = "Đăng nhập thành công!", AccessToken = accessToken, RefreshToken = refreshToken });
+        }
+
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {

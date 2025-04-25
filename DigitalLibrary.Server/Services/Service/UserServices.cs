@@ -211,5 +211,10 @@ namespace DigitalLibrary.Server.Services.Service
             _unitOfWork.User.EditAsync(user);
             await _unitOfWork.SaveChangeAsync();
         }
+
+        public async Task<Users> ValidateUserGoogle(string email, string name)
+        {
+            return await _unitOfWork.User.ValidateUserGoogle(email, name);
+        }
     }
 }

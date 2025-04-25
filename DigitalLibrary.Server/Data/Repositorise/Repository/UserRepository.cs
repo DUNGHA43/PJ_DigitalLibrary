@@ -2,6 +2,7 @@
 using DigitalLibrary.Server.Data.Repositorise.Interface;
 using DigitalLibrary.Server.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace DigitalLibrary.Server.Data.Repositorise.Repository
 {
@@ -53,6 +54,66 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
             }
 
             return user;
+        }
+
+        public async Task<Users> ValidateUserGoogle(string email, string name)
+        {
+            var user = _context.users
+                .Include(us => us.role)
+                .AsNoTracking()
+                .FirstOrDefault(us => us.email!.Trim().ToLower() == email.Trim().ToLower());
+
+            if (user == null)
+            {
+                var addUser = new Users
+                {
+                    fullname = name,
+                    email = email,
+                    password = "123456@",
+                    roleid = 7,
+                    status = true,
+                    gender = true,
+                    refreshtoken = null,
+                    refreshtokenexpirytime = null,
+                    createdate = DateTime.Now
+                };
+
+                await _dbSet.AddAsync(addUser);
+                await _context.SaveChangesAsync();
+
+                var UserAdded = await GetByEmailAsync(addUser.email!);
+                if (UserAdded == null)
+                {
+                    throw new ArgumentException("user with this email does not exists!");
+                }
+
+                var subscription = new UserSubcriptions
+                {
+                    userid = UserAdded.id,
+                    planid = 1,
+                    redate = DateTime.Now,
+                    exdate = DateTime.Now,
+                    status = true
+                };
+
+                var userPermission = new UserPermissions
+                {
+                    userid = UserAdded.id,
+                    canread = true,
+                    candowload = false,
+                };
+
+                await _context.userPermissions.AddAsync(userPermission);
+                await _context.userSubcriptions.AddAsync(subscription);
+                await _context.SaveChangesAsync();
+            }
+
+            user = await _context.users
+                .Include(us => us.role)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(us => us.email!.Trim().ToLower() == email.Trim().ToLower());
+
+            return user!;
         }
 
         public async Task<(IEnumerable<Users> Users, int TotalCount)> GetAllUsersAsync(int pageNumber, int pageSize, string searchName, string searchEmail, int? searchRole, bool? searchStatus)

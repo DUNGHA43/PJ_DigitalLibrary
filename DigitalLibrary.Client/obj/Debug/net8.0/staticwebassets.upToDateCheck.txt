@@ -5,6 +5,7 @@ wwwroot\image-app\DUNGHA_LIBRARY_LOGO-removebg.png
 wwwroot\image-app\icon_750x750.png
 wwwroot\index.html
 wwwroot\js\chart.js
+wwwroot\js\login-google.js
 wwwroot\js\pdf-viewer.js
 wwwroot\js\revenueChart.js
 wwwroot\js\tracking.js

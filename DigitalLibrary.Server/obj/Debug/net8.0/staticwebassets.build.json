@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mEToUx9EJ8kvT6ZzpTsrEtyO/Fg3vrI8QWh33sIaCOo=",
+  "Hash": "ynLRztlIwJQ2lwoJmFc7oroookYrWKBQqZQsIml4BTQ=",
   "Source": "DigitalLibrary.Server",
   "BasePath": "_content/DigitalLibrary.Server",
   "Mode": "Default",
@@ -519,6 +519,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\UploadDocuments\\ec38482d-5001-4ac8-89a3-b0b3c4fe2d28.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\027c0f3d-6046-4788-8c56-b8bb47618307.jpg",
+      "SourceId": "DigitalLibrary.Server",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\",
+      "BasePath": "_content/DigitalLibrary.Server",
+      "RelativePath": "UploadImages/027c0f3d-6046-4788-8c56-b8bb47618307#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2xf9uwp9b2",
+      "Integrity": "1uYXTsMOYAlYchWWPqapMF9sCoxa0GEwIfR5CBslv44=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\UploadImages\\027c0f3d-6046-4788-8c56-b8bb47618307.jpg"
     },
     {
       "Identity": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\0aa1c006-4581-4d13-ad0b-a983863e232c.jpg",
@@ -3285,6 +3306,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-irxSrjtfG46BAfqnQe99D0LlvrTPeRSsUMTIL4cfXPc="
+        }
+      ]
+    },
+    {
+      "Route": "UploadImages/027c0f3d-6046-4788-8c56-b8bb47618307.2xf9uwp9b2.jpg",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\027c0f3d-6046-4788-8c56-b8bb47618307.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21218"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1uYXTsMOYAlYchWWPqapMF9sCoxa0GEwIfR5CBslv44=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Apr 2025 04:17:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2xf9uwp9b2"
+        },
+        {
+          "Name": "label",
+          "Value": "UploadImages/027c0f3d-6046-4788-8c56-b8bb47618307.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-1uYXTsMOYAlYchWWPqapMF9sCoxa0GEwIfR5CBslv44="
+        }
+      ]
+    },
+    {
+      "Route": "UploadImages/027c0f3d-6046-4788-8c56-b8bb47618307.jpg",
+      "AssetFile": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Server\\wwwroot\\UploadImages\\027c0f3d-6046-4788-8c56-b8bb47618307.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "21218"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"1uYXTsMOYAlYchWWPqapMF9sCoxa0GEwIfR5CBslv44=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 25 Apr 2025 04:17:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-1uYXTsMOYAlYchWWPqapMF9sCoxa0GEwIfR5CBslv44="
         }
       ]
     },

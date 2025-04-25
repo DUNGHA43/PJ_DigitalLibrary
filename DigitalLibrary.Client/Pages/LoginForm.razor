@@ -1,5 +1,6 @@
 ﻿@using DigitalLibrary.Client.Services
 @using Microsoft.AspNetCore.Components
+@using System.IdentityModel.Tokens.Jwt
 @inject IJSRuntime JS
 @inject UserServices UserService
 @inject NavigationManager Navigation
@@ -97,7 +98,8 @@
                     <div class="text-center mt-3">
                         <span>Hoặc đăng nhập với:</span>
                         <div class="d-flex justify-content-center mt-2">
-                            <button class="btn btn-light border mx-1 rounded-circle" style="width: 40px; height: 40px;">
+                            <button class="btn btn-light border mx-1 rounded-circle" style="width: 40px; height: 40px;"
+                            @onclick="HandleGoogleLogin">
                                 <i class="fab fa-google text-danger"></i>
                             </button>
                         </div>
@@ -113,6 +115,7 @@
 
 @code {
     [Parameter] public EventCallback OnClose { get; set; }
+    private DotNetObjectReference<LoginForm>? dotNetRef;
 
     private async Task CloseLoginForm()
     {
@@ -120,5 +123,52 @@
         {
             await OnClose.InvokeAsync(null);
         }
+    }
+
+    private async Task HandleGoogleLogin()
+    {
+        if (dotNetRef == null)
+            dotNetRef = DotNetObjectReference.Create(this);
+
+        var jsReady = await JS.InvokeAsync<bool>("eval", "typeof window.googleLogin !== 'undefined'");
+        if (!jsReady)
+        {
+            Snackbar.Add("Google login chưa sẵn sàng. Vui lòng thử lại sau!", Severity.Warning);
+            return;
+        }
+
+        await JS.InvokeVoidAsync("googleLogin.promptLogin", "739996315037-qj9te1o7giqi9bmlk0rod1cc2bjf989o.apps.googleusercontent.com", dotNetRef);
+    }
+
+    [JSInvokable]
+    public async Task OnGoogleLoginSuccess(string idToken)
+    {
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(idToken);
+        var email = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "email")!.Value;
+        var name = jwtToken.Claims.FirstOrDefault(claim => claim.Type == "name")!.Value;
+
+        isLoggingIn = true;
+        errorMessage = "";
+
+        var success = await UserService.LoginGoogleAsync(email, name);
+        userRole = await UserService.GetUserRole();
+        if ("Đăng nhập thành công!".Equals(success))
+        {
+            if (userRole == "reader")
+            {
+                Navigation.NavigateTo("/", forceLoad: true);
+            }
+            else if (userRole == "admin")
+            {
+                Navigation.NavigateTo("/admin", forceLoad: true);
+            }
+        }
+        else
+        {
+            Snackbar.Add(success, Severity.Error);
+        }
+
+        isLoggingIn = false;
     }
 }

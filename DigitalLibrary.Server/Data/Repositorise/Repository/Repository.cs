@@ -51,6 +51,15 @@ namespace DigitalLibrary.Server.Data.Repositorise.Repository
 
         public void EditAsync(T entity)
         {
+            var tracked = _context.ChangeTracker.Entries<T>()
+            .FirstOrDefault(e => e.Property("id").CurrentValue.Equals(
+            entity.GetType().GetProperty("id")?.GetValue(entity)));
+
+            if (tracked != null)
+            {
+                tracked.State = EntityState.Detached;
+            }
+
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
         }

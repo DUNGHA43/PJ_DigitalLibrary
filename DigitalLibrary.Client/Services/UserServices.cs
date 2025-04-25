@@ -103,6 +103,30 @@ namespace DigitalLibrary.Client.Services
             return "Tên đăng nhập hoặc mật khẩu không đúng!";
         }
 
+        public async Task<string> LoginGoogleAsync(string email, string name)
+        {
+            var loginRequest = new GoogleLoginDTO { email = email, name = name };
+
+            var response = await _httpClient.PostAsJsonAsync("api/User/google-login", loginRequest);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return "Lỗi khi đăng nhập bằng google!";
+            }
+
+            var result = await response.Content.ReadFromJsonAsync<LoginReponseDTO>();
+
+            if (result != null)
+            {
+                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "accessToken", result.AccessToken);
+                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "refreshToken", result.RefreshToken);
+
+                return result.message;
+            }
+
+            return "Lỗi khi đăng nhập bằng google!";
+        }
+
         public async Task<string> RefreshTokenAsync()
         {
             var refeshToken = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", "refeshToken");

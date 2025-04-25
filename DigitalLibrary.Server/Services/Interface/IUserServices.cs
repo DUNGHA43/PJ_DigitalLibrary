@@ -12,6 +12,7 @@ namespace DigitalLibrary.Server.Services.Interface
         Task UpdateUserAsync(Users user);
         Task DeleteUserAsync(int id);
         Users ValidateUser(string username, string password);
+        Task<Users> ValidateUserGoogle(string email, string name);
         Task<Users?> GetUserByRefreshTokenAsync(string refreshToken);
         Task<Users> GetByEmailAsync(string email);
         Task<Users> GetByUsernameAsync(string username);
