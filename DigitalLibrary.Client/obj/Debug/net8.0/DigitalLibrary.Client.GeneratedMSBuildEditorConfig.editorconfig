@@ -107,6 +107,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGV0YWlsRG9jdW1lbnRVc2VyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/dungha/Documents/DoAnTN/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/DocumentsFilter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzRmlsdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/dungha/Documents/DoAnTN/PROJECT/DigitalLibrary/DigitalLibrary.Client/Pages/Documents/AddDocument.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXEFkZERvY3VtZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 

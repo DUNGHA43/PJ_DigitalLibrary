@@ -24,6 +24,7 @@ namespace DigitalLibrary.Server.Data.DatabaseContext
         public DbSet<UserSubcriptions> userSubcriptions { get; set; }
         public DbSet<PaymentHistory> paymentHistories { get; set; }
         public DbSet<TrafficLog> trafficLogs { get; set; }
+        public DbSet<FavoList> favoLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +36,9 @@ namespace DigitalLibrary.Server.Data.DatabaseContext
 
             modelBuilder.Entity<DocumentSubject>()
                 .HasKey(ds => new { ds.documentid, ds.subjectid });
+
+            modelBuilder.Entity<FavoList>()
+                .HasKey(fl => new { fl.userid, fl.documentid });
         }
 
     }

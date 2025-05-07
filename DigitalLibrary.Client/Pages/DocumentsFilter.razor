@@ -1,0 +1,213 @@
+﻿@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@inject AuthorsServices AuthorServices
+@inject CategoriesServices CategoryServices
+@inject SubjectsServices SubjectsServices
+@inject DocumentsServices DocumentsServices
+@inject NavigationManager Navigation
+
+<div class="modal fade show d-block" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="card p-4 shadow-lg" style="position: relative;">
+            <button type="button" class="btn-close position-absolute"
+                    style="top: 15px; right: 15px; z-index:10;" @onclick="CloseDocumentFilter">
+            </button>
+
+            <h4 class="text-center mb-4">Bộ lọc tài liệu</h4>
+
+            <div class="mb-3">
+                <label for="documentNameFilter" class="form-label">Tên tài liệu</label>
+                <input type="text" id="documentNameFilter" class="form-control custom-input" @bind="searchName" placeholder="Nhập tên tài liệu..." />
+            </div>
+
+            <div class="mb-3">
+                <label for="topicFilter" class="form-label">Chủ đề</label>
+                <select id="topicFilter" class="form-select custom-select" @bind="subject">
+                    <option value="">-- Tất cả chủ đề --</option>
+                    @if (lstSubject != null)
+                    {
+                        @foreach (var topic in lstSubject)
+                        {
+                            <option value="@topic.id">@topic.subjectname</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="categoryFilter" class="form-label">Thể loại</label>
+                <select id="categoryFilter" class="form-select custom-select" @bind="category">
+                    <option value="">-- Tất cả thể loại --</option>
+                    @if (lstCategories != null)
+                    {
+                        @foreach (var category in lstCategories)
+                        {
+                            <option value="@category.id">@category.catename</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="authorFilter" class="form-label">Tác giả</label>
+                <select id="authorFilter" class="form-select custom-select" @bind="author">
+                    <option value="">-- Tất cả tác giả --</option>
+                    @if (lstAuthor != null)
+                    {
+                        @foreach (var author in lstAuthor)
+                        {
+                            <option value="@author.id">@author.fullname</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="rankFilter" class="form-label">Hạng tài liệu</label>
+                <select id="rankFilter" class="form-select custom-select" @bind="accessLevel">
+                    <option value="">-- Tất cả các hạng --</option>
+                    <option value="Basic">-- Basic --</option>
+                    <option value="Vip">-- Vip --</option>
+                    <option value="Pro">-- Pro --</option>
+                    
+                </select>
+            </div>
+
+            <button class="btn btn-primary w-100" @onclick="OnFilter" style="margin-top: 20px; padding: 10px 0;">
+                Áp dụng và Xem
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+
+@code{
+    [Parameter] public EventCallback OnClose { get; set; }
+    private List<SubjectDTO> lstSubject = new List<SubjectDTO>();
+    private List<AuthorsDTO> lstAuthor = new List<AuthorsDTO>();
+    private List<CategoriesDTO> lstCategories = new List<CategoriesDTO>();
+
+    public int? author { get; set; }
+    public int? category { get; set; }
+    public int? subject { get; set; }
+    public string? accessLevel { get; set; }
+    public string? searchName { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        lstAuthor = await AuthorServices.GetAuthorsAsync();
+        lstCategories = await CategoryServices.GetCategoriesAsync();
+        lstSubject = await SubjectsServices.GetSubjectsAsync();
+    }
+
+    private async Task CloseDocumentFilter()
+    {
+        if (OnClose.HasDelegate)
+        {
+            await OnClose.InvokeAsync(null);
+        }
+    }
+    private async Task OnFilter()
+    {
+        Navigation.NavigateTo($"/documents?searchName={searchName}&author={author}&category={category}&subject={subject}&accessLevel={accessLevel}&filterGroup={"filter"}");
+        await CloseDocumentFilter();
+    }
+}
+
+<style>
+    .document-filter-modal-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.6); /* Lớp phủ mờ đậm hơn một chút */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1040; /* Đảm bảo nằm trên các nội dung khác */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s ease-out, visibility 0.25s ease-out;
+    }
+
+    /* Label */
+    .form-label {
+        font-weight: 500;
+        color: #495057; /* Màu xám đậm cho label */
+        margin-bottom: 0.3rem; /* Giảm khoảng cách dưới của label */
+        font-size: 0.9rem;
+    }
+
+    /* Input và Select chung */
+    .custom-input,
+    .custom-select {
+        display: block;
+        width: 100%;
+        padding: 0.6rem 0.75rem; /* Tăng padding cho dễ click */
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.3rem; /* Bo góc nhẹ hơn */
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+        .custom-input:focus,
+        .custom-select:focus {
+            border-color: #86b7fe; /* Màu border khi focus (Bootstrap 5) */
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25); /* Shadow khi focus (Bootstrap 5) */
+        }
+
+    /* Select với mũi tên tùy chỉnh */
+    .custom-select {
+        appearance: none; /* Bỏ giao diện mặc định */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 16px 12px;
+    }
+
+    /* Nút đóng */
+    .btn-close {
+        /* Bootstrap đã có style, ở đây chỉ điều chỉnh nếu cần */
+        filter: grayscale(1) opacity(0.7); /* Làm cho nút đóng xám hơn một chút */
+    }
+
+        .btn-close:hover {
+            filter: grayscale(0) opacity(1);
+        }
+
+    /* Nút Áp dụng */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    /* Tiêu đề modal */
+    .card h4 {
+        color: #333;
+        font-weight: 600;
+    }
+
+    /* Margin bottom cho các group input/select */
+    .mb-3 { /* class này của bootstrap, bạn có thể giữ nguyên */
+        margin-bottom: 1rem !important;
+    }
+
+    .mb-4 {
+        margin-bottom: 1.5rem !important;
+    }
+</style>

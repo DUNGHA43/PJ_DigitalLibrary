@@ -23,7 +23,14 @@
             {
                 <div class="group-container">
                     <div class="group-header">
-                        <h3>@group.GroupKey</h3>
+                        @if (filterGroup != "filter")
+                        {
+                            <h3>@group.GroupKey</h3>
+                        }
+                        else
+                        {
+                            
+                        }
                     </div>
 
                     <div class="book-list">
@@ -96,7 +103,11 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if (author.HasValue)
+        if (filterGroup == "filter")
+        {
+            pageTitle = "Kết quả lọc tài liệu";
+        }
+        else if (author.HasValue)
         {
             var authorName = lstAu.FirstOrDefault(au => au.id == author)!.fullname;
             pageTitle = $"Sách của tác giả: {authorName}";

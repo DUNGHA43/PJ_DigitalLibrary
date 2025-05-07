@@ -1,4 +1,4 @@
-@DigitalLibrary.Server_HostAddress = http://localhost:8080
+@DigitalLibrary.Server_HostAddress = http://localhost:5212
 
 GET {{DigitalLibrary.Server_HostAddress}}/weatherforecast/
 Accept: application/json
