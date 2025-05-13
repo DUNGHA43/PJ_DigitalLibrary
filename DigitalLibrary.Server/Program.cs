@@ -109,6 +109,7 @@ builder.Services.AddScoped<IUserSubscriptionServices, UserSubscriptionServices>(
 builder.Services.AddScoped<IPaymentHistoryServices, PaymentHistoryServices>();
 builder.Services.AddScoped<ITrafficLogServices, TrafficLogServices>();
 builder.Services.AddScoped<IMailServices, MailServices>();
+builder.Services.AddScoped<IFavoListServies, FavoListServices>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

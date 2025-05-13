@@ -1,0 +1,198 @@
+﻿@page "/favoritesuser"
+@using DigitalLibrary.Client.Services
+@using DigitalLibrary.Shared.DTO
+@using MudBlazor
+@using System.IdentityModel.Tokens.Jwt
+@inject NavigationManager NavigationManager
+@inject DocumentsServices Documents
+@inject SubjectsServices SubjectServices
+@inject CategoriesServices CategoriesServices
+@inject AuthorsServices AuthorsServices
+@inject StatisticServices StatisticServices
+@inject FavoListServices FavoListServices
+@inject UserServices UserServices
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+
+
+<div class="container py-4">
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="mb-0">
+            <i class="fas fa-bookmark text-primary me-2"></i>Tài liệu đã lưu
+        </h2>
+        <span class="badge bg-primary ms-2">@lstFavoList?.Count</span>
+    </div>
+
+    @if (lstFavoList == null)
+    {
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Đang tải dữ liệu...</p>
+        </div>
+    }
+    else if (!lstFavoList.Any())
+    {
+        <div class="text-center py-5">
+            <i class="fas fa-bookmark fa-3x text-muted mb-3"></i>
+            <h5 class="mb-2">Bạn chưa lưu tài liệu nào</h5>
+            <p class="text-muted">Hãy khám phá và lưu những tài liệu bạn yêu thích</p>
+            <a href="/documents" class="btn btn-primary mt-3">
+                <i class="fas fa-search me-2"></i>Khám phá tài liệu
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var item in lstFavoList)
+            {
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-img-top text-center py-3 bg-light">
+                            @if (!string.IsNullOrEmpty(item.document.imageurl))
+                            {
+                                <img src="https://localhost:7211@(item.document.imageurl)" alt="@item.document.title"
+                                class="img-fluid" style="max-height: 150px; object-fit: contain;">
+                            }
+                            else
+                            {
+                                <i class="fas fa-book fa-5x text-secondary"></i>
+                            }
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title text-truncate" title="@item.document.title">
+                                @item.document.title
+                            </h5>
+                            <p class="card-text text-muted small mb-2">
+                                <i class="fas fa-user-edit me-1"></i> @item.document.publisher
+                            </p>
+
+                            <p class="card-text text-truncate-3" style="-webkit-line-clamp: 3; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden;">
+                                @item.document.description
+                            </p>
+
+                            @if (item.document.Authors != null && item.document.Authors.Any())
+                            {
+                                <div class="mb-2">
+                                    @foreach (var author in item.document.Authors.Take(2))
+                                    {
+                                        <span class="badge bg-info text-dark me-1 mb-1">
+                                            <i class="fas fa-user me-1"></i>@author
+                                        </span>
+                                    }
+                                    @if (item.document.Authors.Count > 2)
+                                    {
+                                        <span class="badge bg-info text-dark">
+                                            +@(item.document.Authors.Count - 2)
+                                        </span>
+                                    }
+                                </div>
+                            }
+
+                            @if (item.document.Subjects != null && item.document.Subjects.Any())
+                            {
+                                <div class="mb-3">
+                                    @foreach (var subject in item.document.Subjects.Take(3))
+                                    {
+                                        <span class="badge bg-light text-dark border me-1 mb-1">
+                                            @subject
+                                        </span>
+                                    }
+                                </div>
+                            }
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-primary">
+                                    <i class="fas fa-star me-1"></i>@item.document.accesslevel
+                                </span>
+
+                                <div>
+                                    <button class="btn btn-sm btn-outline-primary me-1"
+                                    title="Xem chi tiết"
+                                            @onclick="@(() => NavigationManager.NavigateTo($"/detaildocument?document={item.document.id}"))">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+
+                                    <button class="btn btn-sm btn-outline-danger"
+                                    title="Xóa khỏi danh sách"
+                                    @onclick="@(() => RemoveFromFavorites(item.document.id))">
+                                        <i class="fas fa-bookmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-transparent border-top-0 text-end">
+                            <small class="text-muted">
+                                @item.document.createdate
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+
+@code{
+    private List<FavoListDTO> lstFavoList = new List<FavoListDTO>();
+    private List<StatisticDTO> lstStatistic = new List<StatisticDTO>();
+    private int userId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var token = await UserServices.GetToken();
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(token);
+        userId = int.Parse(jwtToken.Claims.FirstOrDefault(claim => claim.Type == "nameid")!.Value);
+        lstStatistic = await StatisticServices.GetStatisticAsync();
+        await LoadFavoList();
+    }
+
+    private async Task LoadFavoList()
+    {
+        lstFavoList = await FavoListServices.GetFavoListByUser(userId);
+    }
+
+    private async Task RemoveFromFavorites(int documentId)
+    {
+        var favolist = new FavoListDTO
+            {
+                userid = userId,
+                documentid = documentId
+            };
+        var rs = await FavoListServices.DeleteFavoListAsync(favolist);
+        if (rs)
+        {
+            Snackbar.Add("Đã bỏ tài liệu khỏi danh sách yêu thích", Severity.Success);
+        }
+        else
+        {
+            Snackbar.Add("Lỗi khi bỏ tài liệu khỏi danh sách yêu thích", Severity.Error);
+        }
+        StateHasChanged();
+        await LoadFavoList();
+    }
+}
+
+<style>
+    .text-truncate-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+</style>

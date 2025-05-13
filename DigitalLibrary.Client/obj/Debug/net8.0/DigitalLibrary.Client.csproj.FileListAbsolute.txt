@@ -2268,8 +2268,8 @@ C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\ob
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\refint\DigitalLibrary.Client.dll
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\DigitalLibrary.Client.pdb
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\ref\DigitalLibrary.Client.dll
-C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\31h470g7gk-hameqg5iix.gz
-C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\4inslmw0ia-awzhc0yomb.gz
-C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\x2etluuf0t-f659h4jg70.gz
-C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\vs9kcmf25i-vgatp5p7t8.gz
-C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\qpef9yty32-ebkstybmt9.gz
+C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\31h470g7gk-1g9b3bo6zc.gz
+C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\4inslmw0ia-skeom3b4t9.gz
+C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\x2etluuf0t-e3vfwe15b2.gz
+C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\vs9kcmf25i-80rewrt99u.gz
+C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Client\obj\Debug\net8.0\compressed\qpef9yty32-aj2kdczq48.gz

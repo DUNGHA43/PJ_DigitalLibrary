@@ -734,6 +734,150 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "DigitalLibrary.Server.Controllers.FavoritesListController",
+    "Method": "AddFavoListAsync",
+    "RelativePath": "api/FavoritesList/addfavolist",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "favoListDTO",
+        "Type": "DigitalLibrary.Shared.DTO.FavoListDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.FavoritesListController",
+    "Method": "DeleteFavoListAsync",
+    "RelativePath": "api/FavoritesList/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "favoListDTO",
+        "Type": "DigitalLibrary.Shared.DTO.FavoListDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.FavoritesListController",
+    "Method": "GetFavoListAsync",
+    "RelativePath": "api/FavoritesList/getfavolist",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userid",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "documentid",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.publisher",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.imagepath",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.imageurl",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.filepath",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.fileurl",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.uploadedby",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.description",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.createdate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.status",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.accesslevel",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.Authors",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.Categories",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "document.Subjects",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DigitalLibrary.Server.Controllers.FavoritesListController",
+    "Method": "GetFavoListByUserAsync",
+    "RelativePath": "api/FavoritesList/getfavolistbyuser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "DigitalLibrary.Server.Controllers.NationController",
     "Method": "GetAllCategoriseAsync",
     "RelativePath": "api/Nation/getallnations",

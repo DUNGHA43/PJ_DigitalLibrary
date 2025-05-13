@@ -11,6 +11,7 @@
 @inject UserSubscriptionServices _userSubscriptionServices
 @inject UserPermissionServices _userPermissionServices
 @inject StatisticServices _statisticServices
+@inject FavoListServices _favoListServices
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
 @inject NavigationManager Navigation
@@ -132,8 +133,8 @@
                                 <button class="btn btn-warning flex-grow-1" @onclick="DownloadDocument">
                                     <i class="fas fa-download me-2"></i>Tải xuống
                                 </button>
-                                <button class="btn btn-outline-secondary">
-                                    <i class="far fa-bookmark me-2"></i>Lưu lại
+                                <button class="btn @GetButtonClass()" @onclick="HandleSaveFavoList">
+                                    <i class="@GetIconClass() me-2"></i>@titleSave
                                 </button>
                             </div>
                         </div>
@@ -157,6 +158,8 @@
     private List<UserPermissionsDTO> lstUserPermission = new List<UserPermissionsDTO>();
     private int userId;
     private UserPermissionsDTO userPermission = new UserPermissionsDTO();
+    private bool checkSaveFavoList;
+    private string titleSave;
 
     protected override async Task OnInitializedAsync(){
         lstUserPermission = await _userPermissionServices.GetUserPermissionAsync();
@@ -165,7 +168,7 @@
 
     protected override async Task OnParametersSetAsync() {
         documentExisting = await Documents.FindDocumentById(document);
-        
+
         var token = await _userServices.GetToken();
         var handler = new JwtSecurityTokenHandler();
         var jwtToken = handler.ReadJwtToken(token);
@@ -173,6 +176,22 @@
 
         userSubscription = await _userSubscriptionServices.FindUserSubscriptionByUserId(userId);
         userPermission = lstUserPermission.FirstOrDefault(up => up.userid == userId);
+        var favoList = new FavoListDTO
+            {
+                documentid = document,
+                userid = userId
+            };
+        var favoListCheck = await _favoListServices.FindFavoListAsync(favoList);
+        if (favoListCheck == null)
+        {
+            checkSaveFavoList = false;
+            titleSave = "Lưu lại";
+        }
+        else
+        {
+            checkSaveFavoList = true;
+            titleSave = "Đã lưu";
+        }
     }
 
     private async Task DownloadDocument() {
@@ -239,6 +258,55 @@
         {
             Snackbar.Add("Lỗi khi đọc tài liệu", Severity.Error);
         }
+    }
+
+    private async Task HandleSaveFavoList()
+    {
+        var favolist = new FavoListDTO
+            {
+                documentid = document,
+                userid = userId
+            };
+        if (checkSaveFavoList)
+        {
+            var rs = await _favoListServices.DeleteFavoListAsync(favolist);
+            if (rs)
+            {
+                Snackbar.Add("Đã bỏ tài liệu khỏi danh sách yêu thích", Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add("Lỗi khi bỏ tài liệu khỏi danh sách yêu thích", Severity.Error);
+            }
+            checkSaveFavoList = false;
+            titleSave = "Lưu lại";
+            StateHasChanged();
+        }
+        else
+        {
+            var rs = await _favoListServices.AddFavoListAsync(favolist);
+            if (rs)
+            {
+                Snackbar.Add("Đã thêm vào danh sách yêu thích", Severity.Success);
+            }
+            else
+            {
+                Snackbar.Add("Lỗi khi thêm vào danh sách yêu thích", Severity.Error);
+            }
+            checkSaveFavoList = true;
+            titleSave = "Đã lưu";
+            StateHasChanged();
+        }
+    }
+
+    private string GetButtonClass()
+    {
+        return checkSaveFavoList ? "btn-primary" : "btn-outline-secondary";
+    }
+
+    private string GetIconClass()
+    {
+        return checkSaveFavoList ? "fas fa-bookmark" : "far fa-bookmark";
     }
 
     private string GetAccessBadgeClass(string accessLevel) => accessLevel switch

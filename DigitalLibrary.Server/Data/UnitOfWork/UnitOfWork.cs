@@ -25,6 +25,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         public IUserSubscriptionsRepository UserSubscriptions { get; private set; }
         public IPaymentHistoryRepository PaymentHistory { get; private set; }
         public IRepository<TrafficLog> TrafficLog { get; private set; }
+        public IFavoListReppository FavoList { get; private set; }
 
         public UnitOfWork(DbDigitalLibraryContext context)
         {
@@ -45,6 +46,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
             UserSubscriptions = new UserSubscriptionsRepository(_context);
             PaymentHistory = new PaymentHistoryRepository(_context);
             TrafficLog = new Repository<TrafficLog>(_context);
+            FavoList = new FavoListRepository(_context);
         }
 
         public void Dispose()

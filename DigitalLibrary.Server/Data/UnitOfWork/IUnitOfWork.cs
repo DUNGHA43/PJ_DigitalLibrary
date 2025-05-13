@@ -22,6 +22,7 @@ namespace DigitalLibrary.Server.Data.UnitOfWork
         IUserSubscriptionsRepository UserSubscriptions { get; }
         IPaymentHistoryRepository PaymentHistory { get; }
         IRepository<TrafficLog> TrafficLog { get; }
+        IFavoListReppository FavoList { get; }
         Task SaveChangeAsync();
     }
 }

@@ -10,5 +10,6 @@ namespace DigitalLibrary.Shared.DTO
     {
         public int userid { get; set; }
         public int documentid { get; set; }
+        public DocumentsDTO? document { get; set; }
     }
 }
