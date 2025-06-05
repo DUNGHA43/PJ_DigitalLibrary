@@ -11,6 +11,7 @@ using Net.payOS;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();
+
 // CORS Configuration
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
@@ -18,7 +19,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("https://localhost:7236")
+            policy.WithOrigins("https://dunghalibrary.id.vn")
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials();

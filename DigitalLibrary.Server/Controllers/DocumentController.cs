@@ -3,8 +3,6 @@ using DigitalLibrary.Server.Services.Interface;
 using DigitalLibrary.Shared.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Shared.DTO;
 
 namespace DigitalLibrary.Server.Controllers
 {
@@ -165,7 +163,7 @@ namespace DigitalLibrary.Server.Controllers
 
 
         [HttpPost("adddocument")]
-        //[Authorize(Roles = "admin, stafflv1")]
+        [Authorize(Roles = "admin, stafflv1")]
         public async Task<IActionResult> AddDocumentAsync([FromForm] DocumentsDTO documentDTO, IFormFile dcmFile, IFormFile? imgFile)
         {
             if (!ModelState.IsValid)

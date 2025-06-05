@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAdNvYtPqIGUKNHziHFUBH8gAAAAACAAAAAAAQZgAAAAEAACAAAAAoUK2eBVsMvKTEarBg1MSxrM2n6hC03kBR0wrxaybQFQAAAAAOgAAAAAIAACAAAACwJwMZNki69agOlN+5xckxalIPl+MmsqK1R0vSaeZcayAAAADpnx/QNRXsDAiUBWqcCmGCmlo7K7a59mxZLamLxYKOmUAAAABg9RSuj3hVpdefhwkq8KYP+GXttTdOg5nZX9hOCpxNC4br5NKLdNT6eD3kaYvBvHpBFqu1jbVGzb272b5Des3V</EncryptedPassword>
+    <History>True|2025-05-28T10:17:35.3652040Z||;True|2025-05-23T20:49:46.1325348+07:00||;True|2025-05-23T20:42:34.6639999+07:00||;True|2025-05-23T20:31:25.6739019+07:00||;True|2025-05-22T09:39:37.1699243+07:00||;False|2025-05-22T09:36:10.7408601+07:00||;False|2025-05-22T09:33:14.8055128+07:00||;False|2025-05-22T09:24:32.2207587+07:00||;False|2025-05-22T09:22:20.9474006+07:00||;False|2025-05-22T09:21:37.9506640+07:00||;False|2025-05-22T09:19:12.2130476+07:00||;False|2025-05-22T09:15:57.3893808+07:00||;False|2025-05-22T09:11:23.4405666+07:00||;False|2025-05-22T09:05:30.2017557+07:00||;False|2025-05-22T09:03:06.4272870+07:00||;False|2025-05-22T09:01:56.6663553+07:00||;True|2025-05-21T14:42:26.9228017+07:00||;True|2025-05-21T14:12:00.4360966+07:00||;True|2025-05-21T14:06:09.8112408+07:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=210.245.53.80%3bInitial Catalog=zLIBRARY_MANAGEMENT%3bUser ID=ThucTap%3bPassword=123456%3bTrust Server Certificate=True</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>
