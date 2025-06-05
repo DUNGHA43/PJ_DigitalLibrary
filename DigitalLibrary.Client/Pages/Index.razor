@@ -27,7 +27,7 @@
                         <div class="level-badge @GetAccessClass(book.accesslevel)">
                             @book.accesslevel
                         </div>
-                        <img src="@($"https://localhost:7211{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
+                        <img src="@($"https://Server.dunghalibrary.id.vn{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
                         <div class="book-info">
                             <p class="book-title">@book.title</p>
                             <p class="book-downloads">Lượt xem: @lstStatistic.FirstOrDefault(s => s.documentid == book.id)!.views</p>
@@ -58,7 +58,7 @@
                         <div class="level-badge @GetAccessClass(book.accesslevel)">
                             @book.accesslevel
                         </div>
-                        <img src="@($"https://localhost:7211{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
+                        <img src="@($"https://Server.dunghalibrary.id.vn{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
                         <div class="book-info">
                             <p class="book-title">@book.title</p>
                             <p class="book-downloads">Lượt xem: @lstStatistic.FirstOrDefault(s => s.documentid == book.id)!.views</p>
@@ -89,7 +89,7 @@
                         <div class="level-badge @GetAccessClass(book.accesslevel!)">
                             @book.accesslevel
                         </div>
-                        <img src="@($"https://localhost:7211{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
+                        <img src="@($"https://Server.dunghalibrary.id.vn{book.imageurl}")" alt="@book.title" class="book-thumbnail" />
                         <div class="book-info">
                             <p class="book-title">@book.title</p>
                             <p class="book-downloads">Lượt xem: @lstStatistic.FirstOrDefault(s => s.documentid == book.id)!.views</p>

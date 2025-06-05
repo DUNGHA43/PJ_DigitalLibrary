@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj": {}
+    "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj": {
+    "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj",
+        "projectUniqueName": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj",
         "projectName": "DigitalLibrary.Client",
-        "projectPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj",
+        "projectPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj",
         "packagesPath": "C:\\Users\\dungha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\obj\\",
+        "outputPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Client\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj"
+              "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj"
               }
             }
           }
@@ -121,14 +121,14 @@
         }
       }
     },
-    "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj": {
+    "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj",
+        "projectUniqueName": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj",
         "projectName": "Shared",
-        "projectPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj",
+        "projectPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Shared\\Shared.csproj",
         "packagesPath": "C:\\Users\\dungha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Shared\\obj\\",
+        "outputPath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -26,7 +26,7 @@ namespace DigitalLibrary.Client.Services
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, $"https://localhost:7211/api/UserSubscriptions/getusersubscriptionsbyuserid?userId={userId}");
+                var request = new HttpRequestMessage(HttpMethod.Get, $"https://Server.dunghalibrary.id.vn/api/UserSubscriptions/getusersubscriptionsbyuserid?userId={userId}");
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await _userServices.GetToken());
 
                 var response = await _httpClient.SendAsync(request);

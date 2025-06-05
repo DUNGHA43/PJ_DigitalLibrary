@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\DigitalLibrary.Client.props" />
+</Project>

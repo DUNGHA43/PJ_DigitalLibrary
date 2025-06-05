@@ -20,3 +20,14 @@ C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Shared\ob
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\refint\Shared.dll
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\Shared.pdb
 C:\Users\dungha\Documents\DoAnTN\PROJECT\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\ref\Shared.dll
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\bin\Debug\net8.0\Shared.deps.json
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\bin\Debug\net8.0\Shared.dll
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\bin\Debug\net8.0\Shared.pdb
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\Shared.AssemblyInfoInputs.cache
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\Shared.AssemblyInfo.cs
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\Shared.csproj.CoreCompileInputs.cache
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\Shared.dll
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\refint\Shared.dll
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\Shared.pdb
+C:\Users\dungha\Documents\DoAnTN\PROJECT_DEPLOY\DigitalLibrary\DigitalLibrary.Shared\obj\Debug\net8.0\ref\Shared.dll

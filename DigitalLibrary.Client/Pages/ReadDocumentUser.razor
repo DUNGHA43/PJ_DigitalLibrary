@@ -23,25 +23,36 @@
 }
 else if (canRead)
 {
-    <div class="document-container" style="height: 900px">
-        <div class="text-center mt-3 button-pdfview">
-            <button class="btn btn-secondary px-4" @onclick="GoBack">
-                ⬅️ Quay lại
-            </button>
-            <button class="btn btn-warning px-4" @onclick="() => DowloadDocument(documentId)">
-                📥 Tải xuống
-            </button>
+    @if (userSubscription.exdate < DateTime.Now && userSubscription.SubscriptionPlans.nameplan != "Basic")
+    {
+        <div class="document-container" style="height: 900px">
+            <p class="text-danger text-center">
+                Gói đăng ký của bạn đã hết hạn vui lòng gia hạn gói để đọc tài liệu này!
+            </p>
         </div>
+    }
+    else
+    {
+        <div class="document-container" style="height: 900px">
+            <div class="text-center mt-3 button-pdfview">
+                <button class="btn btn-secondary px-4" @onclick="GoBack">
+                    ⬅️ Quay lại
+                </button>
+                <button class="btn btn-warning px-4" @onclick="() => DowloadDocument(documentId)">
+                    📥 Tải xuống
+                </button>
+            </div>
 
-        @if (!string.IsNullOrEmpty(PdfUrl))
-        {
-            <iframe id="pdfViewer" class="pdf-viewer"></iframe>
-        }
-        else
-        {
-            <p class="text-danger text-center">Đang tải tài liệu...</p>
-        }
-    </div>
+            @if (!string.IsNullOrEmpty(PdfUrl))
+            {
+                <iframe id="pdfViewer" class="pdf-viewer"></iframe>
+            }
+            else
+            {
+                <p class="text-danger text-center">Đang tải tài liệu...</p>
+            }
+        </div>
+    }
 }
 else
 {

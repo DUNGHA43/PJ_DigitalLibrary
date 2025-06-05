@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GjLITnf4CKg=",
+  "dgSpecHash": "pkQACj9Fbrk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj",
+  "projectFilePath": "C:\\Users\\dungha\\Documents\\DoAnTN\\PROJECT_DEPLOY\\DigitalLibrary\\DigitalLibrary.Client\\DigitalLibrary.Client.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dungha\\.nuget\\packages\\google.apis\\1.69.0\\google.apis.1.69.0.nupkg.sha512",
     "C:\\Users\\dungha\\.nuget\\packages\\google.apis.auth\\1.69.0\\google.apis.auth.1.69.0.nupkg.sha512",

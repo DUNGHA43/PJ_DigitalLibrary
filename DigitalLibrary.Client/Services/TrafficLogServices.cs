@@ -27,7 +27,7 @@ namespace DigitalLibrary.Client.Services
             try
             {
                 var info = await _jsRuntime.InvokeAsync<BrowserInfoDTO>("getBrowserInfo");
-                var ip = await _httpClient.GetStringAsync("https://localhost:7211/api/TrafficLog/get-ip");
+                var ip = await _httpClient.GetStringAsync("https://Server.dunghalibrary.id.vn/api/TrafficLog/get-ip");
 
                 var uri = new Uri(info.url);
 

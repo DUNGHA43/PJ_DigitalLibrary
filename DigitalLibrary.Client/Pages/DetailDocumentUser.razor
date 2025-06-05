@@ -33,7 +33,7 @@
                 <!-- Document Cover -->
                 <div class="col-md-4">
                     <div class="document-cover-container">
-                        <img src="@($"https://localhost:7211{documentExisting.imageurl}")" 
+                        <img src="@($"https://Server.dunghalibrary.id.vn{documentExisting.imageurl}")" 
                         class="img-fluid rounded-start document-cover" 
                         alt="@documentExisting.title">
                         <div class="document-badges">
@@ -128,7 +128,7 @@
                         <div class="mt-auto">
                             <div class="d-flex gap-2">
                                 <button class="btn btn-primary flex-grow-1" @onclick="() => ReadDocument(documentExisting.id)">
-                                    <i class="fas fa-download me-2"></i>Đọc ngay
+                                    <i class="fas fa-book-open me-2"></i>Đọc ngay
                                 </button>
                                 <button class="btn btn-warning flex-grow-1" @onclick="DownloadDocument">
                                     <i class="fas fa-download me-2"></i>Tải xuống
