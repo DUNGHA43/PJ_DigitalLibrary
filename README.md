@@ -4,45 +4,69 @@ Digital Library là một hệ thống thư viện số hiện đại được p
 </div>
 
 ## 🖼️ Giao diện người dùng (Client)
+
+### 📌 Trang chủ người dùng
 ![Giao diện trang chủ](ImageDemo/home_user.jpeg)
 
+### 📌 Thông tin tài liệu chi tiết
 ![Giao diện thông tin tài liệu](ImageDemo/detail_document.jpeg)
 
+### 📌 Trình đọc tài liệu trực tuyến
 ![Giao diện đọc tài liệu](ImageDemo/read_document.jpeg)
 
+### 📌 Hồ sơ người dùng
 ![Giao diện thông tin người dùng](ImageDemo/detail_user.jpeg)
 
+### 📌 Gói đọc và trạng thái đăng ký
 ![Giao diện thông tin gói đọc đăng ký](ImageDemo/detail_subscriptions.jpeg)
 
+### 📌 Bộ lọc điều hướng (navbar filter)
 ![Giao diện navbar filter](ImageDemo/menu_filter.png)
 
+### 📌 Tìm kiếm nâng cao
 ![Giao diện tìm kiếm nâng cao](ImageDemo/filter_advanced.jpg)
 
+### 📌 Thanh toán gói đọc
 ![Giao diện thanh toán gói](ImageDemo/payment.png)
 
+### 📌 Thanh toán thành công
 ![Giao diện thanh toán thành công](ImageDemo/success_pyament.png)
 
+### 📌 Thanh toán thất bại
 ![Giao diện thanh toán thất bại](ImageDemo/error_payment.png)
 
+---
+
 ## 🖥️ Giao diện quản trị (Admin)
+
+### 📊 Dashboard tổng quan
 ![Giao diện dashboard](ImageDemo/dashboard_admin.png)
 
+### 💰 Thống kê doanh thu theo gói
 ![Giao diện thống kê doanh thu](ImageDemo/statistic_revenue.jpeg)
 
+### 📈 Thống kê lượt đọc và tải tài liệu
 ![Giao diện thống kê lượt đọc và tải online](ImageDemo/statistic_read_dowload.jpeg)
 
+### 🌐 Thống kê lượt truy cập (Traffic Log)
 ![Giao diện thống kê lượt truy cập](ImageDemo/statistic_trafficlog.jpeg)
 
+### 👤 Quản lý người dùng
 ![Giao diện quản lý người dùng](ImageDemo/admin_users.jpeg)
 
+### 📚 Quản lý tài liệu
 ![Giao diện quản lý tài liệu](ImageDemo/admin_document.jpeg)
 
+### 🧩 Phân loại tài liệu (theo chuyên ngành, học phần)
 ![Giao diện phân loại tài liệu (chức năng con trong quản lý tài liệu)](ImageDemo/admin_map_document.jpeg)
 
+### 🗂️ Quản lý thể loại tài liệu
 ![Giao diện quản lý thể loại](ImageDemo/admin_cate.jpeg)
 
+### 📑 Quản lý chủ đề
 ![Giao diện quản lý chủ đề](ImageDemo/admin_subject.jpeg)
 
+### ✍️ Quản lý tác giả
 ![Giao diện quản lý tác giả](ImageDemo/admin_author.jpeg)
 
 ## 🛠 Công nghệ sử dụng
