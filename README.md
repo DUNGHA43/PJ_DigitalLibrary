@@ -3,6 +3,48 @@
 Digital Library là một hệ thống thư viện số hiện đại được phát triển theo mô hình tách biệt Client-Server, sử dụng Blazor WebAssembly cho giao diện người dùng và ASP.NET Core Web API cho dịch vụ phía máy chủ. Dự án cho phép người dùng dễ dàng tìm kiếm, đọc trực tuyến hoặc tải xuống các tài liệu số, đồng thời hỗ trợ thanh toán trực tuyến để mua các gói truy cập tài liệu cao cấp. Ngoài ra, hệ thống tích hợp chức năng gửi email thông báo cho người dùng. Digital Library cũng cung cấp các công cụ thống kê mạnh mẽ, giúp quản trị viên theo dõi lượt xem, lượt tải và lượng truy cập của người dùng theo thời gian thực, từ đó quản lý nội dung hiệu quả và tối ưu hóa trải nghiệm người dùng. Với nền tảng công nghệ hiện đại và khả năng mở rộng cao, Digital Library hướng tới việc trở thành một giải pháp thư viện số toàn diện, phục vụ nhu cầu tra cứu và lưu trữ tài liệu số trong thời đại số hóa.
 </div>
 
+## 🖼️ Giao diện người dùng (Client)
+![Giao diện trang chủ](ImageDemo/home_user.jpeg)
+
+![Giao diện thông tin tài liệu](ImageDemo/detail_document.jpeg)
+
+![Giao diện đọc tài liệu](ImageDemo/read_document.jpeg)
+
+![Giao diện thông tin người dùng](ImageDemo/detail_user.jpeg)
+
+![Giao diện thông tin gói đọc đăng ký](ImageDemo/detail_subscriptions.jpeg)
+
+![Giao diện navbar filter](ImageDemo/menu_filter.png)
+
+![Giao diện tìm kiếm nâng cao](ImageDemo/filter_advanced.jpg)
+
+![Giao diện thanh toán gói](ImageDemo/payment.png)
+
+![Giao diện thanh toán thành công](ImageDemo/success_pyament.png)
+
+![Giao diện thanh toán thất bại](ImageDemo/error_payment.png)
+
+## 🖥️ Giao diện quản trị (Admin)
+![Giao diện dashboard](ImageDemo/dashboard_admin.png)
+
+![Giao diện thống kê doanh thu](ImageDemo/statistic_revenue.jpeg)
+
+![Giao diện thống kê lượt đọc và tải online](ImageDemo/statistic_read_dowload.jpeg)
+
+![Giao diện thống kê lượt truy cập](ImageDemo/statistic_trafficlog.jpeg)
+
+![Giao diện quản lý người dùng](ImageDemo/admin_users.jpeg)
+
+![Giao diện quản lý tài liệu](ImageDemo/admin_document.jpeg)
+
+![Giao diện phân loại tài liệu (chức năng con trong quản lý tài liệu)](ImageDemo/admin_map_document.jpeg)
+
+![Giao diện quản lý thể loại](ImageDemo/admin_cate.jpeg)
+
+![Giao diện quản lý chủ đề](ImageDemo/admin_subject.jpeg)
+
+![Giao diện quản lý tác giả](ImageDemo/admin_author.jpeg)
+
 ## 🛠 Công nghệ sử dụng
 
 ### **Client Side**
